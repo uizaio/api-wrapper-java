@@ -54,9 +54,8 @@ public class ParamsFlattener {
     } else if (value instanceof Object[]) {
       flatParams = flattenParamsArray((Object[]) value, keyPrefix);
     } else if ("".equals(value)) {
-      throw new InvalidRequestException("You cannot set '" + keyPrefix + "' to an empty string. "
-          + "We interpret empty strings as null in requests. " + "You may set '" + keyPrefix
-          + "' to null to delete the property.", keyPrefix, null, 0, null);
+      throw new InvalidRequestException(String.format(ErrorMessage.FLATTEN_PARAMS_ERROR, keyPrefix),
+          keyPrefix, null, 0, null);
     } else if (value == null) {
       flatParams = new ArrayList<>();
       flatParams.add(new Parameter(keyPrefix, ""));
