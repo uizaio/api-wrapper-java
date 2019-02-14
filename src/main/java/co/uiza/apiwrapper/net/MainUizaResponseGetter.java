@@ -10,7 +10,6 @@ import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -32,8 +31,6 @@ import co.uiza.apiwrapper.exception.UizaException;
 import co.uiza.apiwrapper.net.ApiResource.RequestMethod;
 import co.uiza.apiwrapper.net.ApiResource.RequestType;
 import co.uiza.apiwrapper.net.util.ErrorMessage;
-import co.uiza.apiwrapper.net.util.Parameter;
-import co.uiza.apiwrapper.net.util.ParamsFlattener;
 import co.uiza.apiwrapper.net.util.UizaError;
 import co.uiza.apiwrapper.net.util.UizaResponse;
 
@@ -44,14 +41,14 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   private static final SSLSocketFactory socketFactory = new UizaSslSocketFactory();
 
   @Override
-  public JsonObject request(RequestMethod method, String url, Map<String, Object> params,
-      RequestType type) throws UizaException {
+  public JsonObject request(RequestMethod method, String url, JsonObject params, RequestType type)
+      throws UizaException {
 
     return makeRequest(method, url, params, type);
   }
 
-  private static JsonObject makeRequest(RequestMethod method, String url,
-      Map<String, Object> params, RequestType type) throws UizaException {
+  private static JsonObject makeRequest(RequestMethod method, String url, JsonObject params,
+      RequestType type) throws UizaException {
     String originalDnsCacheTtl = null;
     Boolean allowedToSetTtl = true;
     try {
@@ -97,13 +94,18 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     }
   }
 
-  private static UizaResponse getResponse(RequestMethod method, String url,
-      Map<String, Object> params) throws InvalidRequestException, ApiConnectionException {
-    String query;
-    try {
-      query = createQuery(params);
-    } catch (UnsupportedEncodingException e) {
-      throw new InvalidRequestException(ErrorMessage.ENCODE_FAILED, null, null, 0, e);
+  private static UizaResponse getResponse(RequestMethod method, String url, JsonObject params)
+      throws InvalidRequestException, ApiConnectionException {
+    String query = null;
+
+    if (method == RequestMethod.GET) {
+      try {
+        query = createQuery(params);
+      } catch (UnsupportedEncodingException e) {
+        throw new InvalidRequestException(ErrorMessage.ENCODE_FAILED, null, null, 422, e);
+      }
+    } else {
+      query = params.toString();
     }
 
     try {
@@ -161,7 +163,6 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       throws IOException {
     String getUrl = formatUrl(url, query);
     HttpURLConnection conn = createUizaConnection(getUrl);
-    conn.setRequestProperty("Content-Type", "application/json");
     conn.setRequestMethod("GET");
 
     return conn;
@@ -174,8 +175,6 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     conn.setDoOutput(true);
     conn.setInstanceFollowRedirects(false);
     conn.setRequestMethod("POST");
-    conn.setRequestProperty("Content-Type",
-        String.format("application/x-www-form-urlencoded;charset=%s", ApiResource.CHARSET));
 
     OutputStream output = conn.getOutputStream();
     output.write(query.getBytes(ApiResource.CHARSET));
@@ -230,22 +229,25 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     headers.put("Accept-Charset", ApiResource.CHARSET);
     headers.put("Authorization", Uiza.apiKey);
     headers.put("Uiza-Version", Uiza.apiVersion);
+    headers.put("Content-Type", "application/json");
 
     return headers;
   }
 
-  static String createQuery(Map<String, Object> params)
+  static String createQuery(JsonObject params)
       throws UnsupportedEncodingException, InvalidRequestException {
-    StringBuilder queryStringBuffer = new StringBuilder();
-    List<Parameter> flatParams = ParamsFlattener.flattenParams(params);
-    Iterator<Parameter> it = flatParams.iterator();
+    if (params == null || params.isJsonNull()) {
+      return "";
+    }
 
-    while (it.hasNext()) {
+    StringBuilder queryStringBuffer = new StringBuilder();
+
+    for (String key : params.keySet()) {
       if (queryStringBuffer.length() > 0) {
         queryStringBuffer.append("&");
       }
-      Parameter param = it.next();
-      queryStringBuffer.append(urlEncodePair(param.key, param.value));
+
+      queryStringBuffer.append(urlEncodePair(key, params.get(key).toString().replaceAll("\"", "")));
     }
 
     return queryStringBuffer.toString();

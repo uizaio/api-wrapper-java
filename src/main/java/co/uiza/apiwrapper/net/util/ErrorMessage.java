@@ -5,8 +5,6 @@ import co.uiza.apiwrapper.net.ApiResource;
 public class ErrorMessage {
   public static final String ENCODE_FAILED =
       String.format("Unable to encode parameters to %s", ApiResource.CHARSET);
-  public static final String FLATTEN_PARAMS_ERROR =
-      "You cannot set '%s' to an empty string. We interpret empty strings as null in requests. You may set it to null to delete the property.";
   public static final String INCORRECT_SYNTAX =
       "The syntax of the request is incorrect (often cause of wrong parameter)";
   public static final String INTERNAL_SERVER_ERROR =

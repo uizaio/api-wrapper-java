@@ -2,7 +2,6 @@ package co.uiza.apiwrapper.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Map;
 import com.google.gson.JsonObject;
 import co.uiza.apiwrapper.Uiza;
 import co.uiza.apiwrapper.exception.UizaException;
@@ -48,10 +47,10 @@ public abstract class ApiResource {
    *
    * @param method The request method (GET, POST, PUT, DELETE)
    * @param url The base url of a request
-   * @param params A Map object of parameters
+   * @param params A JSON object of parameters
    * @return response of the request in JSON object
    */
-  public static JsonObject request(RequestMethod method, String url, Map<String, Object> params)
+  public static JsonObject request(RequestMethod method, String url, JsonObject params)
       throws UizaException {
     return ApiResource.uizaResponseGetter.request(method, url, params, RequestType.NORMAL);
   }
