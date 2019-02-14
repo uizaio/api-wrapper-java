@@ -129,7 +129,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
           conn = createPostConnection(url, query);
           break;
         case PUT:
-
+          conn = createPutConnection(url, query);
           break;
         case DELETE:
 
@@ -177,6 +177,19 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     conn.setDoOutput(true);
     conn.setInstanceFollowRedirects(false);
     conn.setRequestMethod("POST");
+
+    OutputStream output = conn.getOutputStream();
+    output.write(query.getBytes(ApiResource.CHARSET));
+
+    return conn;
+  }
+
+  private static HttpURLConnection createPutConnection(String url, String query)
+      throws IOException {
+    HttpURLConnection conn = createUizaConnection(url);
+
+    conn.setDoOutput(true);
+    conn.setRequestMethod("PUT");
 
     OutputStream output = conn.getOutputStream();
     output.write(query.getBytes(ApiResource.CHARSET));
