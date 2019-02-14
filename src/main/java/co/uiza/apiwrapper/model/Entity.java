@@ -103,6 +103,16 @@ public class Entity extends ApiResource {
   }
 
   /**
+   * Delete entity
+   *
+   * @param entityParams a Map object storing key-value pairs of request parameter
+   *
+   */
+  public static JsonObject delete(Map<String, Object> entityParams) throws UizaException {
+    return request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+  }
+
+  /**
   * Search entity base on keyword entered
   *
   * @param entityParams a Map object storing key-value pairs of request parameter

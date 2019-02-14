@@ -132,7 +132,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
           conn = createPutConnection(url, query);
           break;
         case DELETE:
-
+          conn = createDeleteConnection(url, query);
           break;
         default:
           throw new ApiConnectionException(
@@ -190,6 +190,19 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
     conn.setDoOutput(true);
     conn.setRequestMethod("PUT");
+
+    OutputStream output = conn.getOutputStream();
+    output.write(query.getBytes(ApiResource.CHARSET));
+
+    return conn;
+  }
+
+  private static HttpURLConnection createDeleteConnection(String url, String query)
+      throws IOException {
+    HttpURLConnection conn = createUizaConnection(url);
+
+    conn.setDoOutput(true);
+    conn.setRequestMethod("DELETE");
 
     OutputStream output = conn.getOutputStream();
     output.write(query.getBytes(ApiResource.CHARSET));
