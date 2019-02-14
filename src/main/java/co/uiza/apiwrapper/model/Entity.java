@@ -1,5 +1,6 @@
 package co.uiza.apiwrapper.model;
 
+import java.util.Map;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import co.uiza.apiwrapper.exception.UizaException;
@@ -64,30 +65,30 @@ public class Entity extends ApiResource {
   /**
    * Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
    *
-   * @param entityParams a JSON object storing key-value pairs of request parameter
+   * @param entityParams a Map object storing key-value pairs of request parameter
    *
    */
-  public static JsonObject create(JsonObject entityParams) throws UizaException {
+  public static JsonObject create(Map<String, Object> entityParams) throws UizaException {
     return request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
   }
 
   /**
    * Get detail of an entity including all information of that entity
    *
-   * @param entityParams a JSON object storing key-value pairs of request parameter
+   * @param entityParams a Map object storing key-value pairs of request parameter
    *
    */
-  public static JsonObject retrieve(JsonObject entityParams) throws UizaException {
+  public static JsonObject retrieve(Map<String, Object> entityParams) throws UizaException {
     return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
   }
 
   /**
   * Search entity base on keyword entered
   *
-  * @param entityParams a JSON object storing key-value pairs of request parameter
+  * @param entityParams a Map object storing key-value pairs of request parameter
   *
   */
-  public static JsonObject search(JsonObject entityParams) throws UizaException {
+  public static JsonObject search(Map<String, Object> entityParams) throws UizaException {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, SEARCH_PATH);
 
     return request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
@@ -96,19 +97,19 @@ public class Entity extends ApiResource {
   /**
   * Get list of entities including all detail.
   *
-  * @param entityParams a JSON object storing key-value pairs of request parameter
+  * @param entityParams a Map object storing key-value pairs of request parameter
   *
   */
-  public static JsonObject list(JsonObject entityParams) throws UizaException {
+  public static JsonObject list(Map<String, Object> entityParams) throws UizaException {
     return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
   }
 
   /**
   * Publish entity to CDN, use for streaming
   *
-  * @param entityParams A JSON object storing key-value pairs of request parameter
+  * @param entityParams A Map object storing key-value pairs of request parameter
   */
-  public static JsonObject publishToCDN(JsonObject entityParams) throws UizaException {
+  public static JsonObject publishToCDN(Map<String, Object> entityParams) throws UizaException {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, PUBLISH_PATH);
 
     return request(RequestMethod.POST, buildRequestURL(path_extension), entityParams);
@@ -117,10 +118,10 @@ public class Entity extends ApiResource {
   /**
   * Get entity status publish
   *
-  * @param entityParams a JSON object storing key-value pairs of request parameter
+  * @param entityParams a Map object storing key-value pairs of request parameter
   *
   */
-  public static JsonObject getStatusPublish(JsonObject entityParams) throws UizaException {
+  public static JsonObject getStatusPublish(Map<String, Object> entityParams) throws UizaException {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, STATUS_PUBLISH_PATH);
 
     return request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);

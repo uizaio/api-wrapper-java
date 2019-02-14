@@ -41,10 +41,12 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   private static final SSLSocketFactory socketFactory = new UizaSslSocketFactory();
 
   @Override
-  public JsonObject request(RequestMethod method, String url, JsonObject params, RequestType type)
-      throws UizaException {
+  public JsonObject request(RequestMethod method, String url, Map<String, Object> params,
+      RequestType type) throws UizaException {
+    Gson gsone = new Gson();
+    JsonObject jsonParams = gsone.toJsonTree(params).getAsJsonObject();
 
-    return makeRequest(method, url, params, type);
+    return makeRequest(method, url, jsonParams, type);
   }
 
   private static JsonObject makeRequest(RequestMethod method, String url, JsonObject params,
