@@ -2,6 +2,7 @@ package co.uiza.apiwrapper.net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
@@ -9,7 +10,6 @@ import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,11 +26,11 @@ import co.uiza.apiwrapper.exception.ApiException;
 import co.uiza.apiwrapper.exception.AuthenticationException;
 import co.uiza.apiwrapper.exception.InvalidRequestException;
 import co.uiza.apiwrapper.exception.ResourceNotFoundException;
+import co.uiza.apiwrapper.exception.ServerException;
 import co.uiza.apiwrapper.exception.UizaException;
 import co.uiza.apiwrapper.net.ApiResource.RequestMethod;
 import co.uiza.apiwrapper.net.ApiResource.RequestType;
-import co.uiza.apiwrapper.net.util.Parameter;
-import co.uiza.apiwrapper.net.util.ParamsFlattener;
+import co.uiza.apiwrapper.net.util.ErrorMessage;
 import co.uiza.apiwrapper.net.util.UizaError;
 import co.uiza.apiwrapper.net.util.UizaResponse;
 
@@ -43,12 +43,14 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   @Override
   public JsonObject request(RequestMethod method, String url, Map<String, Object> params,
       RequestType type) throws UizaException {
+    Gson gsone = new Gson();
+    JsonObject jsonParams = gsone.toJsonTree(params).getAsJsonObject();
 
-    return makeRequest(method, url, params, type);
+    return makeRequest(method, url, jsonParams, type);
   }
 
-  private static JsonObject makeRequest(RequestMethod method, String url,
-      Map<String, Object> params, RequestType type) throws UizaException {
+  private static JsonObject makeRequest(RequestMethod method, String url, JsonObject params,
+      RequestType type) throws UizaException {
     String originalDnsCacheTtl = null;
     Boolean allowedToSetTtl = true;
     try {
@@ -70,7 +72,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
           break;
         default:
-          throw new RuntimeException("Invalid ApiResource request type.");
+          throw new RuntimeException(ErrorMessage.INVALID_REQUEST_TYPE);
       }
 
       int responseCode = response.code();
@@ -94,14 +96,18 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     }
   }
 
-  private static UizaResponse getResponse(RequestMethod method, String url,
-      Map<String, Object> params) throws InvalidRequestException, ApiConnectionException {
-    String query;
-    try {
-      query = createQuery(params);
-    } catch (UnsupportedEncodingException e) {
-      throw new InvalidRequestException("Unable to encode parameters to " + ApiResource.CHARSET,
-          null, null, 0, e);
+  private static UizaResponse getResponse(RequestMethod method, String url, JsonObject params)
+      throws InvalidRequestException, ApiConnectionException {
+    String query = null;
+
+    if (method == RequestMethod.GET) {
+      try {
+        query = createQuery(params);
+      } catch (UnsupportedEncodingException e) {
+        throw new InvalidRequestException(ErrorMessage.ENCODE_FAILED, null, null, 422, e);
+      }
+    } else {
+      query = params.toString();
     }
 
     try {
@@ -120,7 +126,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
           conn = createGetConnection(url, query);
           break;
         case POST:
-
+          conn = createPostConnection(url, query);
           break;
         case PUT:
 
@@ -129,7 +135,8 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
           break;
         default:
-          throw new ApiConnectionException(String.format("Unrecognized HTTP method %s.", method));
+          throw new ApiConnectionException(
+              String.format("%s %s.", ErrorMessage.INVALID_REQUEST_METHOD, method));
       }
 
       int responseCode = conn.getResponseCode();
@@ -144,8 +151,9 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
       return new UizaResponse(responseCode, responseBody, headers);
     } catch (IOException e) {
-      throw new ApiConnectionException(String.format(
-          "IOException during API request to Uiza (%s): %s", Uiza.apiDomain, e.getMessage()), e);
+      throw new ApiConnectionException(
+          String.format("%s (%s): %s", ErrorMessage.IOEXCEPTION, Uiza.apiDomain, e.getMessage()),
+          e);
     } finally {
       if (conn != null) {
         conn.disconnect();
@@ -157,8 +165,21 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       throws IOException {
     String getUrl = formatUrl(url, query);
     HttpURLConnection conn = createUizaConnection(getUrl);
-    conn.setRequestProperty("Content-Type", "application/json");
     conn.setRequestMethod("GET");
+
+    return conn;
+  }
+
+  private static HttpURLConnection createPostConnection(String url, String query)
+      throws IOException {
+    HttpURLConnection conn = createUizaConnection(url);
+
+    conn.setDoOutput(true);
+    conn.setInstanceFollowRedirects(false);
+    conn.setRequestMethod("POST");
+
+    OutputStream output = conn.getOutputStream();
+    output.write(query.getBytes(ApiResource.CHARSET));
 
     return conn;
   }
@@ -210,22 +231,25 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     headers.put("Accept-Charset", ApiResource.CHARSET);
     headers.put("Authorization", Uiza.apiKey);
     headers.put("Uiza-Version", Uiza.apiVersion);
+    headers.put("Content-Type", "application/json");
 
     return headers;
   }
 
-  static String createQuery(Map<String, Object> params)
+  static String createQuery(JsonObject params)
       throws UnsupportedEncodingException, InvalidRequestException {
-    StringBuilder queryStringBuffer = new StringBuilder();
-    List<Parameter> flatParams = ParamsFlattener.flattenParams(params);
-    Iterator<Parameter> it = flatParams.iterator();
+    if (params == null || params.isJsonNull()) {
+      return "";
+    }
 
-    while (it.hasNext()) {
+    StringBuilder queryStringBuffer = new StringBuilder();
+
+    for (String key : params.keySet()) {
       if (queryStringBuffer.length() > 0) {
         queryStringBuffer.append("&");
       }
-      Parameter param = it.next();
-      queryStringBuffer.append(urlEncodePair(param.key, param.value));
+
+      queryStringBuffer.append(urlEncodePair(key, params.get(key).toString().replaceAll("\"", "")));
     }
 
     return queryStringBuffer.toString();
@@ -246,7 +270,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
   private static void handleApiError(String responseBody, int responseCode, String requestId)
       throws ApiException, AuthenticationException, InvalidRequestException,
-      ResourceNotFoundException {
+      ResourceNotFoundException, ServerException {
     UizaError error = null;
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -267,18 +291,18 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
             String.format("%s. (%s)", error.getMessage(), dataList.get(0).toString()), null,
             requestId, responseCode, null);
       case 401:
-        throw new AuthenticationException(
-            "No API key provided. (HINT: set your API key using 'Uiza.apiKey = <API-KEY>'.",
-            requestId, responseCode);
+        throw new AuthenticationException(ErrorMessage.NO_API_KEY, requestId, responseCode);
       case 404:
-        throw new ResourceNotFoundException("The requested resource does not exist.", requestId,
+        throw new ResourceNotFoundException(ErrorMessage.RESOURCE_NOT_FOUND, requestId,
             responseCode);
       case 422:
-        throw new InvalidRequestException(String.format("%s. (%s)",
-            "The syntax of the request is incorrect (often cause of wrong parameter)",
-            dataList.get(0).toString()), null, requestId, responseCode, null);
+        throw new InvalidRequestException(
+            String.format("%s. (%s)", ErrorMessage.INCORRECT_SYNTAX, dataList.get(0).toString()),
+            null, requestId, responseCode, null);
       case 500:
+        throw new ServerException(ErrorMessage.INTERNAL_SERVER_ERROR, requestId, responseCode);
       case 503:
+        throw new ServerException(ErrorMessage.SERVICE_UNAVAILABLE, requestId, responseCode);
       default:
         throw new ApiException(error.getMessage(), requestId, responseCode, null);
     }
@@ -286,9 +310,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode,
       String requestId) throws ApiException {
-    throw new ApiException(
-        String.format("Invalid response object from API: %s. (HTTP response code was %d)",
-            responseBody, responseCode),
+    throw new ApiException(String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode),
         requestId, responseCode, null);
   }
 }
