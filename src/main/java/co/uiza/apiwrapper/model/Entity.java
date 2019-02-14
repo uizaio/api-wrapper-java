@@ -83,6 +83,26 @@ public class Entity extends ApiResource {
   }
 
   /**
+  * Get list of entities including all detail.
+  *
+  * @param entityParams a Map object storing key-value pairs of request parameter
+  *
+  */
+  public static JsonObject list(Map<String, Object> entityParams) throws UizaException {
+    return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+  }
+
+  /**
+   * Update entity's information.
+   *
+   * @param entityParams a Map object storing key-value pairs of request parameter
+   *
+   */
+  public static JsonObject update(Map<String, Object> entityParams) throws UizaException {
+    return request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+  }
+
+  /**
   * Search entity base on keyword entered
   *
   * @param entityParams a Map object storing key-value pairs of request parameter
@@ -92,16 +112,6 @@ public class Entity extends ApiResource {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, SEARCH_PATH);
 
     return request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
-  }
-
-  /**
-  * Get list of entities including all detail.
-  *
-  * @param entityParams a Map object storing key-value pairs of request parameter
-  *
-  */
-  public static JsonObject list(Map<String, Object> entityParams) throws UizaException {
-    return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
   }
 
   /**
