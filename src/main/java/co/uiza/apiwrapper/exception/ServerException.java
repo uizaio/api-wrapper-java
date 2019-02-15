@@ -7,4 +7,9 @@ public class ServerException extends UizaException {
   public ServerException(String message, String requestId, Integer statusCode) {
     super(message, requestId, statusCode);
   }
+
+  public ServerException(String message, String requestId, Integer statusCode,
+      String desctriptionLink) {
+    super(message, requestId, statusCode, desctriptionLink);
+  }
 }

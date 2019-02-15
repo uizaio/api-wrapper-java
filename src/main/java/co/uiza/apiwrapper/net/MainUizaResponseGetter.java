@@ -45,7 +45,10 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   public JsonObject request(RequestMethod method, String url, Map<String, Object> params,
       RequestType type) throws UizaException {
     Gson gsone = new Gson();
-    JsonObject jsonParams = gsone.toJsonTree(params).getAsJsonObject();
+    JsonObject jsonParams = new JsonObject();
+    if (params != null) {
+      jsonParams = gsone.toJsonTree(params).getAsJsonObject();
+    }
 
     return makeRequest(method, url, jsonParams, type);
   }
@@ -84,14 +87,16 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       }
 
       JsonObject responseBody = null;
+      JsonObject data = null;
       JsonParser parser = new JsonParser();
       try {
         responseBody = parser.parse(response.body()).getAsJsonObject();
+        data = (JsonObject) responseBody.get("data");
       } catch (JsonSyntaxException e) {
         raiseMalformedJsonError(response.body(), responseCode, response.requestId());
       }
 
-      return responseBody;
+      return data;
     } finally {
       if (allowedToSetTtl && originalDnsCacheTtl != null) {
         java.security.Security.setProperty(DNS_CACHE_TTL_PROPERTY_NAME, originalDnsCacheTtl);

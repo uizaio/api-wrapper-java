@@ -7,4 +7,9 @@ public class ClientException extends UizaException {
   public ClientException(String message, String requestId, Integer statusCode) {
     super(message, requestId, statusCode);
   }
+
+  public ClientException(String message, String requestId, Integer statusCode,
+      String descriptionLink) {
+    super(message, requestId, statusCode, descriptionLink);
+  }
 }

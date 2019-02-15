@@ -7,4 +7,9 @@ public class ServiceUnavailableException extends UizaException {
   public ServiceUnavailableException(String message, String requestId, Integer statusCode) {
     super(message, requestId, statusCode);
   }
+
+  public ServiceUnavailableException(String message, String requestId, Integer statusCode,
+      String desctriptionLink) {
+    super(message, requestId, statusCode, desctriptionLink);
+  }
 }
