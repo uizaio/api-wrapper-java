@@ -8,7 +8,6 @@ import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +20,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import co.uiza.apiwrapper.Uiza;
-import co.uiza.apiwrapper.exception.ApiConnectionException;
-import co.uiza.apiwrapper.exception.ApiException;
-import co.uiza.apiwrapper.exception.AuthenticationException;
-import co.uiza.apiwrapper.exception.InvalidRequestException;
-import co.uiza.apiwrapper.exception.ResourceNotFoundException;
+import co.uiza.apiwrapper.exception.BadRequestException;
+import co.uiza.apiwrapper.exception.ClientException;
+import co.uiza.apiwrapper.exception.InternalServerException;
+import co.uiza.apiwrapper.exception.NotFoundException;
 import co.uiza.apiwrapper.exception.ServerException;
+import co.uiza.apiwrapper.exception.ServiceUnavailableException;
 import co.uiza.apiwrapper.exception.UizaException;
+import co.uiza.apiwrapper.exception.UnauthorizedException;
+import co.uiza.apiwrapper.exception.UnprocessableException;
 import co.uiza.apiwrapper.net.ApiResource.RequestMethod;
 import co.uiza.apiwrapper.net.ApiResource.RequestType;
 import co.uiza.apiwrapper.net.util.ErrorMessage;
@@ -50,7 +51,9 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static JsonObject makeRequest(RequestMethod method, String url, JsonObject params,
-      RequestType type) throws UizaException {
+      RequestType type)
+      throws UnauthorizedException, NotFoundException, BadRequestException, UnprocessableException,
+      InternalServerException, ServiceUnavailableException, ClientException, ServerException {
     String originalDnsCacheTtl = null;
     Boolean allowedToSetTtl = true;
     try {
@@ -97,28 +100,24 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static UizaResponse getResponse(RequestMethod method, String url, JsonObject params)
-      throws InvalidRequestException, ApiConnectionException {
+      throws UnprocessableException, BadRequestException {
     String query = null;
 
     if (method == RequestMethod.GET) {
       try {
         query = createQuery(params);
       } catch (UnsupportedEncodingException e) {
-        throw new InvalidRequestException(ErrorMessage.ENCODE_FAILED, null, null, 422, e);
+        throw new UnprocessableException(ErrorMessage.ENCODE_FAILED, null, 422);
       }
     } else {
       query = params.toString();
     }
 
-    try {
-      return makeUrlConnectionRequest(method, url, query);
-    } catch (Exception e) {
-      throw e;
-    }
+    return makeUrlConnectionRequest(method, url, query);
   }
 
   private static UizaResponse makeUrlConnectionRequest(RequestMethod method, String url,
-      String query) throws ApiConnectionException {
+      String query) throws BadRequestException {
     HttpURLConnection conn = null;
     try {
       switch (method) {
@@ -135,8 +134,8 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
           conn = createDeleteConnection(url, query);
           break;
         default:
-          throw new ApiConnectionException(
-              String.format("%s %s.", ErrorMessage.INVALID_REQUEST_METHOD, method));
+          throw new BadRequestException(
+              String.format("%s %s.", ErrorMessage.INVALID_REQUEST_METHOD, method), null, 400);
       }
 
       int responseCode = conn.getResponseCode();
@@ -151,9 +150,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
       return new UizaResponse(responseCode, responseBody, headers);
     } catch (IOException e) {
-      throw new ApiConnectionException(
-          String.format("%s (%s): %s", ErrorMessage.IOEXCEPTION, Uiza.apiDomain, e.getMessage()),
-          e);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, null, 400);
     } finally {
       if (conn != null) {
         conn.disconnect();
@@ -262,8 +259,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     return headers;
   }
 
-  static String createQuery(JsonObject params)
-      throws UnsupportedEncodingException, InvalidRequestException {
+  static String createQuery(JsonObject params) throws UnsupportedEncodingException {
     if (params == null || params.isJsonNull()) {
       return "";
     }
@@ -295,48 +291,43 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static void handleApiError(String responseBody, int responseCode, String requestId)
-      throws ApiException, AuthenticationException, InvalidRequestException,
-      ResourceNotFoundException, ServerException {
-    UizaError error = null;
+      throws UnauthorizedException, NotFoundException, BadRequestException, UnprocessableException,
+      InternalServerException, ServiceUnavailableException, ClientException, ServerException {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     try {
-      error = gson.fromJson(responseBody, UizaError.class);
+      gson.fromJson(responseBody, UizaError.class);
     } catch (JsonSyntaxException e) {
       raiseMalformedJsonError(responseBody, responseCode, requestId);
     }
 
-    ArrayList<?> dataList = null;
-    if (error.getData() instanceof ArrayList) {
-      dataList = (ArrayList<?>) error.getData();
-    }
-
     switch (responseCode) {
       case 400:
-        throw new InvalidRequestException(
-            String.format("%s. (%s)", error.getMessage(), dataList.get(0).toString()), null,
-            requestId, responseCode, null);
+        throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, requestId, responseCode);
       case 401:
-        throw new AuthenticationException(ErrorMessage.NO_API_KEY, requestId, responseCode);
+        throw new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, requestId, responseCode);
       case 404:
-        throw new ResourceNotFoundException(ErrorMessage.RESOURCE_NOT_FOUND, requestId,
-            responseCode);
+        throw new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, requestId, responseCode);
       case 422:
-        throw new InvalidRequestException(
-            String.format("%s. (%s)", ErrorMessage.INCORRECT_SYNTAX, dataList.get(0).toString()),
-            null, requestId, responseCode, null);
+        throw new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, requestId, responseCode);
       case 500:
-        throw new ServerException(ErrorMessage.INTERNAL_SERVER_ERROR, requestId, responseCode);
+        throw new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, requestId,
+            responseCode);
       case 503:
-        throw new ServerException(ErrorMessage.SERVICE_UNAVAILABLE, requestId, responseCode);
-      default:
-        throw new ApiException(error.getMessage(), requestId, responseCode, null);
+        throw new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, requestId,
+            responseCode);
+    }
+    if (responseCode >= 400 && responseCode < 500) {
+      throw new ClientException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, requestId, responseCode);
+    }
+    if (responseCode >= 500) {
+      throw new ServerException(ErrorMessage.SERVER_ERROR, requestId, responseCode);
     }
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode,
-      String requestId) throws ApiException {
-    throw new ApiException(String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode),
-        requestId, responseCode, null);
+      String requestId) throws JsonSyntaxException {
+    throw new JsonSyntaxException(
+        String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode));
   }
 }
