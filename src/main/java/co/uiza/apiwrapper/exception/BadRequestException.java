@@ -7,4 +7,9 @@ public class BadRequestException extends UizaException {
   public BadRequestException(String message, String requestId, Integer statusCode) {
     super(message, requestId, statusCode);
   }
+
+  public BadRequestException(String message, String requestId, Integer statusCode,
+      String descriptionLink) {
+    super(message, requestId, statusCode, descriptionLink);
+  }
 }

@@ -7,4 +7,9 @@ public class NotFoundException extends UizaException {
   public NotFoundException(String message, String requestId, Integer statusCode) {
     super(message, requestId, statusCode);
   }
+
+  public NotFoundException(String message, String requestId, Integer statusCode,
+      String descriptionLink) {
+    super(message, requestId, statusCode, descriptionLink);
+  }
 }
