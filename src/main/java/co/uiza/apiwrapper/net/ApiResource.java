@@ -3,7 +3,7 @@ package co.uiza.apiwrapper.net;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import co.uiza.apiwrapper.Uiza;
 import co.uiza.apiwrapper.exception.UizaException;
 
@@ -28,7 +28,7 @@ public abstract class ApiResource {
    * @param path_extension The path extension depends on each API operation
    * @return the base url of each API operation request
    */
-  protected static String buildRequestURL(String path_extension) {
+  public static String buildRequestURL(String path_extension) {
     return String.format("%s/%s/%s", Uiza.apiDomain, API_PUBLIC_V3_PATH, path_extension);
   }
 
@@ -49,10 +49,30 @@ public abstract class ApiResource {
    * @param method The request method (GET, POST, PUT, DELETE)
    * @param url The base url of a request
    * @param params A Map object of parameters
-   * @return response of the request in JSON object
+   * @return response of the request
    */
-  public static JsonObject request(RequestMethod method, String url, Map<String, Object> params)
+  public static JsonElement request(RequestMethod method, String url, Map<String, Object> params)
       throws UizaException {
     return ApiResource.uizaResponseGetter.request(method, url, params, RequestType.NORMAL);
+  }
+
+  /**
+   * Get response object with the correct class type
+   *
+   * @param response
+   * @return response in correct type (JsonObject or JsonArray)
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> T checkResponseType(JsonElement response) {
+    if (response != null) {
+      if (response.isJsonObject()) {
+        return (T) response.getAsJsonObject();
+      }
+      if (response.isJsonArray()) {
+        return (T) response.getAsJsonArray();
+      }
+    }
+
+    return (T) response;
   }
 }

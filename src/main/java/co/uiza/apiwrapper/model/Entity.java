@@ -2,6 +2,8 @@ package co.uiza.apiwrapper.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import co.uiza.apiwrapper.exception.UizaException;
@@ -70,7 +72,10 @@ public class Entity extends ApiResource {
    *
    */
   public static JsonObject createEntity(Map<String, Object> entityParams) throws UizaException {
-    return request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+    JsonElement response =
+        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+
+    return checkResponseType(response);
   }
 
   /**
@@ -82,18 +87,30 @@ public class Entity extends ApiResource {
   public static JsonObject retrieveEntity(String id) throws UizaException {
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 
-    return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+    return checkResponseType(response);
   }
 
   /**
-  * Get list of entities including all detail.
+   * Get list of all entities including all details.
+   */
+  public static JsonArray listEntity() throws UizaException {
+    return listEntity(null);
+  }
+
+  /**
+  * Get list of entities including all details.
   *
   * @param entityParams a Map object storing key-value pairs of request parameter
   *
   */
-  public static JsonObject listEntity(Map<String, Object> entityParams) throws UizaException {
-    return request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+  public static JsonArray listEntity(Map<String, Object> entityParams) throws UizaException {
+    JsonElement response =
+        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+
+    return checkResponseType(response);
   }
 
   /**
@@ -106,8 +123,10 @@ public class Entity extends ApiResource {
   public static JsonObject updateEntity(String id, Map<String, Object> entityParams)
       throws UizaException {
     entityParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 
-    return request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+    return checkResponseType(response);
   }
 
   /**
@@ -119,8 +138,10 @@ public class Entity extends ApiResource {
   public static JsonObject deleteEntity(String id) throws UizaException {
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 
-    return request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+    return checkResponseType(response);
   }
 
   /**
@@ -129,12 +150,14 @@ public class Entity extends ApiResource {
   * @param keyword A keyword for searching entities
   *
   */
-  public static JsonObject searchEntity(String keyword) throws UizaException {
+  public static JsonArray searchEntity(String keyword) throws UizaException {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, SEARCH_PATH);
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("keyword", keyword);
+    JsonElement response =
+        request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
 
-    return request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
+    return checkResponseType(response);
   }
 
   /**
@@ -146,8 +169,10 @@ public class Entity extends ApiResource {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, PUBLISH_PATH);
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.POST, buildRequestURL(path_extension), entityParams);
 
-    return request(RequestMethod.POST, buildRequestURL(path_extension), entityParams);
+    return checkResponseType(response);
   }
 
   /**
@@ -160,8 +185,10 @@ public class Entity extends ApiResource {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, STATUS_PUBLISH_PATH);
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
 
-    return request(RequestMethod.GET, buildRequestURL(path_extension), entityParams);
+    return checkResponseType(response);
   }
 
   /**
@@ -173,6 +200,8 @@ public class Entity extends ApiResource {
    *
    */
   public static JsonObject getAwsKeyEntity() throws UizaException {
-    return request(RequestMethod.GET, buildRequestURL(AWS_UPLOAD_KEY_PATH), null);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(AWS_UPLOAD_KEY_PATH), null);
+
+    return checkResponseType(response);
   }
 }

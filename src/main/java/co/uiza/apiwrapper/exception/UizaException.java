@@ -1,6 +1,6 @@
 package co.uiza.apiwrapper.exception;
 
-public abstract class UizaException extends Exception {
+public class UizaException extends Exception {
 
   private static final long serialVersionUID = 1L;
   private String requestId;
