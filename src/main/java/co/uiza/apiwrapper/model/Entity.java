@@ -122,7 +122,11 @@ public class Entity extends ApiResource {
    */
   public static JsonObject updateEntity(String id, Map<String, Object> entityParams)
       throws UizaException {
+    if (entityParams == null) {
+      entityParams = new HashMap<>();
+    }
     entityParams.put("id", id);
+
     JsonElement response =
         request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 

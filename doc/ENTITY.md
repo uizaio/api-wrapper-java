@@ -3,7 +3,7 @@ Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 See details [here](https://docs.uiza.io/#create-entity).
 
 ```java
-import static co.uiza....model.Entity.createEntity;
+import static co.uiza.apiwrapper.model.Entity.createEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -41,7 +41,7 @@ Get detail of entity including all information of entity.
 See details [here](https://docs.uiza.io/#retrieve-an-entity).
 
 ```java
-import static co.uiza....model.Entity.retrieveEntity;
+import static co.uiza.apiwrapper.model.Entity.retrieveEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -92,7 +92,7 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ```java
-import static co.uiza....model.Entity.listEntity;
+import static co.uiza.apiwrapper.model.Entity.listEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -173,7 +173,7 @@ Update entity's information.
 See details [here](https://docs.uiza.io/#update-an-entity).
 
 ```java
-import static co.uiza....model.Entity.updateEntity;
+import static co.uiza.apiwrapper.model.Entity.updateEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -207,7 +207,7 @@ Delete entity.
 See details [here](https://docs.uiza.io/#delete-an-entity).
 
 ```java
-import static co.uiza....model.Entity.deleteEntity;
+import static co.uiza.apiwrapper.model.Entity.deleteEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -236,7 +236,7 @@ Search entity base on keyword entered
 See details [here](https://docs.uiza.io/#search-entity).
 
 ```java
-import static co.uiza....model.Entity.searchEntity;
+import static co.uiza.apiwrapper.model.Entity.searchEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -313,7 +313,7 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
 ```java
-import static co.uiza....model.Entity.publishEntity;
+import static co.uiza.apiwrapper.model.Entity.publishEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -343,7 +343,7 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#get-status-publish).
 
 ```java
-import static co.uiza....model.Entity.getStatusPublishEntity;
+import static co.uiza.apiwrapper.model.Entity.getStatusPublishEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -373,7 +373,7 @@ This API will be return the bucket temporary upload storage & key for upload, so
 See details [here](https://docs.uiza.io/#get-aws-upload-key).
 
 ```java
-import static co.uiza....model.Entity.getAwsKeyEntity;
+import static co.uiza.apiwrapper.model.Entity.getAwsKeyEntity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
