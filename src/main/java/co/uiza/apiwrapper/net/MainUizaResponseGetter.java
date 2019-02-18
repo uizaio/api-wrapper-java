@@ -16,6 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -42,7 +43,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   private static final SSLSocketFactory socketFactory = new UizaSslSocketFactory();
 
   @Override
-  public JsonObject request(RequestMethod method, String url, Map<String, Object> params,
+  public JsonElement request(RequestMethod method, String url, Map<String, Object> params,
       RequestType type) throws UizaException {
     Gson gsone = new Gson();
     JsonObject jsonParams = new JsonObject();
@@ -53,10 +54,8 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     return makeRequest(method, url, jsonParams, type);
   }
 
-  private static JsonObject makeRequest(RequestMethod method, String url, JsonObject params,
-      RequestType type)
-      throws UnauthorizedException, NotFoundException, BadRequestException, UnprocessableException,
-      InternalServerException, ServiceUnavailableException, ClientException, ServerException {
+  private static JsonElement makeRequest(RequestMethod method, String url, JsonObject params,
+      RequestType type) throws UizaException {
     String originalDnsCacheTtl = null;
     Boolean allowedToSetTtl = true;
     try {
@@ -87,11 +86,11 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       }
 
       JsonObject responseBody = null;
-      JsonObject data = null;
+      JsonElement data = null;
       JsonParser parser = new JsonParser();
       try {
         responseBody = parser.parse(response.body()).getAsJsonObject();
-        data = (JsonObject) responseBody.get("data");
+        data = responseBody.get("data");
       } catch (JsonSyntaxException e) {
         raiseMalformedJsonError(response.body(), responseCode, response.requestId());
       }
@@ -105,7 +104,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static UizaResponse getResponse(RequestMethod method, String url, JsonObject params)
-      throws UnprocessableException, BadRequestException {
+      throws BadRequestException, UnprocessableException {
     String query = null;
 
     if (method == RequestMethod.GET) {
@@ -296,8 +295,9 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static void handleApiError(String responseBody, int responseCode, String requestId)
-      throws UnauthorizedException, NotFoundException, BadRequestException, UnprocessableException,
-      InternalServerException, ServiceUnavailableException, ClientException, ServerException {
+      throws UizaException, BadRequestException, ClientException, InternalServerException,
+      NotFoundException, ServerException, ServiceUnavailableException, UnauthorizedException,
+      UnprocessableException {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     try {
@@ -328,6 +328,8 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     if (responseCode >= 500) {
       throw new ServerException(ErrorMessage.SERVER_ERROR, requestId, responseCode);
     }
+
+    throw new UizaException(responseBody, requestId, responseCode);
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode,
