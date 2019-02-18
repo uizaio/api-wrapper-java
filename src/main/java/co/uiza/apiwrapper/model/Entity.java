@@ -74,8 +74,9 @@ public class Entity extends ApiResource {
   public static JsonObject createEntity(Map<String, Object> entityParams) throws UizaException {
     JsonElement response =
         request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
+    String id = getId((JsonObject) checkResponseType(response));
 
-    return checkResponseType(response);
+    return retrieveEntity(id);
   }
 
   /**
@@ -126,11 +127,9 @@ public class Entity extends ApiResource {
       entityParams = new HashMap<>();
     }
     entityParams.put("id", id);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 
-    JsonElement response =
-        request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
-
-    return checkResponseType(response);
+    return retrieveEntity(id);
   }
 
   /**

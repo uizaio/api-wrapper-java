@@ -40,19 +40,28 @@ public class CreateEntityTest extends TestBase {
 
   @Test
   public void testSuccess() throws UizaException {
-    JsonObject expected = new JsonObject();
-    expected.addProperty("id", ENTITY_ID);
-    expected.addProperty("name", "Sample Video");
+    JsonObject expected1 = new JsonObject();
+    expected1.addProperty("id", ENTITY_ID);
 
-    Map<String, Object> params = new HashMap<>();
-    params.put("id", ENTITY_ID);
-    params.put("name", "Sample Video");
+    Map<String, Object> params1 = new HashMap<>();
+    params1.put("name", "Name");
+    params1.put("url", "URL");
+    params1.put("inputType", "Input Type");
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenReturn(expected);
+    JsonObject expected2 = new JsonObject();
+    expected2.addProperty("id", ENTITY_ID);
+    expected2.addProperty("name", "Name");
+
+    Map<String, Object> params2 = new HashMap<>();
+    params2.put("id", ENTITY_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params1)).thenReturn(expected1);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params2)).thenReturn(expected2);
+    Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Entity.createEntity(params);
-    Assert.assertEquals(expected, actual);
+    JsonObject actual = Entity.createEntity(params1);
+    Assert.assertEquals(expected2, actual);
   }
 
   @Test

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import co.uiza.apiwrapper.Uiza;
 import co.uiza.apiwrapper.exception.UizaException;
 
@@ -74,5 +75,15 @@ public abstract class ApiResource {
     }
 
     return (T) response;
+  }
+
+  /**
+   * Get id of the corresponding response
+   *
+   * @param response A JsonObject of response
+   * @return the formatted id number from response
+   */
+  public static String getId(JsonObject response) {
+    return response.get("id").toString().replaceAll("\"", "");
   }
 }
