@@ -40,28 +40,30 @@ public class CreateEntityTest extends TestBase {
 
   @Test
   public void testSuccess() throws UizaException {
-    JsonObject expected1 = new JsonObject();
-    expected1.addProperty("id", ENTITY_ID);
+    JsonObject expectedOfCreate = new JsonObject();
+    expectedOfCreate.addProperty("id", ENTITY_ID);
 
-    Map<String, Object> params1 = new HashMap<>();
-    params1.put("name", "Name");
-    params1.put("url", "URL");
-    params1.put("inputType", "Input Type");
+    Map<String, Object> paramsOfCreate = new HashMap<>();
+    paramsOfCreate.put("name", "Name");
+    paramsOfCreate.put("url", "URL");
+    paramsOfCreate.put("inputType", "Input Type");
 
-    JsonObject expected2 = new JsonObject();
-    expected2.addProperty("id", ENTITY_ID);
-    expected2.addProperty("name", "Name");
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", ENTITY_ID);
+    expectedOfRetrieve.addProperty("name", "Name");
 
-    Map<String, Object> params2 = new HashMap<>();
-    params2.put("id", ENTITY_ID);
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", ENTITY_ID);
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params1)).thenReturn(expected1);
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params2)).thenReturn(expected2);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, paramsOfCreate))
+        .thenReturn(expectedOfCreate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Entity.createEntity(params1);
-    Assert.assertEquals(expected2, actual);
+    JsonObject actual = Entity.createEntity(paramsOfCreate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
   @Test

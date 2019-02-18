@@ -84,6 +84,10 @@ public abstract class ApiResource {
    * @return the formatted id number from response
    */
   public static String getId(JsonObject response) {
-    return response.get("id").toString().replaceAll("\"", "");
+    if (response != null && response.get("id") != null) {
+      return response.get("id").toString().replaceAll("\"", "");
+    }
+
+    return "";
   }
 }
