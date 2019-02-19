@@ -6,8 +6,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import co.uiza.apiwrapper.exception.BadRequestException;
 import co.uiza.apiwrapper.exception.UizaException;
 import co.uiza.apiwrapper.net.ApiResource;
+import co.uiza.apiwrapper.net.util.ErrorMessage;
 
 public class Entity extends ApiResource {
 
@@ -86,6 +88,10 @@ public class Entity extends ApiResource {
    *
    */
   public static JsonObject retrieveEntity(String id) throws UizaException {
+    if (id == null || id.isEmpty()) {
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+    }
+
     Map<String, Object> entityParams = new HashMap<>();
     entityParams.put("id", id);
     JsonElement response =
@@ -108,6 +114,10 @@ public class Entity extends ApiResource {
   *
   */
   public static JsonArray listEntity(Map<String, Object> entityParams) throws UizaException {
+    if (entityParams.containsKey("id")) {
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+    }
+
     JsonElement response =
         request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), entityParams);
 
