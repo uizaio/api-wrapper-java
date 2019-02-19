@@ -114,7 +114,7 @@ public class Entity extends ApiResource {
   *
   */
   public static JsonArray listEntity(Map<String, Object> entityParams) throws UizaException {
-    if (entityParams.containsKey("id")) {
+    if (entityParams != null && entityParams.containsKey("id")) {
       throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
     }
 
