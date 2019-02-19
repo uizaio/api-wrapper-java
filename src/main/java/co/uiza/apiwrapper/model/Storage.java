@@ -83,4 +83,19 @@ public class Storage extends ApiResource {
 
     return retrieveStorage(id);
   }
+
+  /**
+   * Remove storage that added to Uiza
+   *
+   * @param id An id of storage to remove
+   *
+   */
+  public static JsonObject removeStorage(String id) throws UizaException {
+    Map<String, Object> storageParams = new HashMap<>();
+    storageParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+
+    return checkResponseType(response);
+  }
 }
