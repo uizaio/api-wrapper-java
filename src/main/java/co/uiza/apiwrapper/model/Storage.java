@@ -35,36 +35,10 @@ public class Storage extends ApiResource {
   /**
    * You can sync your storage (FTP, AWS S3) with UIZA.
    * After sync, you can select your content easier from your storage to create entity.
-   * Create a FTP storage
    *
-   * @param storageParams
+   * @param storageParams a Map object storing key-value pairs of request parameter
    */
-  public static JsonObject createFtpStorage(Map<String, Object> storageParams)
-      throws UizaException {
-    if (storageParams != null) {
-      storageParams.put("storageType", StorageType.FTP.getStorageType());
-    }
-
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
-    String id = getId((JsonObject) checkResponseType(response));
-
-    return retrieveStorage(id);
-  }
-
-  /**
-   * You can sync your storage (FTP, AWS S3) with UIZA.
-   * After sync, you can select your content easier from your storage to create entity.
-   * Create a AWS S3 storage
-   *
-   * @param storageParams
-   */
-  public static JsonObject createAwsS3Storage(Map<String, Object> storageParams)
-      throws UizaException {
-    if (storageParams != null) {
-      storageParams.put("storageType", StorageType.S3.getStorageType());
-    }
-
+  public static JsonObject addStorage(Map<String, Object> storageParams) throws UizaException {
     JsonElement response =
         request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
     String id = getId((JsonObject) checkResponseType(response));

@@ -66,39 +66,7 @@ public class AddStorageTest extends TestBase {
     Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Storage.createFtpStorage(paramsOfCreate);
-    Assert.assertEquals(expectedOfRetrieve, actual);
-  }
-
-  @Test
-  public void testCreateAwsS3StorageSuccess() throws UizaException {
-    JsonObject expectedOfCreate = new JsonObject();
-    expectedOfCreate.addProperty("id", STORAGE_ID);
-
-    Map<String, Object> paramsOfCreate = new HashMap<>();
-    paramsOfCreate.put("name", "Name");
-    paramsOfCreate.put("host", "Host");
-    paramsOfCreate.put("port", "Port");
-    paramsOfCreate.put("type", "ftp");
-
-    JsonObject expectedOfRetrieve = new JsonObject();
-    expectedOfRetrieve.addProperty("id", STORAGE_ID);
-    expectedOfRetrieve.addProperty("name", "Name");
-    expectedOfRetrieve.addProperty("host", "Host");
-    expectedOfRetrieve.addProperty("port", "Port");
-    expectedOfRetrieve.addProperty("type", "ftp");
-
-    Map<String, Object> paramsOfRetrieve = new HashMap<>();
-    paramsOfRetrieve.put("id", STORAGE_ID);
-
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, paramsOfCreate))
-        .thenReturn(expectedOfCreate);
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
-        .thenReturn(expectedOfRetrieve);
-    Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
-    Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
-
-    JsonObject actual = Storage.createFtpStorage(paramsOfCreate);
+    JsonObject actual = Storage.addStorage(paramsOfCreate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
@@ -110,7 +78,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -121,7 +89,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -132,7 +100,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -143,7 +111,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -154,7 +122,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -166,7 +134,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -177,7 +145,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -188,7 +156,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 
   @Test
@@ -199,6 +167,6 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.createFtpStorage(null);
+    Storage.addStorage(null);
   }
 }
