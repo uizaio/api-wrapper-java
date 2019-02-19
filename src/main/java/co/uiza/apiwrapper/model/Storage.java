@@ -65,4 +65,22 @@ public class Storage extends ApiResource {
 
     return checkResponseType(response);
   }
+
+  /**
+   * Update storage's information.
+   *
+   * @param id An id of storage to update
+   * @param storageParams a Map object storing key-value pairs of request parameter
+   *
+   */
+  public static JsonObject updateStorage(String id, Map<String, Object> storageParams)
+      throws UizaException {
+    if (storageParams == null) {
+      storageParams = new HashMap<>();
+    }
+    storageParams.put("id", id);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+
+    return retrieveStorage(id);
+  }
 }
