@@ -56,12 +56,14 @@ See details [here](https://docs.uiza.io/#video).
 ## Category
 Category has been splits into 3 types: `folder`, `playlist` and `tag`. These will make the management of entity more easier.
 
+You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CATEGORY.md).
 See details [here](https://docs.uiza.io/#category).
 
 ## Storage
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
 After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
 
+You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/STORAGE.md).
 See details [here](https://docs.uiza.io/#storage).
 
 ## Live Streaming

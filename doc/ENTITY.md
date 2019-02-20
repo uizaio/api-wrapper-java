@@ -32,7 +32,29 @@ try {
 Example Response
 ```java
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  "name": "Sample Video",
+  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  "shortDescription": "Lorem Ipsum is simply dummy text.",
+  "view": 0,
+  "poster": "https://example.com/picture001",
+  "thumbnail": "https://example.com/picture002",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
 }
 ```
 
@@ -198,7 +220,29 @@ try {
 Example Response
 ```java
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  "name": "Name edited",
+  "description": "Description edited",
+  "shortDescription": "Lorem Ipsum is simply dummy text.",
+  "view": 0,
+  "poster": "https://example.com/picture001",
+  "thumbnail": "https://example.com/picture002",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
 }
 ```
 
