@@ -4,7 +4,7 @@ Category use to group all the same entities into a group (like Folder/ playlist/
 See details [here](https://docs.uiza.io/#create-category).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.createCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -14,7 +14,7 @@ params.put("name", "Playlist Sample");
 params.put("type", Category.PLAYLIST.getType());
 
 try {
-  JsonObject category = createCategory(params);
+  JsonObject category = Category.create(params);
   System.out.println(category.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -46,13 +46,13 @@ Get detail of category.
 See details [here](https://docs.uiza.io/#retrieve-category).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.retrieveCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject category = retrieveCategory("<category-id>");
+  JsonObject category = Category.retrieve("<category-id>");
   System.out.println(category.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -84,13 +84,13 @@ Get all categories.
 See details [here](https://docs.uiza.io/#retrieve-category-list).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.listCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonArray categories = listCategory();
+  JsonArray categories = Category.list();
   JsonObject category = categories.get(0).getAsJsonObject();
   System.out.println(category.get("id"));
 } catch (UizaException e) {
@@ -137,7 +137,7 @@ Update information of category.
 See details [here](https://docs.uiza.io/#update-category).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.updateCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -147,7 +147,7 @@ params.put("name", "Playlist Sample");
 params.put("type", Category.PLAYLIST.getType());
 
 try {
-  JsonObject category = updateCategory("<category-id>", params);
+  JsonObject category = Category.update("<category-id>", params);
   System.out.println(category.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -179,13 +179,13 @@ Delete category.
 See details [here](https://docs.uiza.io/#delete-category).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.deleteCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject category = deleteCategory("<category-id>");
+  JsonObject category = Category.delete("<category-id>");
   System.out.println(category.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -208,7 +208,7 @@ Add relation for entity and category.
 See details [here](https://docs.uiza.io/#create-category-relation).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.createRelationCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -218,7 +218,7 @@ params.put("entityId", "<entity-id>");
 params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
 
 try {
-  JsonArray relations = createRelationCategory(params);
+  JsonArray relations = Category.createRelation(params);
   JsonObject relation = relations.get(0).getAsJsonObject();
   System.out.println(relation.get("id"));
 } catch (UizaException e) {
@@ -251,7 +251,7 @@ Delete relation for entity and category.
 See details [here](https://docs.uiza.io/#delete-category-relation).
 
 ```java
-import static co.uiza.apiwrapper.model.Category.deleteRelationCategory;
+import co.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -261,7 +261,7 @@ params.put("entityId", "<entity-id>");
 params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
 
 try {
-  JsonArray relations = deleteRelationCategory(params);
+  JsonArray relations = Category.deleteRelation(params);
   JsonObject relation = relations.get(0).getAsJsonObject();
   System.out.println(relation.get("id"));
 } catch (UizaException e) {

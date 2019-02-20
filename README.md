@@ -27,8 +27,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>co.uiza.apiwrapper</groupId>
-  <artifactId>uiza</artifactId>
+  <groupId>co.uiza</groupId>
+  <artifactId>uiza-java</artifactId>
   <version>1.0.0</version>
 </dependency>
 ```

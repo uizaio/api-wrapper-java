@@ -299,42 +299,53 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       NotFoundException, ServerException, ServiceUnavailableException, UnauthorizedException,
       UnprocessableException {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+    UizaError error = null;
     try {
-      gson.fromJson(responseBody, UizaError.class);
+      error = gson.fromJson(responseBody, UizaError.class);
     } catch (JsonSyntaxException e) {
       raiseMalformedJsonError(responseBody, responseCode, requestId);
     }
 
+    String errorMessage;
     switch (responseCode) {
       case 400:
-        throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, requestId, responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.BAD_REQUEST_ERROR, error.getMessage());
+        throw new BadRequestException(errorMessage, requestId, responseCode);
       case 401:
-        throw new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, requestId, responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.UNAUTHORIZED_ERROR, error.getMessage());
+        throw new UnauthorizedException(errorMessage, requestId, responseCode);
       case 404:
-        throw new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, requestId, responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.NOT_FOUND_ERROR, error.getMessage());
+        throw new NotFoundException(errorMessage, requestId, responseCode);
       case 422:
-        throw new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, requestId, responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.UNPROCESSABLE_ERROR, error.getMessage());
+        throw new UnprocessableException(errorMessage, requestId, responseCode);
       case 500:
-        throw new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, requestId,
-            responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.INTERNAL_SERVER_ERROR, error.getMessage());
+        throw new InternalServerException(errorMessage, requestId, responseCode);
       case 503:
-        throw new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, requestId,
-            responseCode);
+        errorMessage = getErrorMessage(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, error.getMessage());
+        throw new ServiceUnavailableException(errorMessage, requestId, responseCode);
     }
     if (responseCode >= 400 && responseCode < 500) {
-      throw new ClientException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, requestId, responseCode);
+      errorMessage = getErrorMessage(ErrorMessage.CLIENT_ERROR, error.getMessage());
+      throw new ClientException(errorMessage, requestId, responseCode);
     }
     if (responseCode >= 500) {
-      throw new ServerException(ErrorMessage.SERVER_ERROR, requestId, responseCode);
+      errorMessage = getErrorMessage(ErrorMessage.SERVER_ERROR, error.getMessage());
+      throw new ServerException(errorMessage, requestId, responseCode);
     }
 
-    throw new UizaException(responseBody, requestId, responseCode);
+    throw new UizaException(error.getMessage(), requestId, responseCode);
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode,
       String requestId) throws JsonSyntaxException {
     throw new JsonSyntaxException(
         String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode));
+  }
+
+  private static String getErrorMessage(String defaultMessage, String actualMessage) {
+    return actualMessage == null || actualMessage.isEmpty() ? defaultMessage : actualMessage;
   }
 }
