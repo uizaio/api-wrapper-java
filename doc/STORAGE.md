@@ -4,7 +4,7 @@ After synced, you can select your content easier from your storage to [create en
 See details [here](https://docs.uiza.io/#add-a-storage).
 
 ```java
-import static co.uiza.apiwrapper.model.Storage.addStorage;
+import co.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -16,7 +16,7 @@ params.put("port", "21");
 params.put("type", "ftp");
 
 try {
-  JsonObject storage = addStorage(params);
+  JsonObject storage = Storage.add(params);
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -54,13 +54,13 @@ Get information of your added storage (FTP or AWS S3).
 See details [here](https://docs.uiza.io/#retrieve-a-storage).
 
 ```java
-import static co.uiza.apiwrapper.model.Storage.retrieveStorage;
+import co.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject storage = retrieveStorage("<storage-id>");
+  JsonObject storage = Storage.retrieve("<storage-id>");
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -97,7 +97,7 @@ Update storage's information.
 See details [here](https://docs.uiza.io/#update-storage).
 
 ```java
-import static co.uiza.apiwrapper.model.Storage.updateStorage;
+import co.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -109,7 +109,7 @@ params.put("port", "21");
 params.put("type", "ftp");
 
 try {
-  JsonObject storage = udpateStorage("<storage-id>", params);
+  JsonObject storage = Storage.update("<storage-id>", params);
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -147,13 +147,13 @@ Remove storage that added to Uiza.
 See details [here](https://docs.uiza.io/#remove-storage).
 
 ```java
-import static co.uiza.apiwrapper.model.Storage.removeStorage;
+import co.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject storage = removeStorage("<storage-id>");
+  JsonObject storage = Storage.remove("<storage-id>");
   System.out.println(storage.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
