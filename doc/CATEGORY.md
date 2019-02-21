@@ -4,7 +4,7 @@ Category use to group all the same entities into a group (like Folder/ playlist/
 See details [here](https://docs.uiza.io/#create-category).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -46,7 +46,7 @@ Get detail of category.
 See details [here](https://docs.uiza.io/#retrieve-category).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -84,7 +84,7 @@ Get all categories.
 See details [here](https://docs.uiza.io/#retrieve-category-list).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -137,7 +137,7 @@ Update information of category.
 See details [here](https://docs.uiza.io/#update-category).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -179,7 +179,7 @@ Delete category.
 See details [here](https://docs.uiza.io/#delete-category).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -208,7 +208,7 @@ Add relation for entity and category.
 See details [here](https://docs.uiza.io/#create-category-relation).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -251,7 +251,7 @@ Delete relation for entity and category.
 See details [here](https://docs.uiza.io/#delete-category-relation).
 
 ```java
-import co.uiza.model.Category;
+import io.uiza.model.Category;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
