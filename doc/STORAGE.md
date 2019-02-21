@@ -4,7 +4,7 @@ After synced, you can select your content easier from your storage to [create en
 See details [here](https://docs.uiza.io/#add-a-storage).
 
 ```java
-import co.uiza.model.Storage;
+import io.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -54,7 +54,7 @@ Get information of your added storage (FTP or AWS S3).
 See details [here](https://docs.uiza.io/#retrieve-a-storage).
 
 ```java
-import co.uiza.model.Storage;
+import io.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -97,7 +97,7 @@ Update storage's information.
 See details [here](https://docs.uiza.io/#update-storage).
 
 ```java
-import co.uiza.model.Storage;
+import io.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -147,7 +147,7 @@ Remove storage that added to Uiza.
 See details [here](https://docs.uiza.io/#remove-storage).
 
 ```java
-import co.uiza.model.Storage;
+import io.uiza.model.Storage;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";

@@ -3,7 +3,7 @@ Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 See details [here](https://docs.uiza.io/#create-entity).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -63,7 +63,7 @@ Get detail of entity including all information of entity.
 See details [here](https://docs.uiza.io/#retrieve-an-entity).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -114,7 +114,7 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -195,7 +195,7 @@ Update entity's information.
 See details [here](https://docs.uiza.io/#update-an-entity).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -251,7 +251,7 @@ Delete entity.
 See details [here](https://docs.uiza.io/#delete-an-entity).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -280,7 +280,7 @@ Search entity base on keyword entered
 See details [here](https://docs.uiza.io/#search-entity).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -357,7 +357,7 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -387,7 +387,7 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#get-status-publish).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -417,7 +417,7 @@ This API will be return the bucket temporary upload storage & key for upload, so
 See details [here](https://docs.uiza.io/#get-aws-upload-key).
 
 ```java
-import co.uiza.model.Entity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
