@@ -3,7 +3,7 @@ Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 See details [here](https://docs.uiza.io/#create-entity).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.createEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -18,7 +18,7 @@ params.put("poster", "https://example.com/picture001.jpeg");
 params.put("thumbnail", "https://example.com/picture002.jpeg");
 
 try {
-  JsonObject entity = createEntity(params);
+  JsonObject entity = Entity.create(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -32,7 +32,29 @@ try {
 Example Response
 ```java
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  "name": "Sample Video",
+  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  "shortDescription": "Lorem Ipsum is simply dummy text.",
+  "view": 0,
+  "poster": "https://example.com/picture001",
+  "thumbnail": "https://example.com/picture002",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
 }
 ```
 
@@ -41,13 +63,13 @@ Get detail of entity including all information of entity.
 See details [here](https://docs.uiza.io/#retrieve-an-entity).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.retrieveEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject entity = retrieveEntity("<your-entity-id>");
+  JsonObject entity = Entity.retrieve("<your-entity-id>");
   System.out.println(entity.get("name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -92,7 +114,7 @@ Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.listEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -102,7 +124,7 @@ params.put("publishToCdn", "not-ready");
 params.put("metadataId", "<your-folder/playlist-id>");
 
 try {
-  JsonArray entities = listEntity(params);
+  JsonArray entities = Entity.list(params);
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
@@ -173,7 +195,7 @@ Update entity's information.
 See details [here](https://docs.uiza.io/#update-an-entity).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.updateEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -184,7 +206,7 @@ params.put("name", "Name edited");
 params.put("description", "Description edited");
 
 try {
-  JsonObject entity = updateEntity(params);
+  JsonObject entity = Entity.update(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -198,7 +220,29 @@ try {
 Example Response
 ```java
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  "name": "Name edited",
+  "description": "Description edited",
+  "shortDescription": "Lorem Ipsum is simply dummy text.",
+  "view": 0,
+  "poster": "https://example.com/picture001",
+  "thumbnail": "https://example.com/picture002",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
 }
 ```
 
@@ -207,13 +251,13 @@ Delete entity.
 See details [here](https://docs.uiza.io/#delete-an-entity).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.deleteEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject entity = deleteEntity("<your-entity-id>");
+  JsonObject entity = Entity.delete("<your-entity-id>");
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -236,13 +280,13 @@ Search entity base on keyword entered
 See details [here](https://docs.uiza.io/#search-entity).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.searchEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonArray entities = searchEntity(params);
+  JsonArray entities = Entity.search(params);
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
@@ -313,13 +357,13 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.publishEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = publishEntity("<your-entity-id>");
+  JsonObject response = Entity.publish("<your-entity-id>");
   System.out.println(response.get("message"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -343,13 +387,13 @@ Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#get-status-publish).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.getStatusPublishEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = getStatusPublishEntity("<your-entity-id>");
+  JsonObject response = Entity.getStatusPublish("<your-entity-id>");
   System.out.println(response.get("status"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
@@ -373,13 +417,13 @@ This API will be return the bucket temporary upload storage & key for upload, so
 See details [here](https://docs.uiza.io/#get-aws-upload-key).
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.getAwsKeyEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = getAwsKeyEntity();
+  JsonObject response = Entity.getAwsUploadKey();
   System.out.println(response.get("region_name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getCode());
