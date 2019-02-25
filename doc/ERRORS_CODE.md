@@ -37,7 +37,7 @@ Our API libraries raise exceptions for many reasons, such as a invalid parameter
   try {
     // Use Uiza's library to make requests
   } catch (BadRequestException e) {
-    System.out.println("Status is: " + e.getCode());
+    System.out.println("Status is: " + e.getStatusCode());
     System.out.println("Message is: " + e.getMessage());
     System.out.println("Description link is: " + e.getDescriptionLink());
   } catch (UnauthorizedException e) {
