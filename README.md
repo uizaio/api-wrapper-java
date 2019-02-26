@@ -71,11 +71,13 @@ These APIs used to create and manage live streaming event.
 * When a Live is not start : it's named as `Event`.
 * When have an `Event` , you can start it : it's named as `Feed`.
 
+You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/LIVE.md).
 See details [here](https://docs.uiza.io/#live-streaming).
 
 ## Callback
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
+You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CALLBACK.md).
 See details [here](https://docs.uiza.io/#callback).
 
 ## Analytic
