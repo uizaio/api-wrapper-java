@@ -45,6 +45,30 @@ public class UpdateLiveTest extends TestBase {
   }
 
   @Test
+  public void testInitParamsWhenNull() throws UizaException {
+    JsonObject expectedOfUpdate = new JsonObject();
+    expectedOfUpdate.addProperty("id", LIVE_ID);
+
+    Map<String, Object> paramsOfUpdate = null;
+
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", LIVE_ID);
+    expectedOfRetrieve.addProperty("name", "Name");
+
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", LIVE_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
+        .thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
+
+    JsonObject actual = Live.update(LIVE_ID, paramsOfUpdate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
+  }
+
+  @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
     expectedOfUpdate.addProperty("id", LIVE_ID);

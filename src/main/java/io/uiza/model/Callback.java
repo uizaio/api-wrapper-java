@@ -54,7 +54,7 @@ public class Callback extends ApiResource {
    * Setup a callback to your server when an entity is completed for upload or public.
    *
    * @param id An id of callback to update
-   * @param storageParams a Map object storing key-value pairs of request parameter
+   * @param callbackParams a Map object storing key-value pairs of request parameter
    *
    */
   public static JsonObject update(String id, Map<String, Object> callbackParams)
