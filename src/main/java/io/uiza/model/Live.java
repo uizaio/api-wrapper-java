@@ -126,6 +126,23 @@ public class Live extends ApiResource {
   }
 
   /**
+   * Update the specific live event by edit values of parameters.
+   *
+   * @param id An id of live event to update
+   * @param liveParams a Map object storing key-value pairs of request parameter
+   *
+   */
+  public static JsonObject update(String id, Map<String, Object> liveParams) throws UizaException {
+    if (liveParams == null) {
+      liveParams = new HashMap<>();
+    }
+    liveParams.put("id", id);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), liveParams);
+
+    return retrieve(id);
+  }
+
+  /**
    * Start a live event that has been create success.
    * The Live channel minute start count whenever the event start success.
    *
@@ -158,6 +175,21 @@ public class Live extends ApiResource {
   }
 
   /**
+   * Stop a live event.
+   *
+   * @param id An id of live event to stop
+   *
+   */
+  public static JsonObject stopFeed(String id) throws UizaException {
+    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, FEED_PATH);
+    Map<String, Object> liveParams = new HashMap<>();
+    liveParams.put("id", id);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(path_extension), liveParams);
+
+    return checkResponseType(response);
+  }
+
+  /**
    * Retrieves list of recorded file after streamed
    * (only available when your live event has turned on Record feature)
    *
@@ -170,10 +202,27 @@ public class Live extends ApiResource {
   }
 
   /**
+   * Delete a recorded file
+   *
+   * @param id An id of a record (get from record list) to delete
+   *
+   */
+  public static JsonObject delete(String id) throws UizaException {
+    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, RECORD_PATH);
+    Map<String, Object> liveParams = new HashMap<>();
+    liveParams.put("id", id);
+    JsonElement response =
+        request(RequestMethod.DELETE, buildRequestURL(path_extension), liveParams);
+
+    return checkResponseType(response);
+  }
+
+  /**
    * Convert recorded file into VOD entity.
    * After converted, your file can be stream via Uiza's CDN.
    *
    * @param id An id of live event to convert into VOD
+   *
    */
   public static JsonObject convertToVod(String id) throws UizaException {
     String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, VOD_PATH);
