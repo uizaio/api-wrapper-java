@@ -10,7 +10,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("url", "<your-server-callback>");
-params.put("method", RequestMethod.POST);
+params.put("method", Method.POST);
 
 try {
   JsonObject callback = Callback.create(params);
@@ -90,7 +90,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("url", "<your-server-callback>");
-params.put("method", RequestMethod.POST);
+params.put("method", Method.POST);
 
 try {
   JsonObject callback = Callback.update("<callback-id>", params);
