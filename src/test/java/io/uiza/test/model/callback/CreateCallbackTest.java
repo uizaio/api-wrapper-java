@@ -1,4 +1,4 @@
-package io.uiza.test.model.storage;
+package io.uiza.test.model.callback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import io.uiza.exception.ServiceUnavailableException;
 import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
-import io.uiza.model.Storage;
+import io.uiza.model.Callback;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -30,7 +30,7 @@ import io.uiza.test.TestBase;
 @PowerMockIgnore("javax.net.ssl.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ApiResource.class)
-public class AddStorageTest extends TestBase {
+public class CreateCallbackTest extends TestBase {
 
   @Before
   public void setUp() throws Exception {
@@ -41,23 +41,19 @@ public class AddStorageTest extends TestBase {
   @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfCreate = new JsonObject();
-    expectedOfCreate.addProperty("id", STORAGE_ID);
+    expectedOfCreate.addProperty("id", CALLBACK_ID);
 
     Map<String, Object> paramsOfCreate = new HashMap<>();
-    paramsOfCreate.put("name", "Name");
-    paramsOfCreate.put("host", "Host");
-    paramsOfCreate.put("port", "Port");
-    paramsOfCreate.put("type", "Type");
+    paramsOfCreate.put("url", "URL");
+    paramsOfCreate.put("method", "GET");
 
     JsonObject expectedOfRetrieve = new JsonObject();
-    expectedOfRetrieve.addProperty("id", STORAGE_ID);
-    expectedOfRetrieve.addProperty("name", "Name");
-    expectedOfRetrieve.addProperty("host", "Host");
-    expectedOfRetrieve.addProperty("port", "Port");
-    expectedOfRetrieve.addProperty("type", "Type");
+    expectedOfRetrieve.addProperty("id", CALLBACK_ID);
+    expectedOfRetrieve.addProperty("url", "URL");
+    expectedOfRetrieve.addProperty("method", "GET");
 
     Map<String, Object> paramsOfRetrieve = new HashMap<>();
-    paramsOfRetrieve.put("id", STORAGE_ID);
+    paramsOfRetrieve.put("id", CALLBACK_ID);
 
     Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, paramsOfCreate))
         .thenReturn(expectedOfCreate);
@@ -66,7 +62,7 @@ public class AddStorageTest extends TestBase {
     Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Storage.add(paramsOfCreate);
+    JsonObject actual = Callback.create(paramsOfCreate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
@@ -78,7 +74,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -89,7 +85,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -100,7 +96,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -111,7 +107,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -122,7 +118,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -134,7 +130,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -145,7 +141,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -156,7 +152,7 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 
   @Test
@@ -167,6 +163,6 @@ public class AddStorageTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.add(null);
+    Callback.create(null);
   }
 }
