@@ -21,7 +21,7 @@ try {
   JsonObject entity = Entity.create(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -72,7 +72,7 @@ try {
   JsonObject entity = Entity.retrieve("<your-entity-id>");
   System.out.println(entity.get("name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -128,7 +128,7 @@ try {
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -209,7 +209,7 @@ try {
   JsonObject entity = Entity.update(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -260,7 +260,7 @@ try {
   JsonObject entity = Entity.delete("<your-entity-id>");
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -290,7 +290,7 @@ try {
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -366,7 +366,7 @@ try {
   JsonObject response = Entity.publish("<your-entity-id>");
   System.out.println(response.get("message"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -396,7 +396,7 @@ try {
   JsonObject response = Entity.getStatusPublish("<your-entity-id>");
   System.out.println(response.get("status"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -426,7 +426,7 @@ try {
   JsonObject response = Entity.getAwsUploadKey();
   System.out.println(response.get("region_name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {

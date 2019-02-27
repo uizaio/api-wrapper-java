@@ -40,13 +40,26 @@ public class ListEntityTest extends TestBase {
   }
 
   @Test
+  public void testParamsContainIdThrowsBadRequestException() throws UizaException {
+    Map<String, Object> params = new HashMap<>();
+    params.put("id", "");
+
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+
+    expectedException.expect(e.getClass());
+    expectedException.expectMessage(e.getMessage());
+
+    Entity.list(params);
+  }
+
+  @Test
   public void testNoParamsSuccess() throws UizaException {
     JsonArray expected = new JsonArray();
 
     Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, null)).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonArray actual = Entity.list(null);
+    JsonArray actual = Entity.list();
     Assert.assertEquals(expected, actual);
   }
 
@@ -77,7 +90,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -88,7 +101,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -99,7 +112,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -110,7 +123,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -121,7 +134,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -133,7 +146,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -144,7 +157,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -155,7 +168,7 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 
   @Test
@@ -166,6 +179,6 @@ public class ListEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.list(null);
+    Entity.list();
   }
 }

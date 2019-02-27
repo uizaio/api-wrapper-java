@@ -1,4 +1,4 @@
-package io.uiza.test.model.storage;
+package io.uiza.test.model.live;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import io.uiza.exception.ServiceUnavailableException;
 import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
-import io.uiza.model.Storage;
+import io.uiza.model.Live;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -30,14 +30,14 @@ import io.uiza.test.TestBase;
 @PowerMockIgnore("javax.net.ssl.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ApiResource.class)
-public class RetrieveStorageTest extends TestBase {
+public class ConvertToVodLiveTest extends TestBase {
 
   private Map<String, Object> params;
 
   @Before
   public void setUp() throws Exception {
     params = new HashMap<>();
-    params.put("id", STORAGE_ID);
+    params.put("id", LIVE_ID);
 
     PowerMockito.mockStatic(ApiResource.class);
     Mockito.when(ApiResource.buildRequestURL(Mockito.any())).thenReturn(TEST_URL);
@@ -46,133 +46,114 @@ public class RetrieveStorageTest extends TestBase {
   @Test
   public void testSuccess() throws UizaException {
     JsonObject expected = new JsonObject();
-    expected.addProperty("id", STORAGE_ID);
+    expected.addProperty("message",
+        "Your entity started publish, check process status with this entity ID");
+    expected.addProperty("entityId", LIVE_ID);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenReturn(expected);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Storage.retrieve(STORAGE_ID);
+    JsonObject actual = Live.convertToVod(LIVE_ID);
     Assert.assertEquals(expected, actual);
   }
 
   @Test
-  public void testIdIsNullThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
-
-    expectedException.expect(e.getClass());
-    expectedException.expectMessage(e.getMessage());
-
-    Storage.retrieve(null);
-  }
-
-  @Test
-  public void testIdIsEmptyThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
-
-    expectedException.expect(e.getClass());
-    expectedException.expectMessage(e.getMessage());
-
-    Storage.retrieve("");
-  }
-
-  @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, STORAGE_ID, 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, LIVE_ID, 400);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, STORAGE_ID, 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, LIVE_ID, 401);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, STORAGE_ID, 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, LIVE_ID, 404);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, STORAGE_ID, 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, LIVE_ID, 422);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e =
-        new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, STORAGE_ID, 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, LIVE_ID, 500);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
     UizaException e =
-        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, STORAGE_ID, 503);
+        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, LIVE_ID, 503);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, STORAGE_ID, 450);
+    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, LIVE_ID, 450);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, STORAGE_ID, 550);
+    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, LIVE_ID, 550);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException(STORAGE_ID, STORAGE_ID, 300);
+    UizaException e = new UizaException(LIVE_ID, LIVE_ID, 300);
 
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.retrieve(STORAGE_ID);
+    Live.convertToVod(LIVE_ID);
   }
 }

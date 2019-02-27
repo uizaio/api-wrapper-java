@@ -1,4 +1,4 @@
-package co.uiza.apiwrapper.model.entity;
+package io.uiza.test.model.live;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,25 +12,25 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import com.google.gson.JsonObject;
-import co.uiza.apiwrapper.TestBase;
-import co.uiza.apiwrapper.exception.BadRequestException;
-import co.uiza.apiwrapper.exception.ClientException;
-import co.uiza.apiwrapper.exception.InternalServerException;
-import co.uiza.apiwrapper.exception.NotFoundException;
-import co.uiza.apiwrapper.exception.ServerException;
-import co.uiza.apiwrapper.exception.ServiceUnavailableException;
-import co.uiza.apiwrapper.exception.UizaException;
-import co.uiza.apiwrapper.exception.UnauthorizedException;
-import co.uiza.apiwrapper.exception.UnprocessableException;
-import co.uiza.apiwrapper.model.Entity;
-import co.uiza.apiwrapper.net.ApiResource;
-import co.uiza.apiwrapper.net.ApiResource.RequestMethod;
-import co.uiza.apiwrapper.net.util.ErrorMessage;
+import io.uiza.exception.BadRequestException;
+import io.uiza.exception.ClientException;
+import io.uiza.exception.InternalServerException;
+import io.uiza.exception.NotFoundException;
+import io.uiza.exception.ServerException;
+import io.uiza.exception.ServiceUnavailableException;
+import io.uiza.exception.UizaException;
+import io.uiza.exception.UnauthorizedException;
+import io.uiza.exception.UnprocessableException;
+import io.uiza.model.Live;
+import io.uiza.net.ApiResource;
+import io.uiza.net.ApiResource.RequestMethod;
+import io.uiza.net.util.ErrorMessage;
+import io.uiza.test.TestBase;
 
 @PowerMockIgnore("javax.net.ssl.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ApiResource.class)
-public class CreateEntityTest extends TestBase {
+public class CreateLiveTest extends TestBase {
 
   @Before
   public void setUp() throws Exception {
@@ -40,19 +40,33 @@ public class CreateEntityTest extends TestBase {
 
   @Test
   public void testSuccess() throws UizaException {
-    JsonObject expected = new JsonObject();
-    expected.addProperty("id", ENTITY_ID);
-    expected.addProperty("name", "Sample Video");
+    JsonObject expectedOfCreate = new JsonObject();
+    expectedOfCreate.addProperty("id", LIVE_ID);
 
-    Map<String, Object> params = new HashMap<>();
-    params.put("id", ENTITY_ID);
-    params.put("name", "Sample Video");
+    Map<String, Object> paramsOfCreate = new HashMap<>();
+    paramsOfCreate.put("name", "Name");
+    paramsOfCreate.put("mode", "push");
+    paramsOfCreate.put("encode", 0);
+    paramsOfCreate.put("dvr", 0);
+    paramsOfCreate.put("linkStream", "");
+    paramsOfCreate.put("resourceMode", "single");
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenReturn(expected);
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", LIVE_ID);
+    expectedOfRetrieve.addProperty("name", "Name");
+
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", LIVE_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, paramsOfCreate))
+        .thenReturn(expectedOfCreate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Entity.createEntity(params);
-    Assert.assertEquals(expected, actual);
+    JsonObject actual = Live.create(paramsOfCreate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
   @Test
@@ -63,7 +77,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -74,7 +88,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -85,7 +99,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -96,7 +110,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -107,7 +121,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -119,7 +133,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -130,7 +144,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -141,7 +155,7 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 
   @Test
@@ -152,6 +166,6 @@ public class CreateEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.createEntity(null);
+    Live.create(null);
   }
 }

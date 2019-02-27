@@ -27,14 +27,24 @@ public class UizaException extends Exception {
     this.descriptionLink = descriptionLink;
   }
 
+  /**
+   * @return id of a request
+   */
   public String getRequestId() {
     return requestId;
   }
 
+  /**
+   * @return status code of a request
+   */
   public Integer getStatusCode() {
     return statusCode;
   }
 
+  /**
+   *
+   * @return description link based on the request
+   */
   public String getDescriptionLink() {
     return descriptionLink;
   }

@@ -1,4 +1,4 @@
-package io.uiza.test.model.storage;
+package io.uiza.test.model.live;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import io.uiza.exception.ServiceUnavailableException;
 import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
-import io.uiza.model.Storage;
+import io.uiza.model.Live;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -30,15 +30,15 @@ import io.uiza.test.TestBase;
 @PowerMockIgnore("javax.net.ssl.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ApiResource.class)
-public class UpdateStorageTest extends TestBase {
+public class UpdateLiveTest extends TestBase {
 
   private Map<String, Object> params;
 
   @Before
   public void setUp() throws Exception {
     params = new HashMap<>();
-    params.put("id", STORAGE_ID);
-    params.put("name", "Name");
+    params.put("id", LIVE_ID);
+    params.put("name", "Sample Live");
 
     PowerMockito.mockStatic(ApiResource.class);
     Mockito.when(ApiResource.buildRequestURL(Mockito.any())).thenReturn(TEST_URL);
@@ -47,15 +47,16 @@ public class UpdateStorageTest extends TestBase {
   @Test
   public void testInitParamsWhenNull() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
-    expectedOfUpdate.addProperty("id", STORAGE_ID);
+    expectedOfUpdate.addProperty("id", LIVE_ID);
 
     Map<String, Object> paramsOfUpdate = null;
 
     JsonObject expectedOfRetrieve = new JsonObject();
-    expectedOfRetrieve.addProperty("id", STORAGE_ID);
+    expectedOfRetrieve.addProperty("id", LIVE_ID);
+    expectedOfRetrieve.addProperty("name", "Name");
 
     Map<String, Object> paramsOfRetrieve = new HashMap<>();
-    paramsOfRetrieve.put("id", STORAGE_ID);
+    paramsOfRetrieve.put("id", LIVE_ID);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
         .thenReturn(expectedOfUpdate);
@@ -63,26 +64,25 @@ public class UpdateStorageTest extends TestBase {
         .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Storage.update(STORAGE_ID, paramsOfUpdate);
+    JsonObject actual = Live.update(LIVE_ID, paramsOfUpdate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
   @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
-    expectedOfUpdate.addProperty("id", STORAGE_ID);
+    expectedOfUpdate.addProperty("id", LIVE_ID);
 
     Map<String, Object> paramsOfUpdate = new HashMap<>();
-    paramsOfUpdate.put("id", STORAGE_ID);
+    paramsOfUpdate.put("id", LIVE_ID);
     paramsOfUpdate.put("name", "Name");
-    paramsOfUpdate.put("storageType", "ftp");
 
     JsonObject expectedOfRetrieve = new JsonObject();
-    expectedOfRetrieve.addProperty("id", STORAGE_ID);
+    expectedOfRetrieve.addProperty("id", LIVE_ID);
     expectedOfRetrieve.addProperty("name", "Name");
 
     Map<String, Object> paramsOfRetrieve = new HashMap<>();
-    paramsOfRetrieve.put("id", STORAGE_ID);
+    paramsOfRetrieve.put("id", LIVE_ID);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
         .thenReturn(expectedOfUpdate);
@@ -90,108 +90,107 @@ public class UpdateStorageTest extends TestBase {
         .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Storage.update(STORAGE_ID, params);
+    JsonObject actual = Live.update(LIVE_ID, paramsOfUpdate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 
   @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, STORAGE_ID, 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, LIVE_ID, 400);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, STORAGE_ID, 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, LIVE_ID, 401);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, STORAGE_ID, 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, LIVE_ID, 404);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, STORAGE_ID, 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, LIVE_ID, 422);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e =
-        new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, STORAGE_ID, 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, LIVE_ID, 500);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
     UizaException e =
-        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, STORAGE_ID, 503);
+        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, LIVE_ID, 503);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, STORAGE_ID, 450);
+    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, LIVE_ID, 450);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, STORAGE_ID, 550);
+    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, LIVE_ID, 550);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException(STORAGE_ID, STORAGE_ID, 300);
+    UizaException e = new UizaException(LIVE_ID, LIVE_ID, 300);
 
     Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Storage.update(STORAGE_ID, params);
+    Live.update(LIVE_ID, params);
   }
 }

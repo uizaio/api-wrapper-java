@@ -39,7 +39,7 @@ public class AddStorageTest extends TestBase {
   }
 
   @Test
-  public void testCreateFtpStorageSuccess() throws UizaException {
+  public void testSuccess() throws UizaException {
     JsonObject expectedOfCreate = new JsonObject();
     expectedOfCreate.addProperty("id", STORAGE_ID);
 

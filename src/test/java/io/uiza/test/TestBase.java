@@ -9,6 +9,8 @@ public class TestBase {
   protected final String STORAGE_ID = "013130d7-abba-466b-bc47-c86c628a305e";
   protected final String CATEGORY_ID = "32e8a1f4-e3b6-4369-a30d-60c6715896d1";
   protected final String RELATION_ID = "737a3683-d5ec-4440-9021-721135141ecb";
+  protected final String LIVE_ID = "7fc80748-e3f9-4ff7-bb8a-cf37e8918239";
+  protected final String CALLBACK_ID = "8b83886e-9cc3-4eab-9258-ebb16c0c73de";
 
   @Rule
   protected ExpectedException expectedException = ExpectedException.none();

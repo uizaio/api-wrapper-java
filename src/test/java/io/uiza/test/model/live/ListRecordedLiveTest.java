@@ -1,4 +1,4 @@
-package co.uiza.apiwrapper.model.entity;
+package io.uiza.test.model.live;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,26 +9,26 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import com.google.gson.JsonObject;
-import co.uiza.apiwrapper.TestBase;
-import co.uiza.apiwrapper.exception.BadRequestException;
-import co.uiza.apiwrapper.exception.ClientException;
-import co.uiza.apiwrapper.exception.InternalServerException;
-import co.uiza.apiwrapper.exception.NotFoundException;
-import co.uiza.apiwrapper.exception.ServerException;
-import co.uiza.apiwrapper.exception.ServiceUnavailableException;
-import co.uiza.apiwrapper.exception.UizaException;
-import co.uiza.apiwrapper.exception.UnauthorizedException;
-import co.uiza.apiwrapper.exception.UnprocessableException;
-import co.uiza.apiwrapper.model.Entity;
-import co.uiza.apiwrapper.net.ApiResource;
-import co.uiza.apiwrapper.net.ApiResource.RequestMethod;
-import co.uiza.apiwrapper.net.util.ErrorMessage;
+import com.google.gson.JsonArray;
+import io.uiza.exception.BadRequestException;
+import io.uiza.exception.ClientException;
+import io.uiza.exception.InternalServerException;
+import io.uiza.exception.NotFoundException;
+import io.uiza.exception.ServerException;
+import io.uiza.exception.ServiceUnavailableException;
+import io.uiza.exception.UizaException;
+import io.uiza.exception.UnauthorizedException;
+import io.uiza.exception.UnprocessableException;
+import io.uiza.model.Live;
+import io.uiza.net.ApiResource;
+import io.uiza.net.ApiResource.RequestMethod;
+import io.uiza.net.util.ErrorMessage;
+import io.uiza.test.TestBase;
 
 @PowerMockIgnore("javax.net.ssl.*")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ApiResource.class)
-public class GetAwsKeyEntityTest extends TestBase {
+public class ListRecordedLiveTest extends TestBase {
 
   @Before
   public void setUp() throws Exception {
@@ -38,14 +38,12 @@ public class GetAwsKeyEntityTest extends TestBase {
 
   @Test
   public void testSuccess() throws UizaException {
-    JsonObject expected = new JsonObject();
-    expected.addProperty("temp_expire_at", "1533658598");
-    expected.addProperty("region_name", "ap-southeast-1");
+    JsonArray expected = new JsonArray();
 
     Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, null)).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Entity.getAwsKeyEntity();
+    JsonArray actual = Live.listRecorded();
     Assert.assertEquals(expected, actual);
   }
 
@@ -57,7 +55,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -68,7 +66,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -79,7 +77,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -90,7 +88,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -101,7 +99,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -113,7 +111,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -124,7 +122,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -135,7 +133,7 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 
   @Test
@@ -146,6 +144,6 @@ public class GetAwsKeyEntityTest extends TestBase {
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
-    Entity.getAwsKeyEntity();
+    Live.listRecorded();
   }
 }
