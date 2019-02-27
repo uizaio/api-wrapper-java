@@ -12,11 +12,11 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "<your-live-event-name>");
-params.put("mode", Live.PULL.getMode());
-params.put("encode", Live.ENCODE.getEncode());
-params.put("dvr", Live.ACTIVE_RECORD.getDvr());
-params.put("linkStream", "");
-params.put("resourceMode", Live.SINGLE.getResourceMode());
+params.put("mode", Mode.PULL.getMode());
+params.put("encode", Encode.ENCODE.getEncode());
+params.put("dvr", Dvr.ACTIVE_RECORD.getDvr());
+params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+params.put("resourceMode", ResourceMode.SINGLE.getResourceMode());
 
 try {
   JsonObject live = Live.create(params);
@@ -115,11 +115,11 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "<your-live-event-name>");
-params.put("mode", Live.PULL.getMode());
-params.put("encode", Live.ENCODE.getEncode());
-params.put("dvr", Live.ACTIVE_RECORD.getDvr());
-params.put("linkStream", "");
-params.put("resourceMode", Live.SINGLE.getResourceMode());
+params.put("mode", Mode.PULL.getMode());
+params.put("encode", Encode.ENCODE.getEncode());
+params.put("dvr", Dvr.ACTIVE_RECORD.getDvr());
+params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+params.put("resourceMode", ResourceMode.SINGLE.getResourceMode());
 
 try {
   JsonObject live = Live.update("<your-live-event-id>", params);
