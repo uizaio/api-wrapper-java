@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.uiza</groupId>
   <artifactId>uiza-java</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -22,20 +22,6 @@
       <email>duclh@uiza.io</email>
       <organization>Uiza</organization>
       <organizationUrl>https://uiza.io</organizationUrl>
-    </developer>
-
-    <developer>
-      <name>Tu Ba Duc</name>
-      <email>tu.ba.duc@framgia.com</email>
-      <organization>Framgia</organization>
-      <organizationUrl>https://framgia.com</organizationUrl>
-    </developer>
-
-    <developer>
-      <name>Nguyen Luong Huy</name>
-      <email>nguyen.luong.huy@framgia.com</email>
-      <organization>Framgia</organization>
-      <organizationUrl>https://framgia.com</organizationUrl>
     </developer>
   </developers>
 
@@ -123,7 +109,7 @@
         <configuration>
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          <autoReleaseAfterClose>false</autoReleaseAfterClose>
         </configuration>
       </plugin>
 

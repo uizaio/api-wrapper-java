@@ -56,6 +56,26 @@ public class RetrieveStorageTest extends TestBase {
   }
 
   @Test
+  public void testIdIsNullThrowsBadRequestException() throws UizaException {
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+
+    expectedException.expect(e.getClass());
+    expectedException.expectMessage(e.getMessage());
+
+    Storage.retrieve(null);
+  }
+
+  @Test
+  public void testIdIsEmptyThrowsBadRequestException() throws UizaException {
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+
+    expectedException.expect(e.getClass());
+    expectedException.expectMessage(e.getMessage());
+
+    Storage.retrieve("");
+  }
+
+  @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
     UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, STORAGE_ID, 400);
 

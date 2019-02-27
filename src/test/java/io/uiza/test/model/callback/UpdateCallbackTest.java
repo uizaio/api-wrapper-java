@@ -45,6 +45,29 @@ public class UpdateCallbackTest extends TestBase {
   }
 
   @Test
+  public void testInitParamsWhenNull() throws UizaException {
+    JsonObject expectedOfUpdate = new JsonObject();
+    expectedOfUpdate.addProperty("id", CALLBACK_ID);
+
+    Map<String, Object> paramsOfUpdate = null;
+
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", CALLBACK_ID);
+
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", CALLBACK_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
+        .thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
+
+    JsonObject actual = Callback.update(CALLBACK_ID, paramsOfUpdate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
+  }
+
+  @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
     expectedOfUpdate.addProperty("id", CALLBACK_ID);
@@ -64,7 +87,7 @@ public class UpdateCallbackTest extends TestBase {
         .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Callback.update(CALLBACK_ID, params);
+    JsonObject actual = Callback.update(CALLBACK_ID, paramsOfUpdate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 

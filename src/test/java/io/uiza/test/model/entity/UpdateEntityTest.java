@@ -45,6 +45,29 @@ public class UpdateEntityTest extends TestBase {
   }
 
   @Test
+  public void testInitParamsWhenNull() throws UizaException {
+    JsonObject expectedOfUpdate = new JsonObject();
+    expectedOfUpdate.addProperty("id", ENTITY_ID);
+
+    Map<String, Object> paramsOfUpdate = null;
+
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", ENTITY_ID);
+
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", ENTITY_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
+        .thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
+
+    JsonObject actual = Entity.update(ENTITY_ID, paramsOfUpdate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
+  }
+
+  @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
     expectedOfUpdate.addProperty("id", ENTITY_ID);
@@ -66,7 +89,7 @@ public class UpdateEntityTest extends TestBase {
         .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Entity.update(ENTITY_ID, params);
+    JsonObject actual = Entity.update(ENTITY_ID, paramsOfUpdate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 

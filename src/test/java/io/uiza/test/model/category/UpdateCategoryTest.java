@@ -45,6 +45,30 @@ public class UpdateCategoryTest extends TestBase {
   }
 
   @Test
+  public void testInitParamsWhenNull() throws UizaException {
+    JsonObject expectedOfUpdate = new JsonObject();
+    expectedOfUpdate.addProperty("id", CATEGORY_ID);
+
+    Map<String, Object> paramsOfUpdate = null;
+
+    JsonObject expectedOfRetrieve = new JsonObject();
+    expectedOfRetrieve.addProperty("id", CATEGORY_ID);
+    expectedOfRetrieve.addProperty("name", "Name");
+
+    Map<String, Object> paramsOfRetrieve = new HashMap<>();
+    paramsOfRetrieve.put("id", CATEGORY_ID);
+
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate))
+        .thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve))
+        .thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
+
+    JsonObject actual = Category.update(CATEGORY_ID, paramsOfUpdate);
+    Assert.assertEquals(expectedOfRetrieve, actual);
+  }
+
+  @Test
   public void testSuccess() throws UizaException {
     JsonObject expectedOfUpdate = new JsonObject();
     expectedOfUpdate.addProperty("id", CATEGORY_ID);
@@ -66,7 +90,7 @@ public class UpdateCategoryTest extends TestBase {
         .thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
-    JsonObject actual = Category.update(CATEGORY_ID, params);
+    JsonObject actual = Category.update(CATEGORY_ID, paramsOfUpdate);
     Assert.assertEquals(expectedOfRetrieve, actual);
   }
 

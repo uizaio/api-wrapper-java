@@ -56,6 +56,26 @@ public class RetrieveEntityTest extends TestBase {
   }
 
   @Test
+  public void testIdIsNullThrowsBadRequestException() throws UizaException {
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+
+    expectedException.expect(e.getClass());
+    expectedException.expectMessage(e.getMessage());
+
+    Entity.retrieve(null);
+  }
+
+  @Test
+  public void testIdIsEmptyThrowsBadRequestException() throws UizaException {
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+
+    expectedException.expect(e.getClass());
+    expectedException.expectMessage(e.getMessage());
+
+    Entity.retrieve("");
+  }
+
+  @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
     UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, ENTITY_ID, 400);
 
