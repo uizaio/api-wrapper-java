@@ -11,7 +11,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Sample Video");
 params.put("url", "https://example.com/video.mp4");
-params.put("inputType", "http");
+params.put("inputType", InputType.HTTP.getInputType());
 params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
 params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
 params.put("poster", "https://example.com/picture001.jpeg");
@@ -120,7 +120,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
-params.put("publishToCdn", "not-ready");
+params.put("publishToCdn", PublishStatus.NOT_READY.getStatus());
 params.put("metadataId", "<your-folder/playlist-id>");
 
 try {
