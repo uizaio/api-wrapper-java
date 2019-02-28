@@ -21,14 +21,15 @@ public class Storage extends ApiResource {
     @SerializedName("s3")
     S3("s3");
 
-    private final String storageType;
+    private final String val;
 
-    public String getStorageType() {
-      return storageType;
+    private StorageType(String val) {
+      this.val = val;
     }
 
-    private StorageType(String storageType) {
-      this.storageType = storageType;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 

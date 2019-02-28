@@ -27,14 +27,15 @@ public class Category extends ApiResource {
     @SerializedName("tag")
     TAG("tag");
 
-    private final String type;
+    private final String val;
 
-    public String getType() {
-      return type;
+    private Type(String val) {
+      this.val = val;
     }
 
-    private Type(String type) {
-      this.type = type;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 

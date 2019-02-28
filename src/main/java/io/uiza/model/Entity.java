@@ -32,14 +32,15 @@ public class Entity extends ApiResource {
     @SerializedName("s3")
     S3("s3");
 
-    private final String inputType;
+    private final String val;
 
-    public String getInputType() {
-      return inputType;
+    private InputType(String val) {
+      this.val = val;
     }
 
-    private InputType(String inputType) {
-      this.inputType = inputType;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 
@@ -56,14 +57,15 @@ public class Entity extends ApiResource {
     @SerializedName("failed")
     FAILED("failed");
 
-    private final String status;
+    private final String val;
 
-    public String getStatus() {
-      return status;
+    private PublishStatus(String val) {
+      this.val = val;
     }
 
-    private PublishStatus(String status) {
-      this.status = status;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 
