@@ -12,11 +12,11 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "<your-live-event-name>");
-params.put("mode", Mode.PULL.getMode());
-params.put("encode", Encode.ENCODE.getEncode());
-params.put("dvr", Dvr.ACTIVE_RECORD.getDvr());
+params.put("mode", Mode.PULL.toString());
+params.put("encode", Encode.ENCODE.getVal());
+params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
 params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
-params.put("resourceMode", ResourceMode.SINGLE.getResourceMode());
+params.put("resourceMode", ResourceMode.SINGLE.toString());
 
 try {
   JsonObject live = Live.create(params);
@@ -67,7 +67,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.retrieve("<your-live-event-id>");
+  JsonObject live = Live.retrieve("<live-event-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -115,14 +115,14 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "<your-live-event-name>");
-params.put("mode", Mode.PULL.getMode());
-params.put("encode", Encode.ENCODE.getEncode());
-params.put("dvr", Dvr.ACTIVE_RECORD.getDvr());
+params.put("mode", Mode.PULL.toString());
+params.put("encode", Encode.ENCODE.getVal());
+params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
 params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
-params.put("resourceMode", ResourceMode.SINGLE.getResourceMode());
+params.put("resourceMode", ResourceMode.SINGLE.toString());
 
 try {
-  JsonObject live = Live.update("<your-live-event-id>", params);
+  JsonObject live = Live.update("<live-event-id>", params);
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -169,7 +169,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.startFeed("<your-live-event-id>");
+  JsonObject live = Live.startFeed("<live-event-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -198,7 +198,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.getView("<your-live-event-id>");
+  JsonObject live = Live.getView("<live-event-id>");
   System.out.println(live.get("watchnow"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -229,7 +229,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.stopFeed("<your-live-event-id>");
+  JsonObject live = Live.stopFeed("<live-event-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -319,7 +319,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.delete("<your-record-id>");
+  JsonObject live = Live.delete("<record-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -349,7 +349,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.convertToVod("<your-record-id>");
+  JsonObject live = Live.convertToVod("<record-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());

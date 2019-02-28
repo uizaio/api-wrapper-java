@@ -50,9 +50,8 @@ public class Live extends ApiResource {
       this.val = val;
     }
 
-    @Override
-    public String toString() {
-      return "" + val;
+    public int getVal() {
+      return val;
     }
   }
 
@@ -69,9 +68,8 @@ public class Live extends ApiResource {
       this.val = val;
     }
 
-    @Override
-    public String toString() {
-      return "" + val;
+    public int getVal() {
+      return val;
     }
   }
 
