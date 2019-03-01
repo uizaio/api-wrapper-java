@@ -11,6 +11,7 @@ public class TestBase {
   protected final String RELATION_ID = "737a3683-d5ec-4440-9021-721135141ecb";
   protected final String LIVE_ID = "7fc80748-e3f9-4ff7-bb8a-cf37e8918239";
   protected final String CALLBACK_ID = "8b83886e-9cc3-4eab-9258-ebb16c0c73de";
+  protected final String USER_ID = "37d6706e-be91-463e-b3b3-b69451dd4752";
 
   @Rule
   protected ExpectedException expectedException = ExpectedException.none();
