@@ -11,7 +11,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Sample Video");
 params.put("url", "https://example.com/video.mp4");
-params.put("inputType", InputType.HTTP.getInputType());
+params.put("inputType", InputType.HTTP.toString());
 params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
 params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
 params.put("poster", "https://example.com/picture001.jpeg");
@@ -69,7 +69,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject entity = Entity.retrieve("<your-entity-id>");
+  JsonObject entity = Entity.retrieve("<entity-id>");
   System.out.println(entity.get("name"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -120,7 +120,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
-params.put("publishToCdn", PublishStatus.NOT_READY.getStatus());
+params.put("publishToCdn", PublishStatus.NOT_READY.toString());
 params.put("metadataId", "<your-folder/playlist-id>");
 
 try {
@@ -201,12 +201,11 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
-params.put("id", "<your-entity-id>");
 params.put("name", "Name edited");
 params.put("description", "Description edited");
 
 try {
-  JsonObject entity = Entity.update(params);
+  JsonObject entity = Entity.update("<entity-id>", params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -257,7 +256,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject entity = Entity.delete("<your-entity-id>");
+  JsonObject entity = Entity.delete("<entity-id>");
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -286,7 +285,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonArray entities = Entity.search(params);
+  JsonArray entities = Entity.search("keyword");
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
@@ -363,7 +362,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = Entity.publish("<your-entity-id>");
+  JsonObject response = Entity.publish("<entity-id>");
   System.out.println(response.get("message"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -393,7 +392,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = Entity.getStatusPublish("<your-entity-id>");
+  JsonObject response = Entity.getStatusPublish("<entity-id>");
   System.out.println(response.get("status"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());

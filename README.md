@@ -29,7 +29,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.uiza</groupId>
   <artifactId>uiza-java</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -84,7 +84,18 @@ See details [here](https://docs.uiza.io/#callback).
 Monitor the four key dimensions of video QoS: playback failures, startup time, rebuffering, and video quality.
 These 15 metrics help you track playback performance, so your team can know exactly what’s going on.
 
+You can see all available APIs for analytic in [ANALYTIC.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/ANALYTIC.md).
 See details [here](https://docs.uiza.io/#analytic).
+
+## User Management
+You can manage user with APIs user. Uiza have 2 levels of user:
+
+`Admin` - This account will have the highest priority, can have permission to create & manage users.
+
+`User` - This account level is under Admin level. It only manages APIs that relates to this account.
+
+You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/USER.md).
+See details [here](https://docs.uiza.io/#user-management).
 
 ## Embed Metadata
 Embed metadata is information that can be embed into video/audio file. You can embed into file by adding a json compose these tag.
