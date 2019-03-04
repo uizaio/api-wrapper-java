@@ -25,14 +25,15 @@ public class Live extends ApiResource {
     @SerializedName("push")
     PUSH("push");
 
-    private String mode;
+    private final String val;
 
-    private Mode(String mode) {
-      this.mode = mode;
+    private Mode(String val) {
+      this.val = val;
     }
 
-    public String getMode() {
-      return mode;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 
@@ -43,14 +44,14 @@ public class Live extends ApiResource {
     @SerializedName("1")
     ENCODE(1);
 
-    private int encode;
+    private final int val;
 
-    private Encode(int encode) {
-      this.encode = encode;
+    private Encode(int val) {
+      this.val = val;
     }
 
-    public int getEncode() {
-      return encode;
+    public int getVal() {
+      return val;
     }
   }
 
@@ -61,14 +62,14 @@ public class Live extends ApiResource {
     @SerializedName("1")
     ACTIVE_RECORD(1);
 
-    private int dvr;
+    private final int val;
 
-    private Dvr(int dvr) {
-      this.dvr = dvr;
+    private Dvr(int val) {
+      this.val = val;
     }
 
-    public int getDvr() {
-      return dvr;
+    public int getVal() {
+      return val;
     }
   }
 
@@ -79,14 +80,15 @@ public class Live extends ApiResource {
     @SerializedName("redundant")
     REDUNDANT("redundant");
 
-    private String resourceMode;
+    private final String val;
 
-    private ResourceMode(String resourceMode) {
-      this.resourceMode = resourceMode;
+    private ResourceMode(String val) {
+      this.val = val;
     }
 
-    public String getResourceMode() {
-      return resourceMode;
+    @Override
+    public String toString() {
+      return val;
     }
   }
 
