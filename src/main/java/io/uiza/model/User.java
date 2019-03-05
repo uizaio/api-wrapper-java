@@ -166,7 +166,7 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(path_extension), userParams);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(path_extension), userParams);
 
     return checkResponseType(response);
   }
@@ -174,8 +174,6 @@ public class User extends ApiResource {
   /**
    * Log out an user.
    * After logged out, token will be removed.
-   *
-   * @param userParams a Map object storing key-value pairs of request parameter
    *
    */
   public static JsonObject logout() throws UizaException {
