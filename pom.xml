@@ -8,7 +8,6 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <description>An API wrapper for Uiza.</description>
   <url>https://uiza.io</url>
-  <logo>https://static.uiza.io/uiza_logo_128.png</logo>
 
   <licenses>
     <license>
@@ -32,6 +31,11 @@
     <url>https://github.com/uizaio/api-wrapper-java/tree/master</url>
   </scm>
 
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/uizaio/api-wrapper-java/issues</url>
+  </issueManagement>
+
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -46,6 +50,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.version>3.6.0</maven.compiler.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.source>2.2.1</maven.source>
@@ -132,6 +137,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.version}</version>
         <configuration>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
@@ -169,6 +175,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
         <executions>
           <execution>
             <goals>
