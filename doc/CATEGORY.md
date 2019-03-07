@@ -1,4 +1,7 @@
+# Category
+
 ## Create category
+
 Create category for entity for easier management.
 Category use to group all the same entities into a group (like Folder/ playlist/or tag).
 See details [here](https://docs.uiza.io/#create-category).
@@ -26,6 +29,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "f932aa79-852a-41f7-9adc-19935034f944",
@@ -42,6 +46,7 @@ Example Response
 ```
 
 ## Retrieve category
+
 Get detail of category.
 See details [here](https://docs.uiza.io/#retrieve-category).
 
@@ -64,6 +69,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "f932aa79-852a-41f7-9adc-19935034f944",
@@ -80,6 +86,7 @@ Example Response
 ```
 
 ## Retrieve category list
+
 Get all categories.
 See details [here](https://docs.uiza.io/#retrieve-category-list).
 
@@ -103,6 +110,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -133,6 +141,7 @@ Example Response
 ```
 
 ## Update category
+
 Update information of category.
 See details [here](https://docs.uiza.io/#update-category).
 
@@ -159,6 +168,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "f932aa79-852a-41f7-9adc-19935034f944",
@@ -175,6 +185,7 @@ Example Response
 ```
 
 ## Delete category
+
 Delete category.
 See details [here](https://docs.uiza.io/#delete-category).
 
@@ -197,6 +208,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "095778fa-7e42-45cc-8a0e-6118e540b61d"
@@ -204,6 +216,7 @@ Example Response
 ```
 
 ## Create category relation
+
 Add relation for entity and category.
 See details [here](https://docs.uiza.io/#create-category-relation).
 
@@ -231,6 +244,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -247,6 +261,7 @@ Example Response
 ```
 
 ## Delete category relation
+
 Delete relation for entity and category.
 See details [here](https://docs.uiza.io/#delete-category-relation).
 
@@ -274,6 +289,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {

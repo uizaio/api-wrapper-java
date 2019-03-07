@@ -2,15 +2,21 @@ package io.uiza.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
 import io.uiza.net.ApiResource;
 import io.uiza.net.util.ErrorMessage;
 
+/**
+ * This API wrapper helps you managing your entities easier by splitting category into 3 types:
+ * folder, playlist and tag.
+ */
 public class Category extends ApiResource {
 
   private static final String CLASS_DEFAULT_PATH = "media/metadata";
@@ -40,11 +46,12 @@ public class Category extends ApiResource {
   }
 
   /**
-   * Create category for entity for easier management.
-   * Category use to group all the same entities into a group (like folder, playlist, or tag)
+   * Create category for entity for easier management. Category use to group all the same entities
+   * into a group (like folder, playlist, or tag).
    *
    * @param categoryParams a Map object storing key-value pairs of request parameter
-   *
+   * @return created category JSON object
+   * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> categoryParams) throws UizaException {
     JsonElement response =
@@ -55,10 +62,11 @@ public class Category extends ApiResource {
   }
 
   /**
-   * Get detail of category
+   * Get detail of category.
    *
-   * @param id An id of category to retrieve
-   *
+   * @param id An id of a category to retrieve
+   * @return a category JSON object with matched id
+   * @throws UizaException
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
@@ -75,6 +83,9 @@ public class Category extends ApiResource {
 
   /**
    * Get all categories including all details.
+   *
+   * @return all categories
+   * @throws UizaException
    */
   public static JsonArray list() throws UizaException {
     JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null);
@@ -85,9 +96,10 @@ public class Category extends ApiResource {
   /**
    * Update information of category.
    *
-   * @param id An id of category to update
+   * @param id An id of a category to update
    * @param categoryParams a Map object storing key-value pairs of request parameter
-   *
+   * @return updated category JSON object
+   * @throws UizaException
    */
   public static JsonObject update(String id, Map<String, Object> categoryParams)
       throws UizaException {
@@ -101,10 +113,11 @@ public class Category extends ApiResource {
   }
 
   /**
-   * Delete category
+   * Delete category.
    *
-   * @param id An id of category to delete
-   *
+   * @param id An id of a category to delete
+   * @return id of the deleted category
+   * @throws UizaException
    */
   public static JsonObject delete(String id) throws UizaException {
     Map<String, Object> categoryParams = new HashMap<>();
@@ -116,9 +129,11 @@ public class Category extends ApiResource {
   }
 
   /**
-   * Add relation for entity and category
+   * Add relation for entity and category.
    *
    * @param categoryParams a Map object storing key-value pairs of request parameter
+   * @return created relations between entity and category
+   * @throws UizaException
    */
   public static JsonArray createRelation(Map<String, Object> categoryParams) throws UizaException {
     JsonElement response =
@@ -128,9 +143,11 @@ public class Category extends ApiResource {
   }
 
   /**
-   * Delete relation for entity and category
+   * Delete relation for entity and category.
    *
    * @param categoryParams a Map object storing key-value pairs of request parameter
+   * @return deleted relations between entity and category
+   * @throws UizaException
    */
   public static JsonArray deleteRelation(Map<String, Object> categoryParams) throws UizaException {
     JsonElement response =

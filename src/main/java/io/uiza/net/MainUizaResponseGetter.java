@@ -8,18 +8,22 @@ import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+
 import io.uiza.Uiza;
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.ClientException;
@@ -77,7 +81,12 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
           break;
         default:
-          throw new RuntimeException(ErrorMessage.INVALID_REQUEST_TYPE);
+          throw new NotFoundException(ErrorMessage.INVALID_REQUEST_TYPE, "0", 404);
+      }
+
+      if (response == null) {
+        throw new NotFoundException(
+            String.format(ErrorMessage.INVALID_RESPONSE, response, 404, "0"), "0", 404);
       }
 
       int responseCode = response.code();
@@ -180,7 +189,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     conn.setRequestMethod("POST");
 
     OutputStream output = conn.getOutputStream();
-    output.write(query.getBytes(ApiResource.CHARSET));
+    output.write(query.getBytes(StandardCharsets.UTF_8));
 
     return conn;
   }
@@ -193,7 +202,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     conn.setRequestMethod("PUT");
 
     OutputStream output = conn.getOutputStream();
-    output.write(query.getBytes(ApiResource.CHARSET));
+    output.write(query.getBytes(StandardCharsets.UTF_8));
 
     return conn;
   }
@@ -206,7 +215,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     conn.setRequestMethod("DELETE");
 
     OutputStream output = conn.getOutputStream();
-    output.write(query.getBytes(ApiResource.CHARSET));
+    output.write(query.getBytes(StandardCharsets.UTF_8));
 
     return conn;
   }
@@ -238,7 +247,6 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       conn = (HttpURLConnection) uizaUrl.openConnection();
     }
 
-    conn = (HttpURLConnection) uizaUrl.openConnection();
     conn.setConnectTimeout(Uiza.getConnectTimeout());
     conn.setReadTimeout(Uiza.getReadTimeout());
     conn.setUseCaches(false);
@@ -255,7 +263,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
 
   static Map<String, String> getHeaders() {
     Map<String, String> headers = new HashMap<>();
-    headers.put("Accept-Charset", ApiResource.CHARSET);
+    headers.put("Accept-Charset", StandardCharsets.UTF_8.toString());
     headers.put("Authorization", Uiza.apiKey);
     headers.put("Uiza-Version", Uiza.apiVersion);
     headers.put("Content-Type", "application/json");
@@ -286,7 +294,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static String getResponseBody(InputStream responseStream) throws IOException {
-    try (final Scanner scanner = new Scanner(responseStream, ApiResource.CHARSET)) {
+    try (final Scanner scanner = new Scanner(responseStream, StandardCharsets.UTF_8.toString())) {
       final String responseBody = scanner.useDelimiter("\\A").next();
       responseStream.close();
 
@@ -295,9 +303,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static void handleApiError(String responseBody, int responseCode, String requestId)
-      throws UizaException, BadRequestException, ClientException, InternalServerException,
-      NotFoundException, ServerException, ServiceUnavailableException, UnauthorizedException,
-      UnprocessableException {
+      throws UizaException {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     UizaError error = null;
     try {
@@ -326,6 +332,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
       case 503:
         errorMessage = getErrorMessage(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, error.getMessage());
         throw new ServiceUnavailableException(errorMessage, requestId, responseCode);
+      default:
     }
     if (responseCode >= 400 && responseCode < 500) {
       errorMessage = getErrorMessage(ErrorMessage.CLIENT_ERROR, error.getMessage());
@@ -340,9 +347,9 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   }
 
   private static void raiseMalformedJsonError(String responseBody, int responseCode,
-      String requestId) throws JsonSyntaxException {
+      String requestId) {
     throw new JsonSyntaxException(
-        String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode));
+        String.format(ErrorMessage.INVALID_RESPONSE, responseBody, responseCode, requestId));
   }
 
   private static String getErrorMessage(String defaultMessage, String actualMessage) {

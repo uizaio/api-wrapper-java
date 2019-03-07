@@ -1,4 +1,7 @@
+# User
+
 ## Create a user
+
 Create a user account for workspace.
 See details [here](https://docs.uiza.io/#create-an-user).
 
@@ -32,6 +35,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "37d6706e-be91-463e-b3b3-b69451dd4752",
@@ -44,6 +48,7 @@ Example Response
 ```
 
 ## Retrieve a user
+
 Retrieves the details of an existing user.
 You need only supply the unique userId that was returned upon user creation.
 See details [here](https://docs.uiza.io/#retrieve-an-user).
@@ -67,6 +72,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "37d6706e-be91-463e-b3b3-b69451dd4752",
@@ -79,6 +85,7 @@ Example Response
 ```
 
 ## List all users
+
 Returns a list of your users.
 The users are returned sorted by creation date, with the most recent user appearing first.
 
@@ -106,6 +113,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -128,6 +136,7 @@ Example Response
 ```
 
 ## Update a user
+
 Updates the specified user by setting the values of the parameters passed.
 Any parameters not provided will be left unchanged.
 See details [here](https://docs.uiza.io/#update-an-user).
@@ -162,6 +171,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "37d6706e-be91-463e-b3b3-b69451dd4752",
@@ -174,6 +184,7 @@ Example Response
 ```
 
 ## Delete a user
+
 Permanently deletes a user.
 It cannot be undone.
 Also immediately cancels all token & information of this user.
@@ -198,6 +209,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "37d6706e-be91-463e-b3b3-b69451dd4752"
@@ -205,6 +217,7 @@ Example Response
 ```
 
 ## Update password
+
 Update password allows Admin or User update their current password.
 See details [here](https://docs.uiza.io/#update-password).
 
@@ -231,6 +244,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "result":"ok"
@@ -238,6 +252,7 @@ Example Response
 ```
 
 ## Log Out
+
 Log out a user.
 After logged out, token will be removed.
 See details [here](https://docs.uiza.io/#log-out).
@@ -261,6 +276,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "message": "Logout success"

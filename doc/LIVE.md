@@ -1,4 +1,7 @@
+# Live Event
+
 ## Create a live event
+
 Create a live streaming and manage the live streaming input (output).
 A live stream can be set up and start later or start right after set up.
 Live Channel Minutes counts when the event starts.
@@ -31,6 +34,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -56,6 +60,7 @@ Example Response
 ```
 
 ## Retrieve a live event
+
 Retrieves the details of an existing event.
 You need only provide the unique identifier of event that was returned upon Live event creation.
 See details [here](https://docs.uiza.io/#retrieve-a-live-event).
@@ -79,6 +84,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -104,6 +110,7 @@ Example Response
 ```
 
 ## Update a live event
+
 Update the specific Live event by edit values of parameters.
 See details [here](https://docs.uiza.io/#update-a-live-event).
 
@@ -134,6 +141,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -159,6 +167,7 @@ Example Response
 ```
 
 ## Start a live feed
+
 Start a live event that has been create success. The Live channel minute start count whenever the event start success.
 See details [here](https://docs.uiza.io/#start-a-live-feed).
 
@@ -181,6 +190,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -188,6 +198,7 @@ Example Response
 ```
 
 ## Get views of live feed
+
 Get a live view status . This view only show when event has been started and being processing.
 See details [here](https://docs.uiza.io/#get-view-of-live-feed).
 
@@ -210,6 +221,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "stream_name": "peppa-pig-english-episodes",
@@ -219,6 +231,7 @@ Example Response
 ```
 
 ## Stop a live feed
+
 Stop live event.
 See details [here](https://docs.uiza.io/#stop-a-live-feed).
 
@@ -241,6 +254,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -248,6 +262,7 @@ Example Response
 ```
 
 ## List all recorded files
+
 Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature).
 See details [here](https://docs.uiza.io/#list-all-recorded-files).
 
@@ -271,6 +286,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -309,6 +325,7 @@ Example Response
 ```
 
 ## Delete a record file
+
 Delete a recorded file.
 See details [here](https://docs.uiza.io/#delete-a-record-file).
 
@@ -331,6 +348,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -338,6 +356,7 @@ Example Response
 ```
 
 ## Convert into VOD
+
 Convert recorded file into VOD entity.
 After converted, your file can be stream via Uiza's CDN.
 See details [here](https://docs.uiza.io/#convert-into-vod).
@@ -361,6 +380,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",

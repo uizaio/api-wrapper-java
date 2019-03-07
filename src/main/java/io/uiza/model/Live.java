@@ -2,16 +2,23 @@ package io.uiza.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
 import io.uiza.net.ApiResource;
 import io.uiza.net.util.ErrorMessage;
 
+/**
+ * This API wrapper allows you to create and manage live streaming event.
+ */
 public class Live extends ApiResource {
+
+  private static final String PATH_EXTENSION_FORMAT = "%s/%s";
   private static final String CLASS_DEFAULT_PATH = "live/entity";
   private static final String FEED_PATH = "feed";
   private static final String LIVE_VIEW_PATH = "tracking/current-view";
@@ -93,12 +100,13 @@ public class Live extends ApiResource {
   }
 
   /**
-   * Create a live streaming and manage the live streaming input (output).
-   * A live stream can be set up and start later or start right after set up.
-   * Live Channel Minutes counts when the event starts.
+   * Create a live streaming and manage the live streaming input (output). A live stream can be set
+   * up and start later or start right after set up. Live Channel Minutes counts when the event
+   * starts.
    *
    * @param liveParams a Map object storing key-value pairs of request parameter
-   *
+   * @return created live event JSON object
+   * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> liveParams) throws UizaException {
     JsonElement response =
@@ -111,8 +119,9 @@ public class Live extends ApiResource {
   /**
    * Retrieves the details of an existing event.
    *
-   * @param id An id of live event to retrieve
-   *
+   * @param id An id of a live event to retrieve
+   * @return a live event JSON object with matched id
+   * @throws UizaException
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
@@ -130,9 +139,10 @@ public class Live extends ApiResource {
   /**
    * Update the specific live event by edit values of parameters.
    *
-   * @param id An id of live event to update
+   * @param id An id of a live event to update
    * @param liveParams a Map object storing key-value pairs of request parameter
-   *
+   * @return updated live event JSON object
+   * @throws UizaException
    */
   public static JsonObject update(String id, Map<String, Object> liveParams) throws UizaException {
     if (liveParams == null) {
@@ -145,33 +155,34 @@ public class Live extends ApiResource {
   }
 
   /**
-   * Start a live event that has been create success.
-   * The Live channel minute start count whenever the event start success.
+   * Start a live event that has been create success. The Live channel minute start count whenever
+   * the event start success.
    *
-   * @param id An id of live event to start feeding
-   *
+   * @param id An id of a live event to start feeding
+   * @return information of the started live event
+   * @throws UizaException
    */
   public static JsonObject startFeed(String id) throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, FEED_PATH);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, FEED_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(path_extension), liveParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams);
 
     return checkResponseType(response);
   }
 
   /**
-   * Get a live view status.
-   * This view only show when event has been started and being processing.
+   * Get a live view status. This view only show when event has been started and being processing.
    *
-   * @param id An id of live event to get view
-   *
+   * @param id An id of a live event to get view
+   * @return the view status of a live event
+   * @throws UizaException
    */
   public static JsonObject getView(String id) throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, LIVE_VIEW_PATH);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LIVE_VIEW_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(path_extension), liveParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), liveParams);
 
     return checkResponseType(response);
   }
@@ -179,26 +190,29 @@ public class Live extends ApiResource {
   /**
    * Stop a live event.
    *
-   * @param id An id of live event to stop
-   *
+   * @param id An id of a live event to stop
+   * @return information of the stopped live event
+   * @throws UizaException
    */
   public static JsonObject stopFeed(String id) throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, FEED_PATH);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, FEED_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.PUT, buildRequestURL(path_extension), liveParams);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), liveParams);
 
     return checkResponseType(response);
   }
 
   /**
-   * Retrieves list of recorded file after streamed
-   * (only available when your live event has turned on Record feature)
+   * Retrieves list of recorded file after streamed (only available when your live event has turned
+   * on Record feature)
    *
+   * @return a list of recorded file after streamed
+   * @throws UizaException
    */
   public static JsonArray listRecorded() throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, RECORD_PATH);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(path_extension), null);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, RECORD_PATH);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), null);
 
     return checkResponseType(response);
   }
@@ -207,30 +221,31 @@ public class Live extends ApiResource {
    * Delete a recorded file
    *
    * @param id An id of a record (get from record list) to delete
-   *
+   * @return id of the deleted record
+   * @throws UizaException
    */
   public static JsonObject delete(String id) throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, RECORD_PATH);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, RECORD_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
     JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(path_extension), liveParams);
+        request(RequestMethod.DELETE, buildRequestURL(pathExtension), liveParams);
 
     return checkResponseType(response);
   }
 
   /**
-   * Convert recorded file into VOD entity.
-   * After converted, your file can be stream via Uiza's CDN.
+   * Convert recorded file into VOD entity. After converted, your file can be stream via Uiza's CDN.
    *
-   * @param id An id of live event to convert into VOD
-   *
+   * @param id An id of a live event to convert into VOD
+   * @return id of the converted recored file
+   * @throws UizaException
    */
   public static JsonObject convertToVod(String id) throws UizaException {
-    String path_extension = String.format("%s/%s", CLASS_DEFAULT_PATH, VOD_PATH);
+    String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, VOD_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(path_extension), liveParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams);
 
     return checkResponseType(response);
   }

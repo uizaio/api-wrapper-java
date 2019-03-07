@@ -1,4 +1,7 @@
+# Analytic
+
 ## Total Line
+
 **Get data grouped by hour (data refresh every 5 minutes).**
 Track video playback on any [metric](https://docs.uiza.io/#analytic-metrics) performance, so you can know exactly what’s happening on every user’s device and debug more effectively.
 See details [here](https://docs.uiza.io/#total-line).
@@ -28,6 +31,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -46,6 +50,7 @@ Example Response
 ```
 
 ## Type
+
 Get data base on 5 type of filter: **country, device, title, player, os**.
 See details [here](https://docs.uiza.io/#type).
 
@@ -74,6 +79,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -90,6 +96,7 @@ Example Response
 ```
 
 ## Line
+
 **Get data grouped by hour.**
 Get total view in time range.
 This help you to draw a line chart to visualize data.
@@ -120,6 +127,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {

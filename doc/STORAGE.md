@@ -1,4 +1,7 @@
+# Storage
+
 ## Add a storage
+
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
 After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
 See details [here](https://docs.uiza.io/#add-a-storage).
@@ -28,6 +31,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49",
@@ -50,6 +54,7 @@ Example Response
 ```
 
 ## Retrieve a storage
+
 Get information of your added storage (FTP or AWS S3).
 See details [here](https://docs.uiza.io/#retrieve-a-storage).
 
@@ -72,6 +77,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49",
@@ -92,7 +98,9 @@ Example Response
   "updatedAt": "2018-06-19T03:01:56.000Z"
 }
 ```
+
 ## Update storage
+
 Update storage's information.
 See details [here](https://docs.uiza.io/#update-storage).
 
@@ -121,6 +129,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49",
@@ -143,6 +152,7 @@ Example Response
 ```
 
 ## Remove storage
+
 Remove storage that added to Uiza.
 See details [here](https://docs.uiza.io/#remove-storage).
 
@@ -165,6 +175,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49",

@@ -97,12 +97,6 @@
       <version>${powermock.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>${jacoco.version}</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -162,6 +156,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc}</version>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <source>8</source>
+        </configuration>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -178,6 +176,7 @@
         <version>${jacoco.version}</version>
         <executions>
           <execution>
+            <id>agent-for-ut</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
