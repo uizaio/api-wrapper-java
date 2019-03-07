@@ -1,4 +1,7 @@
+# Entity
+
 ## Create entity
+
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 See details [here](https://docs.uiza.io/#create-entity).
 
@@ -30,6 +33,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
@@ -59,6 +63,7 @@ Example Response
 ```
 
 ## Retrieve entity
+
 Get detail of entity including all information of entity.
 See details [here](https://docs.uiza.io/#retrieve-an-entity).
 
@@ -81,6 +86,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
@@ -110,6 +116,7 @@ Example Response
 ```
 
 ## List all entities
+
 Get list of entities including all detail.
 See details [here](https://docs.uiza.io/#list-all-entities).
 
@@ -137,6 +144,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -191,6 +199,7 @@ Example Response
 ```
 
 ## Update entity
+
 Update entity's information.
 See details [here](https://docs.uiza.io/#update-an-entity).
 
@@ -217,6 +226,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
@@ -246,6 +256,7 @@ Example Response
 ```
 
 ## Delete entity
+
 Delete entity.
 See details [here](https://docs.uiza.io/#delete-an-entity).
 
@@ -268,6 +279,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
@@ -275,6 +287,7 @@ Example Response
 ```
 
 ## Search entity
+
 Search entity base on keyword entered
 See details [here](https://docs.uiza.io/#search-entity).
 
@@ -298,6 +311,7 @@ try {
 ```
 
 Example Response
+
 ```java
 [
   {
@@ -352,6 +366,7 @@ Example Response
 ```
 
 ## Publish entity to CDN
+
 Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
 
@@ -374,6 +389,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "message": "Your entity started publish, check process status with this entity ID",
@@ -382,6 +398,7 @@ Example Response
 ```
 
 ## Get status publish
+
 Publish entity to CDN, use for streaming
 See details [here](https://docs.uiza.io/#get-status-publish).
 
@@ -404,6 +421,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "progress": 0,
@@ -412,6 +430,7 @@ Example Response
 ```
 
 ## Get AWS upload key
+
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity
 See details [here](https://docs.uiza.io/#get-aws-upload-key).
 
@@ -434,6 +453,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "temp_expire_at": 1533658598,

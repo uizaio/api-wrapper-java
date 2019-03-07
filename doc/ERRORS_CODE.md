@@ -1,4 +1,5 @@
-## Errors Code
+# Errors Code
+
 Uiza uses conventional HTTP response codes to indicate the success or failure of an API request.
 In general: Codes in the `2xx` range indicate success.
 Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.).
@@ -7,6 +8,7 @@ Codes in the `5xx` range indicate an error with Uiza's servers.
 See details [here](https://docs.uiza.io/#errors-code).
 
 ## HTTP status code summary
+
 | Error Code                  | Detail                                                                    |
 | ---------------------------:|:--------------------------------------------------------------------------|
 | 200 - OK                    | Everything worked as expected.                                            |
@@ -18,6 +20,7 @@ See details [here](https://docs.uiza.io/#errors-code).
 | 503 - Service Unavailable   | The server is overloaded or down for maintenance.                         |
 
 ## Exception types
+
 | Exception Type                      | Detail                                                                    |
 | -----------------------------------:|:--------------------------------------------------------------------------|
 | 400 - BadRequestException           | The request was unacceptable, often due to missing a required parameter.  |
@@ -30,9 +33,11 @@ See details [here](https://docs.uiza.io/#errors-code).
 | 5xx - ServerException               | The server is aware that it has encountered an error.                     |
 
 ## Handling exceptions
+
 Our API libraries raise exceptions for many reasons, such as a invalid parameters, authentication errors, and network unavailability. We recommend writing code that gracefully handles all possible API exceptions.
 
 ### Example Request
+
 ```java
   try {
     // Use Uiza's library to make requests

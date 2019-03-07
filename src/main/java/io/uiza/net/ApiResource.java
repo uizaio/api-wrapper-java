@@ -2,15 +2,16 @@ package io.uiza.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import io.uiza.Uiza;
 import io.uiza.exception.UizaException;
 
 public abstract class ApiResource {
-
-  public static final String CHARSET = "UTF-8";
 
   private static UizaResponseGetter uizaResponseGetter = new MainUizaResponseGetter();
   private static final String API_PUBLIC_V3_PATH = "api/public/v3";
@@ -26,11 +27,11 @@ public abstract class ApiResource {
   /**
    * Build request URL based on API operations
    *
-   * @param path_extension The path extension depends on each API operation
-   * @return the base url of each API operation request
+   * @param pathExtension The path extension depends on each API operation
+   * @return the base URL of each API operation request
    */
-  public static String buildRequestURL(String path_extension) {
-    return String.format("%s/%s/%s", Uiza.apiDomain, API_PUBLIC_V3_PATH, path_extension);
+  public static String buildRequestURL(String pathExtension) {
+    return String.format("%s/%s/%s", Uiza.apiDomain, API_PUBLIC_V3_PATH, pathExtension);
   }
 
   /**
@@ -40,7 +41,8 @@ public abstract class ApiResource {
     if (str == null) {
       return null;
     } else {
-      return URLEncoder.encode(str, CHARSET).replaceAll("%5B", "[").replaceAll("%5D", "]");
+      return URLEncoder.encode(str, StandardCharsets.UTF_8.toString()).replaceAll("%5B", "[")
+          .replaceAll("%5D", "]");
     }
   }
 
@@ -48,7 +50,7 @@ public abstract class ApiResource {
    * Create a request with a normal request type
    *
    * @param method The request method (GET, POST, PUT, DELETE)
-   * @param url The base url of a request
+   * @param url The base URL of a request
    * @param params A Map object of parameters
    * @return response of the request
    */

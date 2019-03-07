@@ -2,13 +2,19 @@ package io.uiza.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
 import io.uiza.net.ApiResource;
 import io.uiza.net.util.ErrorMessage;
 
+/**
+ * This API wrapper allows you to retrieve an information for Uiza to your server, so you can have a
+ * trigger notice about an entity is upload completed and .
+ */
 public class Callback extends ApiResource {
 
   private static final String CLASS_DEFAULT_PATH = "media/entity/callback";
@@ -21,6 +27,8 @@ public class Callback extends ApiResource {
    * Setup a callback to your server when an entity is completed for upload or public.
    *
    * @param callbackParams a Map object storing key-value pairs of request parameter
+   * @return created callback JSON object
+   * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> callbackParams) throws UizaException {
     JsonElement response =
@@ -33,8 +41,9 @@ public class Callback extends ApiResource {
   /**
    * Retrieves the details of an existing callback.
    *
-   * @param id An id of callback to retrieve
-   *
+   * @param id An id of a callback to retrieve
+   * @return a callback JSON object with matched id
+   * @throws UizaException
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
@@ -51,11 +60,12 @@ public class Callback extends ApiResource {
   }
 
   /**
-   * Setup a callback to your server when an entity is completed for upload or public.
+   * Update a callback to your server when an entity is completed for upload or public.
    *
-   * @param id An id of callback to update
+   * @param id An id of a callback to update
    * @param callbackParams a Map object storing key-value pairs of request parameter
-   *
+   * @return updated callback JSON object
+   * @throws UizaException
    */
   public static JsonObject update(String id, Map<String, Object> callbackParams)
       throws UizaException {
@@ -71,8 +81,9 @@ public class Callback extends ApiResource {
   /**
    * Delete an existing callback.
    *
-   * @param id An id of callback to delete
-   *
+   * @param id An id of a callback to delete
+   * @return id of the deleted callback
+   * @throws UizaException
    */
   public static JsonObject delete(String id) throws UizaException {
     Map<String, Object> callbackParams = new HashMap<>();

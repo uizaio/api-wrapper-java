@@ -3,9 +3,9 @@ package io.uiza.exception;
 public class UizaException extends Exception {
 
   private static final long serialVersionUID = 1L;
-  private String requestId;
-  private Integer statusCode;
-  private String descriptionLink;
+  private final String requestId;
+  private final Integer statusCode;
+  private final String descriptionLink;
 
   public UizaException(String message, String requestId, Integer statusCode) {
     this(message, requestId, statusCode, null);

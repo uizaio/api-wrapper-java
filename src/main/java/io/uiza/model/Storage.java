@@ -2,14 +2,20 @@ package io.uiza.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
 import io.uiza.net.ApiResource;
 import io.uiza.net.util.ErrorMessage;
 
+/**
+ * This API wrapper helps you adding storage (FTP, AWS S3) with UIZA. After synced, you can select
+ * your content easier from your storage to create entity.
+ */
 public class Storage extends ApiResource {
 
   private static final String CLASS_DEFAULT_PATH = "media/storage";
@@ -34,10 +40,12 @@ public class Storage extends ApiResource {
   }
 
   /**
-   * You can sync your storage (FTP, AWS S3) with UIZA.
-   * After sync, you can select your content easier from your storage to create entity.
+   * You can sync your storage (FTP, AWS S3) with UIZA. After sync, you can select your content
+   * easier from your storage to create entity.
    *
    * @param storageParams a Map object storing key-value pairs of request parameter
+   * @return created storage JSON object
+   * @throws UizaException
    */
   public static JsonObject add(Map<String, Object> storageParams) throws UizaException {
     JsonElement response =
@@ -48,10 +56,11 @@ public class Storage extends ApiResource {
   }
 
   /**
-   * Get information of your added storage (FTP or AWS S3)
+   * Get information of your added storage (FTP or AWS S3).
    *
-   * @param id An id of storage to retrieve
-   *
+   * @param id An id of a storage to retrieve
+   * @return a storage JSON object with matched id
+   * @throws UizaException
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
@@ -70,9 +79,10 @@ public class Storage extends ApiResource {
   /**
    * Update storage's information.
    *
-   * @param id An id of storage to update
+   * @param id An id of a storage to update
    * @param storageParams a Map object storing key-value pairs of request parameter
-   *
+   * @return updated storage JSON object
+   * @throws UizaException
    */
   public static JsonObject update(String id, Map<String, Object> storageParams)
       throws UizaException {
@@ -86,10 +96,11 @@ public class Storage extends ApiResource {
   }
 
   /**
-   * Remove storage that added to Uiza
+   * Remove storage that added to Uiza.
    *
-   * @param id An id of storage to remove
-   *
+   * @param id An id of a storage to remove
+   * @return id of the deleted storage
+   * @throws UizaException
    */
   public static JsonObject remove(String id) throws UizaException {
     Map<String, Object> storageParams = new HashMap<>();
