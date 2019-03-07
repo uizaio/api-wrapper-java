@@ -1,4 +1,7 @@
+# Callback
+
 ## Create a callback
+
 Setup a callback to your server when an entity is completed for upload or public.
 See details [here](https://docs.uiza.io/#create-a-callback).
 
@@ -25,6 +28,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
@@ -41,6 +45,7 @@ Example Response
 ```
 
 ## Retrieve a callback
+
 Retrieves the details of an existing callback.
 See details [here](https://docs.uiza.io/#retrieve-a-callback).
 
@@ -63,6 +68,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
@@ -79,6 +85,7 @@ Example Response
 ```
 
 ## Update a callback
+
 Setup a callback to your server when an entity is completed for upload or public.
 See details [here](https://docs.uiza.io/#update-a-callback).
 
@@ -105,6 +112,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
@@ -121,6 +129,7 @@ Example Response
 ```
 
 ## Delete a callback
+
 Delete an existing callback.
 See details [here](https://docs.uiza.io/#delete-a-callback).
 
@@ -143,6 +152,7 @@ try {
 ```
 
 Example Response
+
 ```java
 {
   "id": "c54f115f-87b4-420c-9e52-e8dffe32e022"

@@ -2,6 +2,7 @@ package io.uiza.net.util;
 
 import java.util.List;
 import java.util.Map;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -26,18 +27,30 @@ public class UizaResponse {
     this.headers = new UizaHeaders(headers);
   }
 
+  /**
+   * @return the status code of API HTTP response
+   */
   public int code() {
     return code;
   }
 
+  /**
+   * @return the body of API HTTP response
+   */
   public String body() {
     return body;
   }
 
+  /**
+   * @return headers of API HTTP response
+   */
   public UizaHeaders headers() {
     return headers;
   }
 
+  /**
+   * @return request ID through API HTTP response
+   */
   public String requestId() {
     if (body == null) {
       return null;

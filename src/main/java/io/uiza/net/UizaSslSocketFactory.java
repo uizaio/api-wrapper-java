@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -21,8 +22,8 @@ public class UizaSslSocketFactory extends SSLSocketFactory {
   private final boolean tlsv11Supported;
   private final boolean tlsv12Supported;
 
-  private static final String TLSv11Proto = "TLSv1.1";
-  private static final String TLSv12Proto = "TLSv1.2";
+  private static final String TLS_V11 = "TLSv1.1";
+  private static final String TLS_V12 = "TLSv1.2";
 
   /**
    * Constructs a new SSL socket factory.
@@ -41,9 +42,9 @@ public class UizaSslSocketFactory extends SSLSocketFactory {
     }
 
     for (String proto : supportedProtos) {
-      if (proto.equals(TLSv11Proto)) {
+      if (proto.equals(TLS_V11)) {
         tlsv11Supported = true;
-      } else if (proto.equals(TLSv12Proto)) {
+      } else if (proto.equals(TLS_V12)) {
         tlsv12Supported = true;
       }
     }
@@ -61,10 +62,10 @@ public class UizaSslSocketFactory extends SSLSocketFactory {
 
     Set<String> protos = new HashSet<>(Arrays.asList(sslSock.getEnabledProtocols()));
     if (tlsv11Supported) {
-      protos.add(TLSv11Proto);
+      protos.add(TLS_V11);
     }
     if (tlsv12Supported) {
-      protos.add(TLSv12Proto);
+      protos.add(TLS_V12);
     }
 
     sslSock.setEnabledProtocols(protos.toArray(new String[0]));
