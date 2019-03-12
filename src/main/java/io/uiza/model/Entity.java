@@ -32,6 +32,9 @@ public class Entity extends ApiResource {
     @SerializedName("ftp")
     FTP("ftp"),
 
+    @SerializedName("s3-uiza-dvr")
+    S3_UIZA_DVR("s3-uiza-dvr"),
+
     @SerializedName("s3-uiza")
     S3_UIZA("s3-uiza"),
 
@@ -50,7 +53,51 @@ public class Entity extends ApiResource {
     }
   }
 
+  public enum Type {
+    @SerializedName("vod")
+    VOD("vod"),
+
+    @SerializedName("aod")
+    AOD("aod");
+
+    private final String val;
+
+    private Type(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
+  public enum ReadyToPublish {
+    @SerializedName("on")
+    ON("on"),
+
+    @SerializedName("off")
+    OFF("off");
+
+    private final String val;
+
+    private ReadyToPublish(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
   public enum PublishStatus {
+    @SerializedName("init")
+    INIT("init"),
+
+    @SerializedName("processing")
+    PROCESSING("processing"),
+
     @SerializedName("queue")
     QUEUE("queue"),
 

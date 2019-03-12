@@ -50,10 +50,12 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
   public JsonElement request(RequestMethod method, String url, Map<String, Object> params,
       RequestType type) throws UizaException {
     Gson gsone = new Gson();
-    JsonObject jsonParams = new JsonObject();
-    if (params != null) {
-      jsonParams = gsone.toJsonTree(params).getAsJsonObject();
+    JsonObject jsonParams;
+    if (params == null) {
+      params = new HashMap<>();
     }
+    params.put("appId", Uiza.appId);
+    jsonParams = gsone.toJsonTree(params).getAsJsonObject();
 
     return makeRequest(method, url, jsonParams, type);
   }
@@ -265,7 +267,7 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept-Charset", StandardCharsets.UTF_8.toString());
     headers.put("Authorization", Uiza.apiKey);
-    headers.put("Uiza-Version", Uiza.apiVersion);
+    headers.put("Uiza-Version", Uiza.getApiVersion());
     headers.put("Content-Type", "application/json");
 
     return headers;

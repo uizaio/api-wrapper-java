@@ -14,7 +14,7 @@ import io.uiza.exception.UizaException;
 public abstract class ApiResource {
 
   private static UizaResponseGetter uizaResponseGetter = new MainUizaResponseGetter();
-  private static final String API_PUBLIC_V3_PATH = "api/public/v3";
+  private static final String API_PUBLIC_V4_PATH = "api/public/v4";
 
   public enum RequestMethod {
     GET, POST, PUT, DELETE
@@ -31,7 +31,7 @@ public abstract class ApiResource {
    * @return the base URL of each API operation request
    */
   public static String buildRequestURL(String pathExtension) {
-    return String.format("%s/%s/%s", Uiza.apiDomain, API_PUBLIC_V3_PATH, pathExtension);
+    return String.format("%s/%s/%s", Uiza.getApiDomain(), API_PUBLIC_V4_PATH, pathExtension);
   }
 
   /**
