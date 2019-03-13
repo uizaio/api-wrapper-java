@@ -14,8 +14,8 @@ import io.uiza.net.ApiResource;
 import io.uiza.net.util.ErrorMessage;
 
 /**
- * This API wrapper helps you managing your entities easier by splitting category into 3 types:
- * folder, playlist and tag.
+ * This API wrapper helps you managing your entities easier by splitting category into 4 types:
+ * folder, playlist, category, and tag.
  */
 public class Category extends ApiResource {
 
@@ -29,6 +29,9 @@ public class Category extends ApiResource {
 
     @SerializedName("playlist")
     PLAYLIST("playlist"),
+
+    @SerializedName("category")
+    CATEGORY("category"),
 
     @SerializedName("tag")
     TAG("tag");
@@ -47,7 +50,7 @@ public class Category extends ApiResource {
 
   /**
    * Create category for entity for easier management. Category use to group all the same entities
-   * into a group (like folder, playlist, or tag).
+   * into a group (like folder, playlist, category, or tag).
    *
    * @param categoryParams a Map object storing key-value pairs of request parameter
    * @return created category JSON object
