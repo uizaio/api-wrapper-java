@@ -106,7 +106,12 @@ public class MainUizaResponseGetter implements UizaResponseGetter {
         raiseMalformedJsonError(response.body(), responseCode, response.requestId());
       }
 
-      return data;
+      if (data == null || data.isJsonNull()) {
+        throw new UizaException(responseBody.get("message").toString(), response.requestId(),
+            responseCode);
+      } else {
+        return data;
+      }
     } finally {
       if (allowedToSetTtl && originalDnsCacheTtl != null) {
         java.security.Security.setProperty(DNS_CACHE_TTL_PROPERTY_NAME, originalDnsCacheTtl);

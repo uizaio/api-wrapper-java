@@ -44,6 +44,37 @@ public class Live extends ApiResource {
     }
   }
 
+  public enum Status {
+    @SerializedName("init")
+    INIT("init"),
+
+    @SerializedName("start")
+    START("start"),
+
+    @SerializedName("stop")
+    STOP("stop"),
+
+    @SerializedName("error")
+    ERROR("error"),
+
+    @SerializedName("in-process")
+    IN_PROCESS("in-process"),
+
+    @SerializedName("not-streaming")
+    NOT_STREAMING("not-streaming");
+
+    private final String val;
+
+    private Status(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
   public enum Encode {
     @SerializedName("0")
     NO_ENCODE(0),
@@ -72,6 +103,24 @@ public class Live extends ApiResource {
     private final int val;
 
     private Dvr(int val) {
+      this.val = val;
+    }
+
+    public int getVal() {
+      return val;
+    }
+  }
+
+  public enum Drm {
+    @SerializedName("0")
+    NO_RECORD(0),
+
+    @SerializedName("1")
+    ACTIVE_RECORD(1);
+
+    private final int val;
+
+    private Drm(int val) {
       this.val = val;
     }
 
