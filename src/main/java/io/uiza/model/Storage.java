@@ -24,6 +24,12 @@ public class Storage extends ApiResource {
     @SerializedName("ftp")
     FTP("ftp"),
 
+    @SerializedName("s3-compatible")
+    S3_COMPATIBLE("s3-compatible"),
+
+    @SerializedName("s3-uiza")
+    S3_UIZA("s3-uiza"),
+
     @SerializedName("s3")
     S3("s3");
 
