@@ -3,14 +3,14 @@
 ## Create category
 
 Create category for entity for easier management.
-Category use to group all the same entities into a group (like Folder/ playlist/or tag).
-See details [here](https://docs.uiza.io/#create-category).
+Category use to group all the same entities into a group (like folder/playlist/category or tag).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_metadata).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
@@ -48,13 +48,13 @@ Example Response
 ## Retrieve category
 
 Get detail of category.
-See details [here](https://docs.uiza.io/#retrieve-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject category = Category.retrieve("<category-id>");
@@ -88,13 +88,13 @@ Example Response
 ## Retrieve category list
 
 Get all categories.
-See details [here](https://docs.uiza.io/#retrieve-category-list).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonArray categories = Category.list();
@@ -143,13 +143,13 @@ Example Response
 ## Update category
 
 Update information of category.
-See details [here](https://docs.uiza.io/#update-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-update_metadata).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
@@ -187,13 +187,13 @@ Example Response
 ## Delete category
 
 Delete category.
-See details [here](https://docs.uiza.io/#delete-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_metadata).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject category = Category.delete("<category-id>");
@@ -218,13 +218,13 @@ Example Response
 ## Create category relation
 
 Add relation for entity and category.
-See details [here](https://docs.uiza.io/#create-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_n_metadata_for_one_entiy).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("entityId", "<entity-id>");
@@ -263,13 +263,13 @@ Example Response
 ## Delete category relation
 
 Delete relation for entity and category.
-See details [here](https://docs.uiza.io/#delete-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_n_metadata_for_one_entiy).
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("entityId", "<entity-id>");
