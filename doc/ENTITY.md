@@ -3,13 +3,13 @@
 ## Create entity
 
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
-See details [here](https://docs.uiza.io/#create-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Sample Video");
@@ -65,13 +65,13 @@ Example Response
 ## Retrieve entity
 
 Get detail of entity including all information of entity.
-See details [here](https://docs.uiza.io/#retrieve-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject entity = Entity.retrieve("<entity-id>");
@@ -118,13 +118,13 @@ Example Response
 ## List all entities
 
 Get list of entities including all detail.
-See details [here](https://docs.uiza.io/#list-all-entities).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("publishToCdn", PublishStatus.NOT_READY.toString());
@@ -201,13 +201,13 @@ Example Response
 ## Update entity
 
 Update entity's information.
-See details [here](https://docs.uiza.io/#update-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-update_entity).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Name edited");
@@ -258,13 +258,13 @@ Example Response
 ## Delete entity
 
 Delete entity.
-See details [here](https://docs.uiza.io/#delete-an-entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-delete_entity).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject entity = Entity.delete("<entity-id>");
@@ -294,8 +294,8 @@ See details [here](https://docs.uiza.io/#search-entity).
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonArray entities = Entity.search("keyword");
@@ -368,13 +368,13 @@ Example Response
 ## Publish entity to CDN
 
 Publish entity to CDN, use for streaming
-See details [here](https://docs.uiza.io/#publish-entity-to-cdn).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-post_transcode_standard).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject response = Entity.publish("<entity-id>");
@@ -400,13 +400,13 @@ Example Response
 ## Get status publish
 
 Publish entity to CDN, use for streaming
-See details [here](https://docs.uiza.io/#get-status-publish).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_publish_cdn_status).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject response = Entity.getStatusPublish("<entity-id>");
@@ -432,13 +432,13 @@ Example Response
 ## Get AWS upload key
 
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity
-See details [here](https://docs.uiza.io/#get-aws-upload-key).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-App-get_aws_key).
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject response = Entity.getAwsUploadKey();

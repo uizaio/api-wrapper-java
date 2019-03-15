@@ -3,14 +3,14 @@
 ## Add a storage
 
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
-After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
-See details [here](https://docs.uiza.io/#add-a-storage).
+After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-create_storage).
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "FTP Uiza");
@@ -56,13 +56,13 @@ Example Response
 ## Retrieve a storage
 
 Get information of your added storage (FTP or AWS S3).
-See details [here](https://docs.uiza.io/#retrieve-a-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-list_storage).
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject storage = Storage.retrieve("<storage-id>");
@@ -102,13 +102,13 @@ Example Response
 ## Update storage
 
 Update storage's information.
-See details [here](https://docs.uiza.io/#update-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-update_storage).
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "FTP Uiza");
@@ -154,13 +154,13 @@ Example Response
 ## Remove storage
 
 Remove storage that added to Uiza.
-See details [here](https://docs.uiza.io/#remove-storage).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-delete_storage).
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject storage = Storage.remove("<storage-id>");

@@ -3,13 +3,13 @@
 ## Create a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](https://docs.uiza.io/#create-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-create_entity_callback).
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("url", "<your-server-callback>");
@@ -47,13 +47,13 @@ Example Response
 ## Retrieve a callback
 
 Retrieves the details of an existing callback.
-See details [here](https://docs.uiza.io/#retrieve-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-get_entity_callback).
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject callback = Callback.retrieve("<callback-id>");
@@ -87,13 +87,13 @@ Example Response
 ## Update a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](https://docs.uiza.io/#update-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-update_entity_callback).
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("url", "<your-server-callback>");
@@ -131,13 +131,13 @@ Example Response
 ## Delete a callback
 
 Delete an existing callback.
-See details [here](https://docs.uiza.io/#delete-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-delete_entity_callback).
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.appId = "<YOUR_APP_ID>";
 
 try {
   JsonObject callback = Callback.delete("<callback-id>");
