@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is documents the public API for Uiza version 3.0.
+This is documents the public API for Uiza version 4.0.
 
 The Uiza API is organized around RESTful standard.
 Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors.
@@ -22,7 +22,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.uiza</groupId>
   <artifactId>uiza-java</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
@@ -66,8 +66,8 @@ See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Stor
 
 These APIs used to create and manage live streaming event.
 
-* When a Live is not start : it's named as `Event`.
-* When have an `Event` , you can start it : it's named as `Feed`.
+- When a Live is not start : it's named as `Event`.
+- When have an `Event` , you can start it : it's named as `Feed`.
 
 You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/LIVE.md).
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live).
@@ -78,6 +78,17 @@ Callback used to retrieve an information for Uiza to your server, so you can hav
 
 You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CALLBACK.md).
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback).
+
+## User Management
+
+You can manage user with APIs user. Uiza have 2 levels of user:
+
+`Admin` - This account will have the highest priority, can have permission to create & manage users.
+
+`User` - This account level is under Admin level. It only manages APIs that relates to this account.
+
+You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/USER.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User).
 
 ## Errors Code
 
