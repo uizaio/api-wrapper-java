@@ -15,8 +15,9 @@ public interface UizaResponseGetter {
    * @param url The base URL of a request
    * @param params The Map object of request parameters
    * @param type The type of a request (NORMAL, MULTIPART)
+   * @param descriptionLink The description link corresponding to the API request
    * @return response of an API request
    */
   JsonElement request(RequestMethod method, String url, Map<String, Object> params,
-      RequestType type) throws UizaException;
+      RequestType type, String descriptionLink) throws UizaException;
 }
