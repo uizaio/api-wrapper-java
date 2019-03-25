@@ -10,3 +10,4 @@ target
 
 # compiler output
 bin/
+src/main/java/run

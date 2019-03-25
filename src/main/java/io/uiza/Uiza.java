@@ -4,14 +4,15 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 
 public abstract class Uiza {
+
   private static final int DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
   private static final int DEFAULT_READ_TIMEOUT = 80 * 1000;
 
-  public static final String VERSION = "1.1.0";
+  public static final String VERSION = "1.1.1";
 
-  public static volatile String apiKey;
+  public static volatile String authorization;
   public static volatile String apiVersion = VERSION;
-  public static volatile String apiDomain;
+  public static volatile String workspaceApiDomain;
 
   private static volatile int connectTimeout = -1;
   private static volatile int readTimeout = -1;
