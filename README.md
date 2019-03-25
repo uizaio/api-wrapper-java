@@ -31,7 +31,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.uiza</groupId>
   <artifactId>uiza-java</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
@@ -41,27 +41,27 @@ Please see the [Java API docs](https://docs.uiza.io/) for the most up-to-date do
 
 ## Usage
 
-The library needs to be configured with your account's `API_DOMAIN` and `API_KEY`.
+The library needs to be configured with your account's `workspaceApiDomain` and `authorization`.
 See details [here](https://docs.uiza.io/#authentication).
-Set `Uiza.apiDomain` and `Uiza.apiKey` with your values:
+Set `Uiza.workspaceApiDomain` and `Uiza.authorization` with your values:
 
 ```java
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "<your-workspace-api-domain.uiza.co>";
+Uiza.authorization = "<your-authorization>";
 ```
 
 ## Entity
 
 These below APIs used to take action with your media files (we called Entity).
 
-You can see all available APIs for entity in [ENTITY.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/ENTITY.md).
+You can see all available APIs for entity in [ENTITY.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/ENTITY.md).
 See details [here](https://docs.uiza.io/#video).
 
 ## Category
 
 Category has been splits into 3 types: `folder`, `playlist` and `tag`. These will make the management of entity more easier.
 
-You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CATEGORY.md).
+You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/CATEGORY.md).
 See details [here](https://docs.uiza.io/#category).
 
 ## Storage
@@ -69,7 +69,7 @@ See details [here](https://docs.uiza.io/#category).
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
 After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
 
-You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/STORAGE.md).
+You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/STORAGE.md).
 See details [here](https://docs.uiza.io/#storage).
 
 ## Live Streaming
@@ -79,14 +79,14 @@ These APIs used to create and manage live streaming event.
 * When a Live is not start : it's named as `Event`.
 * When have an `Event` , you can start it : it's named as `Feed`.
 
-You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/LIVE.md).
+You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/LIVE.md).
 See details [here](https://docs.uiza.io/#live-streaming).
 
 ## Callback
 
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
-You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CALLBACK.md).
+You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/CALLBACK.md).
 See details [here](https://docs.uiza.io/#callback).
 
 ## Analytic
@@ -94,7 +94,7 @@ See details [here](https://docs.uiza.io/#callback).
 Monitor the four key dimensions of video QoS: playback failures, startup time, rebuffering, and video quality.
 These 15 metrics help you track playback performance, so your team can know exactly what’s going on.
 
-You can see all available APIs for analytic in [ANALYTIC.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/ANALYTIC.md).
+You can see all available APIs for analytic in [ANALYTIC.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/ANALYTIC.md).
 See details [here](https://docs.uiza.io/#analytic).
 
 ## User Management
@@ -105,7 +105,7 @@ You can manage user with APIs user. Uiza have 2 levels of user:
 
 `User` - This account level is under Admin level. It only manages APIs that relates to this account.
 
-You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/USER.md).
+You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/master_v3/doc/USER.md).
 See details [here](https://docs.uiza.io/#user-management).
 
 ## Embed Metadata
@@ -121,7 +121,7 @@ In general: Codes in the `2xx` range indicate success.
 Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.).
 Codes in the `5xx` range indicate an error with Uiza's servers.
 
-See details [here](https://github.com/uizaio/api-wrapper-ruby/blob/develop/doc/ERRORS_CODE.md).
+See details [here](https://github.com/uizaio/api-wrapper-ruby/blob/master_v3/doc/ERRORS_CODE.md).
 
 ## Contributing
 

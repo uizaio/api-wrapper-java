@@ -9,7 +9,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.google.gson.JsonObject;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.ClientException;
 import io.uiza.exception.InternalServerException;
@@ -20,6 +22,7 @@ import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
 import io.uiza.model.User;
+import io.uiza.model.User.DescriptionLink;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -41,7 +44,9 @@ public class LogoutUserTest extends TestBase {
     JsonObject expected = new JsonObject();
     expected.addProperty("message", "Logout success");
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenReturn(expected);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenReturn(expected);
     Mockito.when(ApiResource.getId(Mockito.any())).thenCallRealMethod();
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
@@ -51,9 +56,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+        DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -62,9 +70,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, "", 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, "", 401,
+        DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -73,9 +84,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, "", 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, "", 404,
+        DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -84,9 +98,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, "", 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, "", 422,
+        DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -95,9 +112,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, "", 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, "", 500,
+        DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -106,10 +126,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
-    UizaException e =
-        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, "", 503);
+    UizaException e = new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, "",
+        503, DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -118,9 +140,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, "", 450);
+    UizaException e =
+        new ClientException(ErrorMessage.CLIENT_ERROR, "", 450, DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -129,9 +154,12 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, "", 550);
+    UizaException e =
+        new ServerException(ErrorMessage.SERVER_ERROR, "", 550, DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -140,9 +168,11 @@ public class LogoutUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException("", "", 300);
+    UizaException e = new UizaException("", "", 300, DescriptionLink.LOGOUT.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, null)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.POST, TEST_URL, null, DescriptionLink.LOGOUT.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 

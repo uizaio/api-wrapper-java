@@ -19,6 +19,27 @@ public class Callback extends ApiResource {
 
   private static final String CLASS_DEFAULT_PATH = "media/entity/callback";
 
+  public enum DescriptionLink {
+    CREATE("https://docs.uiza.io/#create-a-callback"),
+
+    RETRIEVE("https://docs.uiza.io/#retrieve-a-callback"),
+
+    UPDATE("https://docs.uiza.io/#update-a-callback"),
+
+    DELETE("https://docs.uiza.io/#delete-a-callback");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
   public enum Method {
     GET, POST, PUT;
   }
@@ -31,8 +52,8 @@ public class Callback extends ApiResource {
    * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> callbackParams) throws UizaException {
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), callbackParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH),
+        callbackParams, DescriptionLink.CREATE.toString());
     String id = getId((JsonObject) checkResponseType(response));
 
     return retrieve(id);
@@ -47,14 +68,15 @@ public class Callback extends ApiResource {
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
-      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+          DescriptionLink.RETRIEVE.toString());
     }
 
     Map<String, Object> callbackParams = new HashMap<>();
     callbackParams.put("id", id);
 
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), callbackParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        callbackParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -73,7 +95,8 @@ public class Callback extends ApiResource {
       callbackParams = new HashMap<>();
     }
     callbackParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), callbackParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), callbackParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
   }
@@ -88,8 +111,8 @@ public class Callback extends ApiResource {
   public static JsonObject delete(String id) throws UizaException {
     Map<String, Object> callbackParams = new HashMap<>();
     callbackParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), callbackParams);
+    JsonElement response = request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH),
+        callbackParams, DescriptionLink.DELETE.toString());
 
     return checkResponseType(response);
   }

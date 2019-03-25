@@ -2,6 +2,7 @@ package io.uiza.test.model.user;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.google.gson.JsonObject;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.ClientException;
 import io.uiza.exception.InternalServerException;
@@ -22,6 +25,7 @@ import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
 import io.uiza.model.User;
+import io.uiza.model.User.DescriptionLink;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -50,7 +54,8 @@ public class ChangePasswordUserTest extends TestBase {
     JsonObject expected = new JsonObject();
     expected.addProperty("result", "ok");
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenReturn(expected);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
     JsonObject actual = User.changePassword(USER_ID, nullParams);
@@ -62,7 +67,8 @@ public class ChangePasswordUserTest extends TestBase {
     JsonObject expected = new JsonObject();
     expected.addProperty("result", "ok");
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenReturn(expected);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
     JsonObject actual = User.changePassword(USER_ID, params);
@@ -71,9 +77,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, USER_ID, 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, USER_ID, 400,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -82,9 +90,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, USER_ID, 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, USER_ID, 401,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -93,9 +103,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, USER_ID, 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, USER_ID, 404,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -104,9 +116,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, USER_ID, 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, USER_ID, 422,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -115,9 +129,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, USER_ID, 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, USER_ID, 500,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -126,10 +142,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
-    UizaException e =
-        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, USER_ID, 503);
+    UizaException e = new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR,
+        USER_ID, 503, DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -138,9 +155,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, USER_ID, 450);
+    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, USER_ID, 450,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -149,9 +168,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, USER_ID, 550);
+    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, USER_ID, 550,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -160,9 +181,11 @@ public class ChangePasswordUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException(USER_ID, USER_ID, 300);
+    UizaException e =
+        new UizaException("", USER_ID, 300, DescriptionLink.CHANGE_PASSWORD.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params,
+        DescriptionLink.CHANGE_PASSWORD.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
