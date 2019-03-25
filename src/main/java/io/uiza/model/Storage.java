@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
@@ -20,17 +19,34 @@ public class Storage extends ApiResource {
 
   private static final String CLASS_DEFAULT_PATH = "media/storage";
 
+  public enum DescriptionLink {
+    ADD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-create_storage"),
+
+    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-list_storage"),
+
+    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-update_storag"),
+
+    REMOVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-delete_storage");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
   public enum StorageType {
-    @SerializedName("ftp")
     FTP("ftp"),
 
-    @SerializedName("s3-compatible")
     S3_COMPATIBLE("s3-compatible"),
 
-    @SerializedName("s3-uiza")
     S3_UIZA("s3-uiza"),
 
-    @SerializedName("s3")
     S3("s3");
 
     private final String val;
@@ -54,8 +70,8 @@ public class Storage extends ApiResource {
    * @throws UizaException
    */
   public static JsonObject add(Map<String, Object> storageParams) throws UizaException {
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH),
+        storageParams, DescriptionLink.ADD.toString());
     String id = getId((JsonObject) checkResponseType(response));
 
     return retrieve(id);
@@ -76,8 +92,8 @@ public class Storage extends ApiResource {
     Map<String, Object> storageParams = new HashMap<>();
     storageParams.put("id", id);
 
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        storageParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -96,7 +112,8 @@ public class Storage extends ApiResource {
       storageParams = new HashMap<>();
     }
     storageParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), storageParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
   }
@@ -111,8 +128,8 @@ public class Storage extends ApiResource {
   public static JsonObject remove(String id) throws UizaException {
     Map<String, Object> storageParams = new HashMap<>();
     storageParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), storageParams);
+    JsonElement response = request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH),
+        storageParams, DescriptionLink.REMOVE.toString());
 
     return checkResponseType(response);
   }

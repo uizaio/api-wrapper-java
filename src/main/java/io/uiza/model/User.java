@@ -6,7 +6,6 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
@@ -20,15 +19,34 @@ public class User extends ApiResource {
 
   private static final String PATH_EXTENSION_FORMAT = "%s/%s";
   private static final String CLASS_DEFAULT_PATH = "admin/user";
-  private static final String CHANGE_PASSWORD_PATH = "changePassword";
+  private static final String CHANGE_PASSWORD_PATH = "changepassword";
   private static final String LOGOUT_PATH = "logout";
 
-  public enum Status {
-    @SerializedName("0")
-    DEACTIVE(0),
+  public enum DescriptionLink {
+    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
 
-    @SerializedName("1")
-    ACTIVE(1);
+    LIST("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
+
+    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo"),
+
+    CHANGE_PASSWORD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword"),
+
+    LOGOUT("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
+  public enum Status {
+    DEACTIVE(0), ACTIVE(1);
 
     private final int val;
 
@@ -51,13 +69,14 @@ public class User extends ApiResource {
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
-      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+          DescriptionLink.RETRIEVE.toString());
     }
 
     Map<String, Object> userParams = new HashMap<>();
     userParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        userParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -73,10 +92,8 @@ public class User extends ApiResource {
    * @throws UizaException
    */
   public static JsonArray list() throws UizaException {
-    Map<String, Object> userParams = new HashMap<>();
-    userParams.put("id", "");
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null,
+        DescriptionLink.LIST.toString());
 
     return checkResponseType(response);
   }
@@ -95,7 +112,8 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
   }
@@ -115,8 +133,9 @@ public class User extends ApiResource {
     if (userParams == null) {
       userParams = new HashMap<>();
     }
-    userParams.put("userId", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), userParams);
+    userParams.put("id", id);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), userParams,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
     return checkResponseType(response);
   }
@@ -129,7 +148,8 @@ public class User extends ApiResource {
    */
   public static JsonObject logout() throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LOGOUT_PATH);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null,
+        DescriptionLink.LOGOUT.toString());
 
     return checkResponseType(response);
   }

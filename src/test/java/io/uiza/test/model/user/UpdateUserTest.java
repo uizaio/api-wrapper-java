@@ -25,6 +25,7 @@ import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
 import io.uiza.model.User;
+import io.uiza.model.User.DescriptionLink;
 import io.uiza.model.User.Status;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
@@ -60,8 +61,10 @@ public class UpdateUserTest extends TestBase {
     Map<String, Object> paramsOfRetrieve = new HashMap<>();
     paramsOfRetrieve.put("id", USER_ID);
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate)).thenReturn(expectedOfUpdate);
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve)).thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate,
+        DescriptionLink.UPDATE.toString())).thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve,
+        DescriptionLink.RETRIEVE.toString())).thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
     JsonObject actual = User.update(USER_ID, paramsOfUpdate);
@@ -87,8 +90,10 @@ public class UpdateUserTest extends TestBase {
     Map<String, Object> paramsOfRetrieve = new HashMap<>();
     paramsOfRetrieve.put("id", USER_ID);
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate)).thenReturn(expectedOfUpdate);
-    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve)).thenReturn(expectedOfRetrieve);
+    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, paramsOfUpdate,
+        DescriptionLink.UPDATE.toString())).thenReturn(expectedOfUpdate);
+    Mockito.when(ApiResource.request(RequestMethod.GET, TEST_URL, paramsOfRetrieve,
+        DescriptionLink.RETRIEVE.toString())).thenReturn(expectedOfRetrieve);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
     JsonObject actual = User.update(USER_ID, paramsOfUpdate);
@@ -97,9 +102,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, USER_ID, 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, USER_ID, 400,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -108,9 +116,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, USER_ID, 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, USER_ID, 401,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -119,9 +130,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, USER_ID, 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, USER_ID, 404,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -130,9 +144,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, USER_ID, 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, USER_ID, 422,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -141,9 +158,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, USER_ID, 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, USER_ID, 500,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -152,9 +172,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
-    UizaException e = new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, USER_ID, 503);
+    UizaException e = new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR,
+        USER_ID, 503, DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -163,9 +186,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, USER_ID, 450);
+    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, USER_ID, 450,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -174,9 +200,12 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, USER_ID, 550);
+    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, USER_ID, 550,
+        DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -185,9 +214,11 @@ public class UpdateUserTest extends TestBase {
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException(USER_ID, USER_ID, 300);
+    UizaException e = new UizaException("", USER_ID, 300, DescriptionLink.UPDATE.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.PUT, TEST_URL, params)).thenThrow(e);
+    Mockito.when(
+        ApiResource.request(RequestMethod.PUT, TEST_URL, params, DescriptionLink.UPDATE.toString()))
+        .thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
