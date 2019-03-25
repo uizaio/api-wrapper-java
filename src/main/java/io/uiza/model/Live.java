@@ -6,7 +6,6 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
@@ -25,12 +24,39 @@ public class Live extends ApiResource {
   private static final String RECORD_PATH = "dvr";
   private static final String VOD_PATH = "dvr/convert-to-vod";
 
-  public enum Mode {
-    @SerializedName("pull")
-    PULL("pull"),
+  public enum DescriptionLink {
+    CREATE("https://docs.uiza.io/#create-a-live-event"),
 
-    @SerializedName("push")
-    PUSH("push");
+    RETRIEVE("https://docs.uiza.io/#retrieve-a-live-event"),
+
+    UPDATE("https://docs.uiza.io/#update-a-live-event"),
+
+    START_FEED("https://docs.uiza.io/#start-a-live-feed"),
+
+    GET_VIEW("https://docs.uiza.io/#get-view-of-live-feed"),
+
+    STOP_FEED("https://docs.uiza.io/#stop-a-live-feed"),
+
+    LIST_RECORDED("https://docs.uiza.io/#list-all-recorded-files"),
+
+    DELETE("https://docs.uiza.io/#delete-a-record-file"),
+
+    CONVERT_TO_VOD("https://docs.uiza.io/#convert-into-vod");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
+  public enum Mode {
+    PULL("pull"), PUSH("push");
 
     private final String val;
 
@@ -45,11 +71,7 @@ public class Live extends ApiResource {
   }
 
   public enum Encode {
-    @SerializedName("0")
-    NO_ENCODE(0),
-
-    @SerializedName("1")
-    ENCODE(1);
+    NO_ENCODE(0), ENCODE(1);
 
     private final int val;
 
@@ -63,11 +85,7 @@ public class Live extends ApiResource {
   }
 
   public enum Dvr {
-    @SerializedName("0")
-    NO_RECORD(0),
-
-    @SerializedName("1")
-    ACTIVE_RECORD(1);
+    NO_RECORD(0), ACTIVE_RECORD(1);
 
     private final int val;
 
@@ -81,11 +99,7 @@ public class Live extends ApiResource {
   }
 
   public enum ResourceMode {
-    @SerializedName("single")
-    SINGLE("single"),
-
-    @SerializedName("redundant")
-    REDUNDANT("redundant");
+    SINGLE("single"), REDUNDANT("redundant");
 
     private final String val;
 
@@ -109,8 +123,8 @@ public class Live extends ApiResource {
    * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> liveParams) throws UizaException {
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), liveParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH),
+        liveParams, DescriptionLink.CREATE.toString());
     String id = getId((JsonObject) checkResponseType(response));
 
     return retrieve(id);
@@ -125,13 +139,14 @@ public class Live extends ApiResource {
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
-      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+          DescriptionLink.RETRIEVE.toString());
     }
 
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), liveParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        liveParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -149,7 +164,8 @@ public class Live extends ApiResource {
       liveParams = new HashMap<>();
     }
     liveParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), liveParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), liveParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
   }
@@ -166,7 +182,8 @@ public class Live extends ApiResource {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, FEED_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams,
+        DescriptionLink.START_FEED.toString());
 
     return checkResponseType(response);
   }
@@ -182,7 +199,8 @@ public class Live extends ApiResource {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LIVE_VIEW_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), liveParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), liveParams,
+        DescriptionLink.GET_VIEW.toString());
 
     return checkResponseType(response);
   }
@@ -198,7 +216,8 @@ public class Live extends ApiResource {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, FEED_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), liveParams);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), liveParams,
+        DescriptionLink.STOP_FEED.toString());
 
     return checkResponseType(response);
   }
@@ -212,7 +231,8 @@ public class Live extends ApiResource {
    */
   public static JsonArray listRecorded() throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, RECORD_PATH);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), null);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), null,
+        DescriptionLink.LIST_RECORDED.toString());
 
     return checkResponseType(response);
   }
@@ -228,8 +248,8 @@ public class Live extends ApiResource {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, RECORD_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(pathExtension), liveParams);
+    JsonElement response = request(RequestMethod.DELETE, buildRequestURL(pathExtension), liveParams,
+        DescriptionLink.DELETE.toString());
 
     return checkResponseType(response);
   }
@@ -245,7 +265,8 @@ public class Live extends ApiResource {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, VOD_PATH);
     Map<String, Object> liveParams = new HashMap<>();
     liveParams.put("id", id);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), liveParams,
+        DescriptionLink.CONVERT_TO_VOD.toString());
 
     return checkResponseType(response);
   }
