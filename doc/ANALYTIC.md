@@ -7,26 +7,36 @@ Track video playback on any [metric](https://docs.uiza.io/#analytic-metrics) per
 See details [here](https://docs.uiza.io/#total-line).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Analytic;
+import io.uiza.model.Analytic.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("start_date", "2019-01-01 07:00");
-params.put("end_date", "2019-03-01 07:00");
-params.put("metric", Metric.REBUFFER_PERCENTAGE.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray analytics = Analytic.getTotalLine(params);
-  JsonObject analytic = analytics.get(0).getAsJsonObject();
-  System.out.println(analytic);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("start_date", "2019-01-01 07:00");
+    params.put("end_date", "2019-03-01 07:00");
+    params.put("metric", Metric.REBUFFER_PERCENTAGE.toString());
 
+    try {
+      JsonArray response = Analytic.getTotalLine(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -55,26 +65,36 @@ Get data base on 5 type of filter: **country, device, title, player, os**.
 See details [here](https://docs.uiza.io/#type).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Analytic;
+import io.uiza.model.Analytic.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("start_date", "2019-01-01");
-params.put("end_date", "2019-03-01");
-params.put("type_filter", TypeFilter.COUNTRY.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray analytics = Analytic.getType(params);
-  JsonObject analytic = analytics.get(0).getAsJsonObject();
-  System.out.println(analytic);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("start_date", "2019-01-01");
+    params.put("end_date", "2019-03-01");
+    params.put("type_filter", TypeFilter.COUNTRY.toString());
 
+    try {
+      JsonArray response = Analytic.getType(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -103,26 +123,36 @@ This help you to draw a line chart to visualize data.
 See details [here](https://docs.uiza.io/#line).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Analytic;
+import io.uiza.model.Analytic.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("start_date", "2019-01-01");
-params.put("end_date", "2019-03-01");
-params.put("type", Metric.REBUFFER_COUNT.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray analytics = Analytic.getLine(params);
-  JsonObject analytic = analytics.get(0).getAsJsonObject();
-  System.out.println(analytic);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("start_date", "2019-01-01");
+    params.put("end_date", "2019-03-01");
+    params.put("type", Metric.REBUFFER_COUNT.toString());
 
+    try {
+      JsonArray response = Analytic.getLine(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

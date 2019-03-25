@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.UizaException;
 import io.uiza.net.ApiResource;
@@ -21,44 +20,50 @@ public class Analytic extends ApiResource {
   private static final String TYPE_PATH = "type";
   private static final String LINE_PATH = "line";
 
+  public enum DescriptionLink {
+    GET_TOTAL_LINE("https://docs.uiza.io/#total-line"),
+
+    GET_TYPE("https://docs.uiza.io/#type"),
+
+    GET_LINE("https://docs.uiza.io/#line");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
   public enum Metric {
-    @SerializedName("playback_failure_percentage")
     PALYBACK_FAILURE_PERCENTAGE("playback_failure_percentage"),
 
-    @SerializedName("video_startup_time")
     VIDEO_STARTUP_TIME("video_startup_time"),
 
-    @SerializedName("aggregate_startup_time")
     AGGREGATE_STARTUP_TIME("aggregate_startup_time"),
 
-    @SerializedName("exits_before_video_start")
     EXITS_BEFORE_VIDEO_START("exits_before_video_start"),
 
-    @SerializedName("rebuffer_percentage")
     REBUFFER_PERCENTAGE("rebuffer_percentage"),
 
-    @SerializedName("rebuffer_frequency")
     REBUFFER_FREQUENCY("rebuffer_frequency"),
 
-    @SerializedName("playback_failure_score")
     PLAYBACK_FAILURE_SCORE("playback_failure_score"),
 
-    @SerializedName("rebuffer_count")
     REBUFFER_COUNT("rebuffer_count"),
 
-    @SerializedName("rebuffer_duration")
     REBUFFER_DURATION("rebuffer_duration"),
 
-    @SerializedName("upscale_percentage")
     UPSCALE_PERCENTAGE("upscale_percentage"),
 
-    @SerializedName("downscale_percentage")
     DOWNSCALE_PERCENTAGE("downscale_percentage"),
 
-    @SerializedName("max_upscale_percentage")
     MAX_UPSCALE_PERCENTAGE("max_upscale_percentage"),
 
-    @SerializedName("max_downscale_percentage")
     MAX_DOWNSCALE_PERCENTAGE("max_downscale_percentage");
 
     private final String val;
@@ -74,19 +79,14 @@ public class Analytic extends ApiResource {
   }
 
   public enum TypeFilter {
-    @SerializedName("country")
     COUNTRY("country"),
 
-    @SerializedName("device")
     DEVICE("device"),
 
-    @SerializedName("title")
     TITLE("title"),
 
-    @SerializedName("player")
     PLAYER("player"),
 
-    @SerializedName("os")
     OS("os");
 
     private final String val;
@@ -113,7 +113,8 @@ public class Analytic extends ApiResource {
   public static JsonArray getTotalLine(Map<String, Object> lineParams) throws UizaException {
     String pathExtension =
         String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, TOTAL_LINE_PATH);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams,
+        DescriptionLink.GET_TOTAL_LINE.toString());
 
     return checkResponseType(response);
   }
@@ -127,7 +128,8 @@ public class Analytic extends ApiResource {
    */
   public static JsonArray getType(Map<String, Object> lineParams) throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, TYPE_PATH);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams,
+        DescriptionLink.GET_TYPE.toString());
 
     return checkResponseType(response);
   }
@@ -142,7 +144,8 @@ public class Analytic extends ApiResource {
    */
   public static JsonArray getLine(Map<String, Object> lineParams) throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LINE_PATH);
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(pathExtension), lineParams,
+        DescriptionLink.GET_LINE.toString());
 
     return checkResponseType(response);
   }
