@@ -8,7 +8,7 @@ public abstract class Uiza {
   private static final int DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
   private static final int DEFAULT_READ_TIMEOUT = 80 * 1000;
 
-  public static final String VERSION = "1.1.0";
+  public static final String VERSION = "1.1.1";
 
   public static volatile String authorization;
   public static volatile String apiVersion = VERSION;

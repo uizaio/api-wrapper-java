@@ -6,7 +6,6 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
@@ -23,14 +22,35 @@ public class User extends ApiResource {
   private static final String CHANGE_PASSWORD_PATH = "changepassword";
   private static final String LOGOUT_PATH = "logout";
 
+  public enum DescriptionLink {
+    CREATE("https://docs.uiza.io/#create-an-user"),
 
+    RETRIEVE("https://docs.uiza.io/#retrieve-an-user"),
+
+    LIST("https://docs.uiza.io/#list-all-users"),
+
+    UPDATE("https://docs.uiza.io/#update-an-user"),
+
+    DELETE("https://docs.uiza.io/#delete-an-user"),
+
+    CHANGE_PASSWORD("https://docs.uiza.io/#update-password"),
+
+    LOGOUT("https://docs.uiza.io/#log-out");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
 
   public enum Status {
-    @SerializedName("0")
-    DEACTIVE(0),
-
-    @SerializedName("1")
-    ACTIVE(1);
+    DEACTIVE(0), ACTIVE(1);
 
     private final int val;
 
@@ -44,11 +64,7 @@ public class User extends ApiResource {
   }
 
   public enum Gender {
-    @SerializedName("0")
-    MALE(0),
-
-    @SerializedName("1")
-    FEMALE(1);
+    MALE(0), FEMALE(1);
 
     private final int val;
 
@@ -62,11 +78,7 @@ public class User extends ApiResource {
   }
 
   public enum Role {
-    @SerializedName("0")
-    USER(0),
-
-    @SerializedName("1")
-    ADMIN(1);
+    USER(0), ADMIN(1);
 
     private final int val;
 
@@ -87,8 +99,8 @@ public class User extends ApiResource {
    * @throws UizaException
    */
   public static JsonObject create(Map<String, Object> userParams) throws UizaException {
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH),
+        userParams, DescriptionLink.CREATE.toString());
     String id = getId((JsonObject) checkResponseType(response));
 
     return retrieve(id);
@@ -104,13 +116,14 @@ public class User extends ApiResource {
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
-      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+          DescriptionLink.RETRIEVE.toString());
     }
 
     Map<String, Object> userParams = new HashMap<>();
     userParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        userParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -126,7 +139,8 @@ public class User extends ApiResource {
    * @throws UizaException
    */
   public static JsonArray list() throws UizaException {
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null,
+        DescriptionLink.LIST.toString());
 
     return checkResponseType(response);
   }
@@ -145,7 +159,8 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
   }
@@ -161,8 +176,8 @@ public class User extends ApiResource {
   public static JsonObject delete(String id) throws UizaException {
     Map<String, Object> userParams = new HashMap<>();
     userParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH),
+        userParams, DescriptionLink.DELETE.toString());
 
     return checkResponseType(response);
   }
@@ -183,7 +198,8 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), userParams);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), userParams,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
     return checkResponseType(response);
   }
@@ -196,7 +212,8 @@ public class User extends ApiResource {
    */
   public static JsonObject logout() throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LOGOUT_PATH);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null,
+        DescriptionLink.LOGOUT.toString());
 
     return checkResponseType(response);
   }
