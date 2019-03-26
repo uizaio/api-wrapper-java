@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 - 2019-03-25
+
+Publish sdk to [Maven Repository](https://mvnrepository.com/artifact/io.uiza/uiza-java/1.1.1)
+
 ## 1.1.0 - 2019-03-07
 
 Publish sdk to [Maven Repository](https://mvnrepository.com/artifact/io.uiza/uiza-java/1.1.0)

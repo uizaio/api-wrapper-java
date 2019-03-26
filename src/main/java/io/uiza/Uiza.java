@@ -9,10 +9,10 @@ public abstract class Uiza {
   private static final int DEFAULT_READ_TIMEOUT = 80 * 1000;
   private static final String VERSION = "1.2.0";
 
-  private static volatile String apiDomain = "https://stag-ap-southeast-1-api.uizadev.io";
+  private static volatile String workspaceApiDomain = "https://stag-ap-southeast-1-api.uizadev.io";
   private static volatile String apiVersion = VERSION;
 
-  public static volatile String apiKey;
+  public static volatile String authorization;
   public static volatile String appId;
 
   private static volatile int connectTimeout = -1;
@@ -101,10 +101,10 @@ public abstract class Uiza {
   }
 
   /**
-   * @return the API domain
+   * @return the workspace API domain
    */
-  public static String getApiDomain() {
-    return apiDomain;
+  public static String getWorkspaceApiDomain() {
+    return workspaceApiDomain;
   }
 
   /**

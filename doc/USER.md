@@ -7,20 +7,31 @@ You need only supply the unique userId that was returned upon user creation.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-try {
-  JsonObject user = User.retrieve("<user-id>");
-  System.out.println(user.get("email"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = User.retrieve("<user-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -49,21 +60,31 @@ If you use User token, you can only get the information of that user.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-try {
-  JsonArray users = User.list();
-  JsonObject user = users.get(0).getAsJsonObject();
-  System.out.println(user.get("email"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonArray response = User.list();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -101,28 +122,42 @@ Any parameters not provided will be left unchanged.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("id", "<user_id>");
-params.put("email", "user_test@gmail.com");
-params.put("dob", "2019-02-27");
-params.put("name", "user_test");
-params.put("status", Status.ACTIVE.getVal());
-params.put("avatar", "https://example.avatar.com/user_test.png");
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject user = User.update("<user-id>", params);
-  System.out.println(user.get("email"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("status", Status.ACTIVE.getVal());
+    params.put("username", "user_test");
+    params.put("email", "user_test@uiza.io");
+    params.put("fullname", "User Test");
+    params.put("avatar", "https://exemple.com/avatar.jpeg");
+    params.put("dob", "05/15/2018");
+    params.put("gender", Gender.MALE.getVal());
+    params.put("password", "FMpsr<4[dGPu?B#u");
+    params.put("isAdmin", Role.ADMIN.getVal());
 
+    try {
+      JsonObject response = User.update("<user-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -147,24 +182,35 @@ Update password allows Admin or User update their current password.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("oldPassword", "FMpsr<4[dGPu?B#u");
-params.put("newPassword", "S57Eb{:aMZhW=)G$");
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject user = User.changePassword("<user-id>", params);
-  System.out.println(user);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("oldPassword", "FMpsr<4[dGPu?B#u");
+    params.put("newPassword", "S57Eb{:aMZhW=)G$");
 
+    try {
+      JsonObject response = User.changePassword("<user-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -190,20 +236,31 @@ After logged out, token will be removed.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-try {
-  JsonObject user = User.logout();
-  System.out.println(user);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = User.logout();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

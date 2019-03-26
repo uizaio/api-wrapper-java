@@ -7,26 +7,37 @@ After synced, you can select your content easier from your storage to [create en
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-create_storage).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Storage;
+import io.uiza.model.Storage.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "FTP Uiza");
-params.put("host", "ftp-example.uiza.io");
-params.put("port", "21");
-params.put("type", StorageType.FTP.toString());
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject storage = Storage.add(params);
-  System.out.println(storage.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "FTP Uiza");
+    params.put("host", "ftp-example.uiza.io");
+    params.put("port", 21);
+    params.put("storageType", StorageType.FTP.toString());
 
+    try {
+      JsonObject response = Storage.add(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -59,20 +70,31 @@ Get information of your added storage (FTP or AWS S3).
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-list_storage).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Storage;
+import io.uiza.model.Storage.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-try {
-  JsonObject storage = Storage.retrieve("<storage-id>");
-  System.out.println(storage.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Storage.retrieve("<storage-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -105,26 +127,37 @@ Update storage's information.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-update_storage).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Storage;
+import io.uiza.model.Storage.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "FTP Uiza");
-params.put("host", "ftp-example.uiza.io");
-params.put("port", "21");
-params.put("type", StorageType.FTP.toString());
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject storage = Storage.update("<storage-id>", params);
-  System.out.println(storage.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "FTP Uiza");
+    params.put("host", "ftp-example.uiza.io");
+    params.put("port", 21);
+    params.put("storageType", StorageType.FTP.toString());
 
+    try {
+      JsonObject response = Storage.update("<storage-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -157,20 +190,31 @@ Remove storage that added to Uiza.
 See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-delete_storage).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Storage;
+import io.uiza.model.Storage.*;
 
-Uiza.apiKey = "<YOUR_API_KEY>";
-Uiza.appId = "<YOUR_APP_ID>";
+public class Main {
 
-try {
-  JsonObject storage = Storage.remove("<storage-id>");
-  System.out.println(storage.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Storage.remove("<storage-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

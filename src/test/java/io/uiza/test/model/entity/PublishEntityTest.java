@@ -2,6 +2,7 @@ package io.uiza.test.model.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.google.gson.JsonObject;
+
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.ClientException;
 import io.uiza.exception.InternalServerException;
@@ -22,6 +25,7 @@ import io.uiza.exception.UizaException;
 import io.uiza.exception.UnauthorizedException;
 import io.uiza.exception.UnprocessableException;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.DescriptionLink;
 import io.uiza.net.ApiResource;
 import io.uiza.net.ApiResource.RequestMethod;
 import io.uiza.net.util.ErrorMessage;
@@ -50,7 +54,8 @@ public class PublishEntityTest extends TestBase {
         "Your entity started publish, check process status with this entity ID");
     expected.addProperty("entityId", ENTITY_ID);
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenReturn(expected);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenReturn(expected);
     Mockito.when(ApiResource.checkResponseType(Mockito.any())).thenCallRealMethod();
 
     JsonObject actual = Entity.publish(ENTITY_ID);
@@ -59,9 +64,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsBadRequestException() throws UizaException {
-    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, ENTITY_ID, 400);
+    UizaException e = new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, ENTITY_ID, 400,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -70,9 +77,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnauthorizedException() throws UizaException {
-    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, ENTITY_ID, 401);
+    UizaException e = new UnauthorizedException(ErrorMessage.UNAUTHORIZED_ERROR, ENTITY_ID, 401,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -81,9 +90,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsNotFoundException() throws UizaException {
-    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, ENTITY_ID, 404);
+    UizaException e = new NotFoundException(ErrorMessage.NOT_FOUND_ERROR, ENTITY_ID, 404,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -92,9 +103,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsUnprocessableException() throws UizaException {
-    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, ENTITY_ID, 422);
+    UizaException e = new UnprocessableException(ErrorMessage.UNPROCESSABLE_ERROR, ENTITY_ID, 422,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -103,10 +116,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsInternalServerException() throws UizaException {
-    UizaException e =
-        new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, ENTITY_ID, 500);
+    UizaException e = new InternalServerException(ErrorMessage.INTERNAL_SERVER_ERROR, ENTITY_ID,
+        500, DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -115,10 +129,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsServiceUnavailableException() throws UizaException {
-    UizaException e =
-        new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR, ENTITY_ID, 503);
+    UizaException e = new ServiceUnavailableException(ErrorMessage.SERVICE_UNAVAILABLE_ERROR,
+        ENTITY_ID, 503, DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -127,9 +142,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsClientException() throws UizaException {
-    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, ENTITY_ID, 450);
+    UizaException e = new ClientException(ErrorMessage.CLIENT_ERROR, ENTITY_ID, 450,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -138,9 +155,11 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsServerException() throws UizaException {
-    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, ENTITY_ID, 550);
+    UizaException e = new ServerException(ErrorMessage.SERVER_ERROR, ENTITY_ID, 550,
+        DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 
@@ -149,9 +168,10 @@ public class PublishEntityTest extends TestBase {
 
   @Test
   public void testFailedThrowsUizaException() throws UizaException {
-    UizaException e = new UizaException(ENTITY_ID, ENTITY_ID, 300);
+    UizaException e = new UizaException("", ENTITY_ID, 300, DescriptionLink.PUBLISH.toString());
 
-    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params)).thenThrow(e);
+    Mockito.when(ApiResource.request(RequestMethod.POST, TEST_URL, params,
+        DescriptionLink.PUBLISH.toString())).thenThrow(e);
     expectedException.expect(e.getClass());
     expectedException.expectMessage(e.getMessage());
 

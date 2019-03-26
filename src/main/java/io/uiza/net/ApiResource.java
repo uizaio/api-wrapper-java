@@ -31,7 +31,7 @@ public abstract class ApiResource {
    * @return the base URL of each API operation request
    */
   public static String buildRequestURL(String pathExtension) {
-    return String.format("%s/%s/%s", Uiza.getApiDomain(), API_PUBLIC_V4_PATH, pathExtension);
+    return String.format("%s/%s/%s", Uiza.getWorkspaceApiDomain(), API_PUBLIC_V4_PATH, pathExtension);
   }
 
   /**
@@ -52,11 +52,13 @@ public abstract class ApiResource {
    * @param method The request method (GET, POST, PUT, DELETE)
    * @param url The base URL of a request
    * @param params A Map object of parameters
+   * @param descriptionLink The description link corresponding to the API request
    * @return response of the request
    */
-  public static JsonElement request(RequestMethod method, String url, Map<String, Object> params)
-      throws UizaException {
-    return ApiResource.uizaResponseGetter.request(method, url, params, RequestType.NORMAL);
+  public static JsonElement request(RequestMethod method, String url, Map<String, Object> params,
+      String descriptionLink) throws UizaException {
+    return ApiResource.uizaResponseGetter.request(method, url, params, RequestType.NORMAL,
+        descriptionLink);
   }
 
   /**
