@@ -4,14 +4,16 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 
 public abstract class Uiza {
+
   private static final int DEFAULT_CONNECT_TIMEOUT = 30 * 1000;
   private static final int DEFAULT_READ_TIMEOUT = 80 * 1000;
+  private static final String VERSION = "1.2.0";
 
-  public static final String VERSION = "1.1.0";
+  private static volatile String workspaceApiDomain = "https://stag-ap-southeast-1-api.uizadev.io";
+  private static volatile String apiVersion = VERSION;
 
-  public static volatile String apiKey;
-  public static volatile String apiVersion = VERSION;
-  public static volatile String apiDomain;
+  public static volatile String authorization;
+  public static volatile String appId;
 
   private static volatile int connectTimeout = -1;
   private static volatile int readTimeout = -1;
@@ -76,7 +78,6 @@ public abstract class Uiza {
   }
 
   /**
-   *
    * @return proxy to tunnel all Uiza connections.
    */
   public static Proxy getConnectionProxy() {
@@ -93,10 +94,23 @@ public abstract class Uiza {
   }
 
   /**
-   *
    * @return proxy credential for proxy authorization
    */
   public static PasswordAuthentication getProxyCredential() {
     return proxyCredential;
+  }
+
+  /**
+   * @return the workspace API domain
+   */
+  public static String getWorkspaceApiDomain() {
+    return workspaceApiDomain;
+  }
+
+  /**
+   * @return the API version
+   */
+  public static String getApiVersion() {
+    return apiVersion;
   }
 }

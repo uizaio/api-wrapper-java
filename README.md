@@ -2,22 +2,14 @@
 
 ## Introduction
 
-This is documents the public API for Uiza version 3.0.
+This is documents the public API for Uiza version 4.0.
+See documents for public API for Uiza version 3.0 [here](https://github.com/uizaio/api-wrapper-java/tree/master_v3). Please use maven dependency version 1.1.1 to use API v3
 
 The Uiza API is organized around RESTful standard.
 Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors.
 JSON is returned by all API responses, including errors, although our API libraries convert responses to appropriate language-specific objects.
 
 All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
-
-## Authentication
-
-In order, to use the Uiza, you should follow these steps:
-
-* **Step 1:** Having an active Uiza account. (If you don't have, please get [here](https://id.uiza.io/)).
-* **Step 2:** Once you have an Uiza account, you can get a Token to call the APIs.
-
-This Token will have right & permission related with your account.
 
 ## Requirements
 
@@ -31,71 +23,62 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.uiza</groupId>
   <artifactId>uiza-java</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
 ## Documentation
 
-Please see the [Java API docs](https://docs.uiza.io/) for the most up-to-date documentation.
+Please see the [API docs](http://dev-ap-southeast-1-api.uizadev.io/docs/) for the most up-to-date documentation.
 
 ## Usage
 
-The library needs to be configured with your account's `API_DOMAIN` and `API_KEY`.
-See details [here](https://docs.uiza.io/#authentication).
-Set `Uiza.apiDomain` and `Uiza.apiKey` with your values:
+The library needs to be configured with your account's `authorization` and `appId`.
+Set `Uiza.authorization` and `Uiza.appId` with your values:
 
 ```java
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.authorization = "<your-authorization>";
+Uiza.appId = "<your-app-id>";
 ```
 
 ## Entity
 
 These below APIs used to take action with your media files (we called Entity).
 
-You can see all available APIs for entity in [ENTITY.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/ENTITY.md).
-See details [here](https://docs.uiza.io/#video).
+You can see all available APIs for entity in [ENTITY.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/ENTITY.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
 
 ## Category
 
-Category has been splits into 3 types: `folder`, `playlist` and `tag`. These will make the management of entity more easier.
+Category has been splits into 4 types: `folder`, `playlist`, `category` and `tag`. These will make the management of entity more easier.
 
-You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CATEGORY.md).
-See details [here](https://docs.uiza.io/#category).
+You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/CATEGORY.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata).
 
 ## Storage
 
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
-After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/#create-entity).
+After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
 
-You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/STORAGE.md).
-See details [here](https://docs.uiza.io/#storage).
+You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/STORAGE.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage).
 
 ## Live Streaming
 
 These APIs used to create and manage live streaming event.
 
-* When a Live is not start : it's named as `Event`.
-* When have an `Event` , you can start it : it's named as `Feed`.
+- When a Live is not start : it's named as `Event`.
+- When have an `Event` , you can start it : it's named as `Feed`.
 
-You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/LIVE.md).
-See details [here](https://docs.uiza.io/#live-streaming).
+You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/LIVE.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live).
 
 ## Callback
 
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
-You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/CALLBACK.md).
-See details [here](https://docs.uiza.io/#callback).
-
-## Analytic
-
-Monitor the four key dimensions of video QoS: playback failures, startup time, rebuffering, and video quality.
-These 15 metrics help you track playback performance, so your team can know exactly what’s going on.
-
-You can see all available APIs for analytic in [ANALYTIC.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/ANALYTIC.md).
-See details [here](https://docs.uiza.io/#analytic).
+You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/CALLBACK.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback).
 
 ## User Management
 
@@ -105,14 +88,8 @@ You can manage user with APIs user. Uiza have 2 levels of user:
 
 `User` - This account level is under Admin level. It only manages APIs that relates to this account.
 
-You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/develop/doc/USER.md).
-See details [here](https://docs.uiza.io/#user-management).
-
-## Embed Metadata
-
-Embed metadata is information that can be embed into video/audio file. You can embed into file by adding a json compose these tag.
-
-See details [here](https://docs.uiza.io/#embed-metadata).
+You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/USER.md).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User).
 
 ## Errors Code
 
@@ -121,7 +98,7 @@ In general: Codes in the `2xx` range indicate success.
 Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.).
 Codes in the `5xx` range indicate an error with Uiza's servers.
 
-See details [here](https://github.com/uizaio/api-wrapper-ruby/blob/develop/doc/ERRORS_CODE.md).
+See details [here](https://github.com/uizaio/api-wrapper-ruby/blob/master/doc/ERRORS_CODE.md).
 
 ## Contributing
 

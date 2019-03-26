@@ -3,27 +3,38 @@
 ## Create a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](https://docs.uiza.io/#create-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-create_entity_callback).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Callback;
+import io.uiza.model.Callback.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("url", "<your-server-callback>");
-params.put("method", Method.POST);
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject callback = Callback.create(params);
-  System.out.println(callback.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("url", "<your-server-callback>");
+    params.put("method", Method.POST);
 
+    try {
+      JsonObject response = Callback.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -47,23 +58,34 @@ Example Response
 ## Retrieve a callback
 
 Retrieves the details of an existing callback.
-See details [here](https://docs.uiza.io/#retrieve-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-get_entity_callback).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Callback;
+import io.uiza.model.Callback.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject callback = Callback.retrieve("<callback-id>");
-  System.out.println(callback.get("url"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Callback.retrieve("<callback-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -87,27 +109,38 @@ Example Response
 ## Update a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](https://docs.uiza.io/#update-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-update_entity_callback).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Callback;
+import io.uiza.model.Callback.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("url", "<your-server-callback>");
-params.put("method", Method.POST);
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject callback = Callback.update("<callback-id>", params);
-  System.out.println(callback.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("url", "<your-server-callback>");
+    params.put("method", Method.POST);
 
+    try {
+      JsonObject response = Callback.update("<callback-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -131,23 +164,34 @@ Example Response
 ## Delete a callback
 
 Delete an existing callback.
-See details [here](https://docs.uiza.io/#delete-a-callback).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-delete_entity_callback).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Callback;
+import io.uiza.model.Callback.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject callback = Callback.delete("<callback-id>");
-  System.out.println(callback.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Callback.delete("<callback-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

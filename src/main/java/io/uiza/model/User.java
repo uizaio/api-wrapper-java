@@ -6,7 +6,6 @@ import java.util.Map;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import io.uiza.exception.BadRequestException;
 import io.uiza.exception.UizaException;
@@ -23,12 +22,31 @@ public class User extends ApiResource {
   private static final String CHANGE_PASSWORD_PATH = "changepassword";
   private static final String LOGOUT_PATH = "logout";
 
-  public enum Status {
-    @SerializedName("0")
-    DEACTIVE(0),
+  public enum DescriptionLink {
+    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
 
-    @SerializedName("1")
-    ACTIVE(1);
+    LIST("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
+
+    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo"),
+
+    CHANGE_PASSWORD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword"),
+
+    LOGOUT("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout");
+
+    private final String val;
+
+    private DescriptionLink(String val) {
+      this.val = val;
+    }
+
+    @Override
+    public String toString() {
+      return val;
+    }
+  }
+
+  public enum Status {
+    DEACTIVE(0), ACTIVE(1);
 
     private final int val;
 
@@ -41,57 +59,6 @@ public class User extends ApiResource {
     }
   }
 
-  public enum Gender {
-    @SerializedName("0")
-    MALE(0),
-
-    @SerializedName("1")
-    FEMALE(1);
-
-    private final int val;
-
-    private Gender(int val) {
-      this.val = val;
-    }
-
-    public int getVal() {
-      return val;
-    }
-  }
-
-  public enum Role {
-    @SerializedName("0")
-    USER(0),
-
-    @SerializedName("1")
-    ADMIN(1);
-
-    private final int val;
-
-    private Role(int val) {
-      this.val = val;
-    }
-
-    public int getVal() {
-      return val;
-    }
-  }
-
-  /**
-   * Create an user account for workspace.
-   *
-   * @param userParams a Map object storing key-value pairs of request parameter
-   * @return created user JSON object
-   * @throws UizaException
-   */
-  public static JsonObject create(Map<String, Object> userParams) throws UizaException {
-    JsonElement response =
-        request(RequestMethod.POST, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
-    String id = getId((JsonObject) checkResponseType(response));
-
-    return retrieve(id);
-  }
-
   /**
    * Retrieves the details of an existing user. You need only supply the unique userId that was
    * returned upon user creation.
@@ -102,13 +69,14 @@ public class User extends ApiResource {
    */
   public static JsonObject retrieve(String id) throws UizaException {
     if (id == null || id.isEmpty()) {
-      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400);
+      throw new BadRequestException(ErrorMessage.BAD_REQUEST_ERROR, "", 400,
+          DescriptionLink.RETRIEVE.toString());
     }
 
     Map<String, Object> userParams = new HashMap<>();
     userParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH),
+        userParams, DescriptionLink.RETRIEVE.toString());
 
     return checkResponseType(response);
   }
@@ -124,7 +92,8 @@ public class User extends ApiResource {
    * @throws UizaException
    */
   public static JsonArray list() throws UizaException {
-    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null);
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH), null,
+        DescriptionLink.LIST.toString());
 
     return checkResponseType(response);
   }
@@ -143,26 +112,10 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
+    request(RequestMethod.PUT, buildRequestURL(CLASS_DEFAULT_PATH), userParams,
+        DescriptionLink.UPDATE.toString());
 
     return retrieve(id);
-  }
-
-  /**
-   * Permanently deletes a user. It cannot be undone. Also immediately cancels all token and
-   * information of this user.
-   *
-   * @param id An id of a user to delete
-   * @return id of the deleted user
-   * @throws UizaException
-   */
-  public static JsonObject delete(String id) throws UizaException {
-    Map<String, Object> userParams = new HashMap<>();
-    userParams.put("id", id);
-    JsonElement response =
-        request(RequestMethod.DELETE, buildRequestURL(CLASS_DEFAULT_PATH), userParams);
-
-    return checkResponseType(response);
   }
 
   /**
@@ -181,7 +134,8 @@ public class User extends ApiResource {
       userParams = new HashMap<>();
     }
     userParams.put("id", id);
-    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), userParams);
+    JsonElement response = request(RequestMethod.PUT, buildRequestURL(pathExtension), userParams,
+        DescriptionLink.CHANGE_PASSWORD.toString());
 
     return checkResponseType(response);
   }
@@ -194,7 +148,8 @@ public class User extends ApiResource {
    */
   public static JsonObject logout() throws UizaException {
     String pathExtension = String.format(PATH_EXTENSION_FORMAT, CLASS_DEFAULT_PATH, LOGOUT_PATH);
-    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null);
+    JsonElement response = request(RequestMethod.POST, buildRequestURL(pathExtension), null,
+        DescriptionLink.LOGOUT.toString());
 
     return checkResponseType(response);
   }

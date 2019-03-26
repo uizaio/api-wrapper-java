@@ -3,28 +3,39 @@
 ## Create category
 
 Create category for entity for easier management.
-Category use to group all the same entities into a group (like Folder/ playlist/or tag).
-See details [here](https://docs.uiza.io/#create-category).
+Category use to group all the same entities into a group (like folder/playlist/category or tag).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_metadata).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.toString());
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject category = Category.create(params);
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Playlist Sample");
+    params.put("type", Type.PLAYLIST.toString());
 
+    try {
+      JsonObject response = Category.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -48,23 +59,34 @@ Example Response
 ## Retrieve category
 
 Get detail of category.
-See details [here](https://docs.uiza.io/#retrieve-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject category = Category.retrieve("<category-id>");
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Category.retrieve("<category-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -88,24 +110,34 @@ Example Response
 ## Retrieve category list
 
 Get all categories.
-See details [here](https://docs.uiza.io/#retrieve-category-list).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonArray categories = Category.list();
-  JsonObject category = categories.get(0).getAsJsonObject();
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonArray response = Category.list();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -143,27 +175,38 @@ Example Response
 ## Update category
 
 Update information of category.
-See details [here](https://docs.uiza.io/#update-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-update_metadata).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.toString());
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonObject category = Category.update("<category-id>", params);
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Playlist Sample");
+    params.put("type", Type.PLAYLIST.toString());
 
+    try {
+      JsonObject response = Category.update("<category-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -187,23 +230,34 @@ Example Response
 ## Delete category
 
 Delete category.
-See details [here](https://docs.uiza.io/#delete-category).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_metadata).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject category = Category.delete("<category-id>");
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
+    try {
+      JsonObject response = Category.delete("<category-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -218,28 +272,38 @@ Example Response
 ## Create category relation
 
 Add relation for entity and category.
-See details [here](https://docs.uiza.io/#create-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_n_metadata_for_one_entiy).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("entityId", "<entity-id>");
-params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonArray relations = Category.createRelation(params);
-  JsonObject relation = relations.get(0).getAsJsonObject();
-  System.out.println(relation.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("entityId", "<entity-id>");
+    params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
 
+    try {
+      JsonArray response = Category.createRelation(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
@@ -263,28 +327,38 @@ Example Response
 ## Delete category relation
 
 Delete relation for entity and category.
-See details [here](https://docs.uiza.io/#delete-category-relation).
+See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_n_metadata_for_one_entiy).
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("entityId", "<entity-id>");
-params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+    Uiza.appId = "your-app-id";
 
-try {
-  JsonArray relations = Category.deleteRelation(params);
-  JsonObject relation = relations.get(0).getAsJsonObject();
-  System.out.println(relation.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("entityId", "<entity-id>");
+    params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
 
+    try {
+      JsonArray response = Category.deleteRelation(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
