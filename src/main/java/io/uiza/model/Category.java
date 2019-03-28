@@ -22,21 +22,19 @@ public class Category extends ApiResource {
   private static final String RELATION_PATH = "media/entity/related/metadata";
 
   public enum DescriptionLink {
-    CREATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_metadata"),
+    CREATE("https://docs.uiza.io/v4/#create-category"),
 
-    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-category"),
 
-    LIST("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-get_metadata"),
+    LIST("https://docs.uiza.io/v4/#retrieve-category-list"),
 
-    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-update_metadata"),
+    UPDATE("https://docs.uiza.io/v4/#update-category"),
 
-    DELETE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_metadata"),
+    DELETE("https://docs.uiza.io/v4/#delete-category"),
 
-    CREATE_RELATION(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-create_n_metadata_for_one_entiy"),
+    CREATE_RELATION("https://docs.uiza.io/v4/#create-category-relation"),
 
-    DELETE_RELATION(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata-delete_n_metadata_for_one_entiy");
+    DELETE_RELATION("https://docs.uiza.io/v4/#delete-category-relation");
 
     private final String val;
 

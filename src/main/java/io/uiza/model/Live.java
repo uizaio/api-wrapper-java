@@ -25,23 +25,23 @@ public class Live extends ApiResource {
   private static final String VOD_PATH = "dvr/convert-to-vod";
 
   public enum DescriptionLink {
-    CREATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_live_entity"),
+    CREATE("https://docs.uiza.io/v4/#create-a-live-event"),
 
-    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-a-live-event"),
 
-    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-put_live_entity"),
+    UPDATE("https://docs.uiza.io/v4/#update-a-live-event"),
 
-    START_FEED("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-post_live_feed_start"),
+    START_FEED("https://docs.uiza.io/v4/#start-a-live-feed"),
 
-    GET_VIEW("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-get_status_live_feed"),
+    GET_VIEW("https://docs.uiza.io/v4/#get-view-of-live-feed"),
 
-    STOP_FEED("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-put_live_feed_stop"),
+    STOP_FEED("https://docs.uiza.io/v4/#stop-a-live-feed"),
 
-    LIST_RECORDED("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity_dvr"),
+    LIST_RECORDED("https://docs.uiza.io/v4/#list-all-recorded-files"),
 
-    DELETE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-delete_live_entity_dvr"),
+    DELETE("https://docs.uiza.io/v4/#delete-a-record-file"),
 
-    CONVERT_TO_VOD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_convert_to_vod");
+    CONVERT_TO_VOD("https://docs.uiza.io/v4/#convert-into-vod");
 
     private final String val;
 

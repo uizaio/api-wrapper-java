@@ -5,7 +5,7 @@
 Create a live streaming and manage the live streaming input (output).
 A live stream can be set up and start later or start right after set up.
 Live Channel Minutes counts when the event starts.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_live_entity).
+See details [here](https://docs.uiza.io/v4/#create-a-live-event).
 
 ```java
 import java.util.*;
@@ -19,15 +19,18 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "<your-live-event-name>");
-    params.put("mode", Mode.PULL.toString());
+    params.put("name", "test event");
+    params.put("mode", Mode.PUSH.toString());
     params.put("encode", Encode.ENCODE.getVal());
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+    params.put("description", "This is for test event");
+    params.put("poster", "//image1.jpeg");
+    params.put("thumbnail", "//image1.jpeg");
+    params.put("linkStream", new String[] {"https://playlist.m3u8"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
 
     try {
@@ -74,7 +77,7 @@ Example Response
 
 Retrieves the details of an existing event.
 You need only provide the unique identifier of event that was returned upon Live event creation.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity).
+See details [here](https://docs.uiza.io/v4/#retrieve-a-live-event).
 
 ```java
 import java.util.*;
@@ -88,11 +91,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.retrieve("<live-event-id>");
+      JsonObject response = Live.retrieve("471734b1-90b8-44c5-b24b-132ed9d7529b");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -134,7 +137,7 @@ Example Response
 ## Update a live event
 
 Update the specific Live event by edit values of parameters.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-put_live_entity).
+See details [here](https://docs.uiza.io/v4/#update-a-live-event).
 
 ```java
 import java.util.*;
@@ -148,19 +151,18 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "<your-live-event-name>");
+    params.put("name", "live test");
     params.put("mode", Mode.PULL.toString());
-    params.put("encode", Encode.ENCODE.getVal());
+    params.put("encode", Encode.NO_ENCODE.getVal());
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
 
     try {
-      JsonObject response = Live.update("<live-event-id>", params);
+      JsonObject response = Live.update("471734b1-90b8-44c5-b24b-132ed9d7529b", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -202,7 +204,7 @@ Example Response
 ## Start a live feed
 
 Start a live event that has been create success. The Live channel minute start count whenever the event start success.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-post_live_feed_start).
+See details [here](https://docs.uiza.io/v4/#start-a-live-feed).
 
 ```java
 import java.util.*;
@@ -216,11 +218,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.startFeed("<live-event-id>");
+      JsonObject response = Live.startFeed("471734b1-90b8-44c5-b24b-132ed9d7529b");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -244,7 +246,7 @@ Example Response
 ## Get views of live feed
 
 Get a live view status . This view only show when event has been started and being processing.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-get_status_live_feed).
+See details [here](https://docs.uiza.io/v4/#get-view-of-live-feed).
 
 ```java
 import java.util.*;
@@ -258,11 +260,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.getView("<live-event-id>");
+      JsonObject response = Live.getView("471734b1-90b8-44c5-b24b-132ed9d7529b");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -288,7 +290,7 @@ Example Response
 ## Stop a live feed
 
 Stop live event.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live_Feed-put_live_feed_stop).
+See details [here](https://docs.uiza.io/v4/#stop-a-live-feed).
 
 ```java
 import java.util.*;
@@ -302,11 +304,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.stopFeed("<live-event-id>");
+      JsonObject response = Live.stopFeed("471734b1-90b8-44c5-b24b-132ed9d7529b");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -330,7 +332,7 @@ Example Response
 ## List all recorded files
 
 Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-get_live_entity_dvr).
+See details [here](https://docs.uiza.io/v4/#list-all-recorded-files).
 
 ```java
 import java.util.*;
@@ -344,8 +346,8 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
       JsonArray response = Live.listRecorded();
@@ -403,7 +405,7 @@ Example Response
 ## Delete a record file
 
 Delete a recorded file.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-delete_live_entity_dvr).
+See details [here](https://docs.uiza.io/v4/#delete-a-record-file).
 
 ```java
 import java.util.*;
@@ -417,11 +419,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.delete("<record-id>"); // Identifier of record (get from list record)
+      JsonObject response = Live.delete("92121a42-81d5-4364-8d5d-100799b34cd9"); // Identifier of record (get from list record)
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -446,7 +448,7 @@ Example Response
 
 Convert recorded file into VOD entity.
 After converted, your file can be stream via Uiza's CDN.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live-post_convert_to_vod).
+See details [here](https://docs.uiza.io/v4/#convert-into-vod).
 
 ```java
 import java.util.*;
@@ -460,11 +462,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Live.convertToVod("<record-id>");
+      JsonObject response = Live.convertToVod("21e513b1-43bf-4ce7-8cd0-692574563043");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
