@@ -3,7 +3,7 @@
 ## Create a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-create_entity_callback).
+See details [here](https://docs.uiza.io/v4/#create-a-callback).
 
 ```java
 import java.util.*;
@@ -17,12 +17,20 @@ import io.uiza.model.Callback.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
+
+    JsonObject jsonData = new JsonObject();
+    jsonData.addProperty("data", "Example json data");
+
+    JsonObject headersData = new JsonObject();
+    headersData.addProperty("data", "Example headers data");
 
     Map<String, Object> params = new HashMap<>();
-    params.put("url", "<your-server-callback>");
+    params.put("url", "https://callback-url.uiza.co");
     params.put("method", Method.POST);
+    params.put("jsonData", jsonData);
+    params.put("headersData", headersData);
 
     try {
       JsonObject response = Callback.create(params);
@@ -58,7 +66,7 @@ Example Response
 ## Retrieve a callback
 
 Retrieves the details of an existing callback.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-get_entity_callback).
+See details [here](https://docs.uiza.io/v4/#retrieve-a-callback).
 
 ```java
 import java.util.*;
@@ -72,11 +80,11 @@ import io.uiza.model.Callback.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Callback.retrieve("<callback-id>");
+      JsonObject response = Callback.retrieve("56422bdf-95c8-42c7-8c52-1be99e732afa");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -109,7 +117,7 @@ Example Response
 ## Update a callback
 
 Setup a callback to your server when an entity is completed for upload or public.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-update_entity_callback).
+See details [here](https://docs.uiza.io/v4/#update-a-callback).
 
 ```java
 import java.util.*;
@@ -123,15 +131,23 @@ import io.uiza.model.Callback.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
+
+    JsonObject jsonData = new JsonObject();
+    jsonData.addProperty("data", "Example json data updated");
+
+    JsonObject headersData = new JsonObject();
+    headersData.addProperty("data", "Example headers data updated");
 
     Map<String, Object> params = new HashMap<>();
-    params.put("url", "<your-server-callback>");
+    params.put("url", "https://callback-url-update.uiza.co");
     params.put("method", Method.POST);
+    params.put("jsonData", jsonData);
+    params.put("headersData", headersData);
 
     try {
-      JsonObject response = Callback.update("<callback-id>", params);
+      JsonObject response = Callback.update("56422bdf-95c8-42c7-8c52-1be99e732afa", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -164,7 +180,7 @@ Example Response
 ## Delete a callback
 
 Delete an existing callback.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-delete_entity_callback).
+See details [here](https://docs.uiza.io/v4/#delete-a-callback).
 
 ```java
 import java.util.*;
@@ -178,11 +194,11 @@ import io.uiza.model.Callback.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Callback.delete("<callback-id>");
+      JsonObject response = Callback.delete("14a27ff9-869a-4969-a6d9-34220f01e48c");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());

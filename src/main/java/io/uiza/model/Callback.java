@@ -20,17 +20,13 @@ public class Callback extends ApiResource {
   private static final String CLASS_DEFAULT_PATH = "media/entity/callback";
 
   public enum DescriptionLink {
-    CREATE(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-create_entity_callback"),
+    CREATE("https://docs.uiza.io/v4/#create-a-callback"),
 
-    RETRIEVE(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-get_entity_callback"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-a-callback"),
 
-    UPDATE(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-update_entity_callback"),
+    UPDATE("https://docs.uiza.io/v4/#update-a-callback"),
 
-    DELETE(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback-delete_entity_callback");
+    DELETE("https://docs.uiza.io/v4/#delete-a-callback");
 
     private final String val;
 

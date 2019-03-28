@@ -9,7 +9,7 @@ public abstract class Uiza {
   private static final int DEFAULT_READ_TIMEOUT = 80 * 1000;
   private static final String VERSION = "1.2.0";
 
-  private static volatile String workspaceApiDomain = "https://stag-ap-southeast-1-api.uizadev.io";
+  private static volatile String workspaceApiDomain = "https://ap-southeast-1-api.uiza.co";
   private static volatile String apiVersion = VERSION;
 
   public static volatile String authorization;

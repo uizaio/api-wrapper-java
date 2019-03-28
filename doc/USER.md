@@ -4,7 +4,7 @@
 
 Retrieves the details of an existing user.
 You need only supply the unique userId that was returned upon user creation.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
+See details [here](https://docs.uiza.io/v4/#retrieve-an-user).
 
 ```java
 import java.util.*;
@@ -57,7 +57,7 @@ The users are returned sorted by creation date, with the most recent user appear
 
 If you use Admin token, you will get all the users.
 If you use User token, you can only get the information of that user.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo).
+See details [here](https://docs.uiza.io/v4/#list-all-users).
 
 ```java
 import java.util.*;
@@ -119,7 +119,7 @@ Example Response
 
 Updates the specified user by setting the values of the parameters passed.
 Any parameters not provided will be left unchanged.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo).
+See details [here](https://docs.uiza.io/v4/#update-an-user).
 
 ```java
 import java.util.*;
@@ -179,7 +179,7 @@ Example Response
 ## Update password
 
 Update password allows Admin or User update their current password.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword).
+See details [here](https://docs.uiza.io/v4/#update-password).
 
 ```java
 import java.util.*;
@@ -233,7 +233,7 @@ Example Response
 
 Log out a user.
 After logged out, token will be removed.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout).
+See details [here](https://docs.uiza.io/v4/#log-out).
 
 ```java
 import java.util.*;
