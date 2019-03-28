@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 - 2019-03-28
+
+Publish sdk to [Maven Repository](https://mvnrepository.com/artifact/io.uiza/uiza-java/1.2.0)
+
+Release API version 4
+
 ## 1.1.1 - 2019-03-25
 
 Publish sdk to [Maven Repository](https://mvnrepository.com/artifact/io.uiza/uiza-java/1.1.1)
