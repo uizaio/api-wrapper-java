@@ -3,7 +3,7 @@
 ## Add a storage
 
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
-After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/v4/#Media-create_entity).
+After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/v4/#create_entity).
 See details [here](https://docs.uiza.io/v4/#add-a-storage).
 
 ### Add a FTP Storage
