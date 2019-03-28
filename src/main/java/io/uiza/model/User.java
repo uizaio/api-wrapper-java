@@ -23,15 +23,15 @@ public class User extends ApiResource {
   private static final String LOGOUT_PATH = "logout";
 
   public enum DescriptionLink {
-    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-an-user"),
 
-    LIST("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-get_userInfo"),
+    LIST("https://docs.uiza.io/v4/#list-all-users"),
 
-    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-update_userInfo"),
+    UPDATE("https://docs.uiza.io/v4/#update-an-user"),
 
-    CHANGE_PASSWORD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-changePassword"),
+    CHANGE_PASSWORD("https://docs.uiza.io/v4/#update-password"),
 
-    LOGOUT("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User-Logout");
+    LOGOUT("https://docs.uiza.io/v4/#log-out");
 
     private final String val;
 

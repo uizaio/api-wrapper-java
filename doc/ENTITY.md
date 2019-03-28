@@ -3,7 +3,7 @@
 ## Create entity
 
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity).
+See details [here](https://docs.uiza.io/v4/#create-entity).
 
 ```java
 import java.util.*;
@@ -17,18 +17,15 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "Sample Video");
-    params.put("url", "https://example.com/video.mp4");
+    params.put("name", "The Evolution of Dance");
+    params.put("url", "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4");
     params.put("inputType", InputType.HTTP.toString());
-    params.put("description",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
-    params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
-    params.put("poster", "https://example.com/picture001.jpeg");
-    params.put("thumbnail", "https://example.com/picture002.jpeg");
+    params.put("description", "Judson Laipply did a fantastic job in performing various dance moves");
+    params.put("shortDescription", "How good a dancer can you be?");
 
     try {
       JsonObject response = Entity.create(params);
@@ -77,7 +74,7 @@ Example Response
 ## Retrieve entity
 
 Get detail of entity including all information of entity.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
+See details [here](https://docs.uiza.io/v4/#retrieve-an-entity).
 
 ```java
 import java.util.*;
@@ -91,11 +88,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Entity.retrieve("<entity-id>");
+      JsonObject response = Entity.retrieve("c1a842ca-e266-4b3c-bc33-13dd9354d90a");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -141,7 +138,7 @@ Example Response
 ## List all entities
 
 Get list of entities including all detail.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity).
+See details [here](https://docs.uiza.io/v4/#list-all-entities).
 
 ```java
 import java.util.*;
@@ -155,15 +152,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
-
-    Map<String, Object> params = new HashMap<>();
-    params.put("publishToCdn", PublishStatus.NOT_READY.toString());
-    params.put("metadataId", "<your-folder/playlist-id>");
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonArray response = Entity.list(params);
+      JsonArray response = Entity.list();
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -234,7 +227,7 @@ Example Response
 ## Update entity
 
 Update entity's information.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-update_entity).
+See details [here](https://docs.uiza.io/v4/#update-an-entity).
 
 ```java
 import java.util.*;
@@ -248,15 +241,15 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "Name edited");
-    params.put("description", "Description edited");
+    params.put("name", "The Evolution of Dance 2");
+    params.put("description", "Judson Laipply did it again with a fantastic job in performing better dance moves");
 
     try {
-      JsonObject response = Entity.update("<entity-id>", params);
+      JsonObject response = Entity.update("c1a842ca-e266-4b3c-bc33-13dd9354d90a", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -302,7 +295,7 @@ Example Response
 ## Delete entity
 
 Delete entity.
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-delete_entity).
+See details [here](https://docs.uiza.io/v4/#delete-an-entity).
 
 ```java
 import java.util.*;
@@ -316,11 +309,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Entity.delete("<entity-id>");
+      JsonObject response = Entity.delete("8da31fbe-e2b5-485b-8fa7-cabfcc5ac2ba");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -344,7 +337,7 @@ Example Response
 ## Search entity
 
 Search entity base on keyword entered
-See details [here](https://docs.uiza.io/#search-entity). // No v4 doc yet
+See details [here](https://docs.uiza.io/v4/#search-entity).
 
 ```java
 import java.util.*;
@@ -358,11 +351,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonArray response = Entity.search("keyword");
+      JsonArray response = Entity.search("dance");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -433,7 +426,7 @@ Example Response
 ## Publish entity to CDN
 
 Publish entity to CDN, use for streaming
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-post_transcode_standard).
+See details [here](https://docs.uiza.io/v4/#publish-entity-to-cdn).
 
 ```java
 import java.util.*;
@@ -447,11 +440,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Entity.publish("<entity-id>");
+      JsonObject response = Entity.publish("c1a842ca-e266-4b3c-bc33-13dd9354d90a");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -476,7 +469,7 @@ Example Response
 ## Get status publish
 
 Publish entity to CDN, use for streaming
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_publish_cdn_status).
+See details [here](https://docs.uiza.io/v4/#get-status-publish).
 
 ```java
 import java.util.*;
@@ -490,11 +483,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
-      JsonObject response = Entity.getStatusPublish("<entity-id>");
+      JsonObject response = Entity.getStatusPublish("c1a842ca-e266-4b3c-bc33-13dd9354d90a");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -519,7 +512,7 @@ Example Response
 ## Get AWS upload key
 
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-App-get_aws_key).
+See details [here](https://docs.uiza.io/v4/#get-aws-upload-key).
 
 ```java
 import java.util.*;
@@ -533,8 +526,8 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.authorization = "your-authorization";
-    Uiza.appId = "your-app-id";
+    Uiza.appId = "d6342a7b4a6c40d2b851a54a4442ea83";
+    Uiza.authorization = "uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7";
 
     try {
       JsonObject response = Entity.getAwsUploadKey();

@@ -29,7 +29,7 @@ Add this dependency to your project's POM:
 
 ## Documentation
 
-Please see the [API docs](http://dev-ap-southeast-1-api.uizadev.io/docs/) for the most up-to-date documentation.
+Please see the [API docs](https://docs.uiza.io/v4) for the most up-to-date documentation.
 
 ## Usage
 
@@ -46,22 +46,22 @@ Uiza.appId = "<your-app-id>";
 These below APIs used to take action with your media files (we called Entity).
 
 You can see all available APIs for entity in [ENTITY.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/ENTITY.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
+See details [here](https://docs.uiza.io/v4/#video).
 
 ## Category
 
 Category has been splits into 4 types: `folder`, `playlist`, `category` and `tag`. These will make the management of entity more easier.
 
 You can see all available APIs for category in [CATEGORY.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/CATEGORY.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Metadata).
+See details [here](https://docs.uiza.io/v4/#category).
 
 ## Storage
 
 You can add your storage (`FTP`, `AWS S3`) with UIZA.
-After synced, you can select your content easier from your storage to [create entity](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media).
+After synced, you can select your content easier from your storage to [create entity](https://docs.uiza.io/v4/#video).
 
 You can see all available APIs for storage in [STORAGE.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/STORAGE.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage).
+See details [here](https://docs.uiza.io/v4/#storage).
 
 ## Live Streaming
 
@@ -71,14 +71,14 @@ These APIs used to create and manage live streaming event.
 - When have an `Event` , you can start it : it's named as `Feed`.
 
 You can see all available APIs for live event in [LIVE.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/LIVE.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Live).
+See details [here](https://docs.uiza.io/v4/#live-streaming).
 
 ## Callback
 
 Callback used to retrieve an information for Uiza to your server, so you can have a trigger notice about an entity is upload completed and .
 
 You can see all available APIs for callback in [CALLBACK.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/CALLBACK.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Callback).
+See details [here](https://docs.uiza.io/v4/#callback).
 
 ## User Management
 
@@ -89,7 +89,7 @@ You can manage user with APIs user. Uiza have 2 levels of user:
 `User` - This account level is under Admin level. It only manages APIs that relates to this account.
 
 You can see all available APIs for user management in [USER.md](https://github.com/uizaio/api-wrapper-java/blob/master/doc/USER.md).
-See details [here](http://dev-ap-southeast-1-api.uizadev.io/docs/#api-User).
+See details [here](https://docs.uiza.io/v4/#user-management).
 
 ## Errors Code
 

@@ -25,24 +25,23 @@ public class Entity extends ApiResource {
   private static final String AWS_UPLOAD_KEY_PATH = "admin/app/config/aws";
 
   public enum DescriptionLink {
-    CREATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-create_entity"),
+    CREATE("https://docs.uiza.io/v4/#create-entity"),
 
-    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-an-entity"),
 
-    LIST("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_entity"),
+    LIST("https://docs.uiza.io/v4/#list-all-entities"),
 
-    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-update_entity"),
+    UPDATE("https://docs.uiza.io/v4/#update-an-entity"),
 
-    DELETE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-delete_entity"),
+    DELETE("https://docs.uiza.io/v4/#delete-an-entity"),
 
-    SEARCH("https://docs.uiza.io/#search-entity"),
+    SEARCH("https://docs.uiza.io/v4/#search-entity"),
 
-    PUBLISH("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-post_transcode_standard"),
+    PUBLISH("https://docs.uiza.io/v4/#publish-entity-to-cdn"),
 
-    GET_STATUS_PUBLISH(
-        "http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media-get_publish_cdn_status"),
+    GET_STATUS_PUBLISH("https://docs.uiza.io/v4/#publish-entity-to-cdn"),
 
-    GET_AWS_UPLOAD_KEY("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-App-get_aws_key");
+    GET_AWS_UPLOAD_KEY("https://docs.uiza.io/v4/#get-aws-upload-key");
 
     private final String val;
 

@@ -20,13 +20,13 @@ public class Storage extends ApiResource {
   private static final String CLASS_DEFAULT_PATH = "media/storage";
 
   public enum DescriptionLink {
-    ADD("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-create_storage"),
+    ADD("https://docs.uiza.io/v4/#add-a-storage"),
 
-    RETRIEVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-list_storage"),
+    RETRIEVE("https://docs.uiza.io/v4/#retrieve-a-storage"),
 
-    UPDATE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-update_storag"),
+    UPDATE("https://docs.uiza.io/v4/#update-storage"),
 
-    REMOVE("http://dev-ap-southeast-1-api.uizadev.io/docs/#api-Media_Storage-delete_storage");
+    REMOVE("https://docs.uiza.io/v4/#remove-storage");
 
     private final String val;
 
