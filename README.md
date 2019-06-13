@@ -100,6 +100,50 @@ Codes in the `5xx` range indicate an error with Uiza's servers.
 
 See details [here](https://github.com/uizaio/api-wrapper-ruby/blob/master/doc/ERRORS_CODE.md).
 
+## Running SDK in local
+
+You can follow steps below to create a UizaMan and run SDK in local
+```
+git clone https://github.com/uizaio/api-wrapper-java.git
+cd api-wrapper-java
+```
+
+create new file src/main/java/uiza/UizaMain.java
+
+```
+package uiza;
+
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
+import io.uiza.model.*;
+import io.uiza.model.Entity.*;
+
+public class UizaMain {
+
+  public static void main(String[] args) {
+    Uiza.authorization = "your-authorization";
+
+    try {
+      JsonArray response = Entity.list();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+```
+
+Run file UizaMain.java in IDE
+
+You can refer [PR#58](https://github.com/uizaio/api-wrapper-java/pull/58/files)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [Uiza-Java](https://github.com/uizaio/api-wrapper-java).
