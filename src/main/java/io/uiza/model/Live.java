@@ -19,6 +19,7 @@ public class Live extends ApiResource {
 
   private static final String PATH_EXTENSION_FORMAT = "%s/%s";
   private static final String CLASS_DEFAULT_PATH = "live/entity";
+  private static final String CLASS_DEFAULT_PATH_FOR_REGION = "live/region";
   private static final String FEED_PATH = "feed";
   private static final String LIVE_VIEW_PATH = "tracking/current-view";
   private static final String RECORD_PATH = "dvr";
@@ -41,7 +42,9 @@ public class Live extends ApiResource {
 
     DELETE("https://docs.uiza.io/v4/#delete-a-record-file"),
 
-    CONVERT_TO_VOD("https://docs.uiza.io/v4/#convert-into-vod");
+    CONVERT_TO_VOD("https://docs.uiza.io/v4/#convert-into-vod"),
+
+	  GET_REGIONS("https://docs.uiza.io/v4/#get_regions");
 
     private final String val;
 
@@ -150,6 +153,13 @@ public class Live extends ApiResource {
     public String toString() {
       return val;
     }
+  }
+
+  public static JsonObject getRegions() throws UizaException {
+    JsonElement response = request(RequestMethod.GET, buildRequestURL(CLASS_DEFAULT_PATH_FOR_REGION),
+        null, DescriptionLink.GET_REGIONS.toString());
+
+    return checkResponseType(response);
   }
 
   /**
